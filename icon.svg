@@ -1,36 +1,48 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background: Orange -> Weiß -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF7A00"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
 
-  <!-- Background -->
-  <rect width="512" height="512" rx="110" fill="#FF7A00"/>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
 
-  <!-- LC Monogram (geometrisch gebaut) -->
+  <!-- LC Monogram (geometrisch, kein Font) -->
   <!-- L -->
-  <rect x="150" y="170" width="40" height="200" fill="white"/>
-  <rect x="150" y="330" width="120" height="40" fill="white"/>
+  <path d="M150 165 H200 V320 H295 V370 H150 Z" fill="#FFFFFF"/>
 
-  <!-- C (geometric arc built from thick stroke look) -->
-  <path d="
-    M360 190
-    A90 90 0 1 0 360 330
-    L320 330
-    A50 50 0 1 1 320 190
-    Z"
-    fill="white"/>
+  <!-- C (dicker Ring, offene Seite rechts) -->
+  <!-- Outer circle + inner circle als Donut, dann ein „Cut“ rechts -->
+  <path fill="#FFFFFF" fill-rule="evenodd" d="
+    M350 165
+    A105 105 0 1 0 350 375
+    A105 105 0 1 0 350 165
+    Z
+    M350 215
+    A55 55 0 1 1 350 325
+    A55 55 0 1 1 350 215
+    Z
+  "/>
 
-  <!-- Chef Hat (perfectly centered on C) -->
-  <g transform="translate(300,105)">
-    <!-- Puffy top -->
+  <!-- Cut rechts (öffnet das C sauber) -->
+  <rect x="405" y="150" width="90" height="250" fill="url(#bg)"/>
+
+  <!-- Chef Hat (B: kleiner & subtil), zentriert über dem C -->
+  <!-- C-Mitte ist bei x=350. Wir platzieren die Mütze mittig darüber. -->
+  <g transform="translate(308,95)">
+    <!-- Top (minimal, premium) -->
     <path d="
-      M40 30
-      C20 5, 80 5, 60 30
-      C85 5, 140 10, 120 35
-      C150 15, 190 25, 170 50
-      L20 50
-      C0 25, 20 15, 40 30
-      Z"
-      fill="white"/>
-    <!-- Hat base -->
-    <rect x="20" y="50" width="150" height="20" fill="white"/>
-  </g>
+      M30 46
+      C20 22, 52 18, 58 36
+      C68 18, 92 18, 100 38
+      C114 24, 136 28, 140 48
+      L20 48
+      C18 46, 22 44, 30 46
+      Z" fill="#FFFFFF"/>
 
+    <!-- Base -->
+    <rect x="24" y="48" width="120" height="18" rx="8" fill="#FFFFFF"/>
+  </g>
 </svg>
