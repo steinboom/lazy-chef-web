@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lazy Chef</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<h1>🍳 Lazy Chef – 40 Rezepte</h1>
+
+<div id="app">
+  <div v-for="recipe in recipes" class="card">
+    <h3>{{ recipe.name }}</h3>
+    <p><strong>Zeit:</strong> {{ recipe.time }} Minuten</p>
+    <p><strong>Zutaten:</strong></p>
+    <ul>
+      <li v-for="ing in recipe.ingredients">{{ ing }}</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  data() {
+    return {
+      recipes: Array.from({ length: 40 }, (_, i) => ({
+        name: "Lazy Rezept " + (i + 1),
+        time: 10,
+        ingredients: ["Zutat 1", "Zutat 2", "Zutat 3"]
+      }))
+    }
+  }
+}).mount('#app');
+</script>
+
+</body>
+</html>
