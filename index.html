@@ -1,58 +1,388 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lazy Chef</title>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#ff8a00" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f4f4f4;
-    }
-    h1 {
-      text-align: center;
-    }
-    .card {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+    :root { --brand:#ff8a00; --bg:#fff7ef; --card:#fff; --ink:#111; --muted:#f2e6d9; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background:var(--bg); color:var(--ink); }
+    header { padding:16px; background: linear-gradient(180deg, #ff9a2a, var(--brand)); color:#111; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 16px; }
+    .brand { font-weight: 900; letter-spacing:.5px; font-size: 28px; }
+    .sub { opacity:.85; margin-top:4px; }
+    .grid { display:grid; grid-template-columns: 1fr; gap:12px; }
+    @media(min-width: 860px){ .grid{ grid-template-columns: 1.1fr .9fr; } }
+    .card { background: var(--card); border: 1px solid var(--muted); border-radius: 14px; padding: 14px; box-shadow: 0 2px 0 rgba(0,0,0,.02); }
+    input { width:100%; padding: 12px; border-radius: 12px; border:1px solid var(--muted); background:#fff; font-size: 16px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .pill { background: var(--muted); padding: 8px 12px; border-radius: 999px; cursor:pointer; user-select:none; font-weight:600; }
+    .pill.on { background: var(--brand); color:#fff; }
+    .chip { background: #111; color:#fff; padding:6px 10px; border-radius: 999px; font-size: 13px; display:flex; gap:8px; align-items:center; }
+    .chip button { border:none; background: transparent; color:#fff; cursor:pointer; font-size: 14px; }
+    .btn { border:none; background:#111; color:#fff; padding: 12px 14px; border-radius: 12px; font-weight: 800; cursor:pointer; }
+    .btn.secondary { background: var(--brand); color:#111; }
+    .recipe { display:grid; gap:8px; }
+    .meta { font-size: 13px; opacity: .85; }
+    .title { font-size: 18px; font-weight: 900; margin:0; }
+    ol { margin: 0; padding-left: 18px; }
+    .fav { border:1px solid var(--muted); background:#fff; border-radius: 12px; padding: 10px 12px; cursor:pointer; font-weight:800; }
+    .fav.on { background: #ffe6c7; border-color: #ffd09a; }
+    .footer { text-align:center; opacity:.7; font-size: 12px; padding: 18px; }
+    .hint { font-size: 12px; opacity:.7; margin-top:6px; }
+    .kpi { display:flex; gap:8px; flex-wrap:wrap; }
+    .kpi span { font-size: 12px; background: #fff; border:1px solid var(--muted); padding:6px 10px; border-radius:999px; }
   </style>
 </head>
 <body>
+  <header>
+    <div class="wrap">
+      <div class="brand">LAZY CHEF</div>
+      <div class="sub">Rezepte für Tage, an denen dein Motivationslevel im Keller wohnt. 😎</div>
+      <div class="kpi" style="margin-top:10px">
+        <span>≤10 Minuten</span><span>≤5 Zutaten</span><span>1 Pfanne optional</span><span>Favoriten ✅</span>
+      </div>
+    </div>
+  </header>
 
-<h1>🍳 Lazy Chef – 40 Rezepte</h1>
+  <div class="wrap">
+    <div class="grid">
+      <section class="card">
+        <h2 style="margin:0 0 10px">Was hast du daheim?</h2>
+        <div class="row" id="chips" style="margin-bottom:10px"></div>
+        <input id="ingInput" placeholder="Zutat eintippen + Enter (z.B. pasta, rice, egg, tuna, tomato…)" />
+        <div class="hint">Tipp: Schreib’s einfach (englische Basics funktionieren top). Du kannst auch „chicken“, „wrap“, „beans“ usw.</div>
 
-<div id="app">
-  <div v-for="recipe in recipes" class="card">
-    <h3>{{ recipe.name }}</h3>
-    <p><strong>Zeit:</strong> {{ recipe.time }} Minuten</p>
-    <p><strong>Zutaten:</strong></p>
-    <ul>
-      <li v-for="ing in recipe.ingredients">{{ ing }}</li>
-    </ul>
+        <h2 style="margin:14px 0 10px">Lazy Mode</h2>
+        <div class="row">
+          <div class="pill on" data-filter="max10">≤ 10 Minuten</div>
+          <div class="pill on" data-filter="max5">≤ 5 Zutaten</div>
+          <div class="pill" data-filter="onePan">1 Pfanne/Topf</div>
+          <div class="pill on" data-filter="noChop">Kein Schnippeln</div>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <button class="btn secondary" id="btnSuggest">Rezepte vorschlagen</button>
+          <button class="btn" id="btnReset">Reset</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 style="margin:0 0 10px">Deine Favoriten ❤️</h2>
+        <div id="favList" class="hint">Noch keine Favoriten – das ändern wir gleich.</div>
+      </section>
+    </div>
+
+    <section style="margin-top:12px">
+      <h2 style="margin:0 0 10px">Vorschläge</h2>
+      <div id="results" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));"></div>
+    </section>
+
+    <div class="footer">MVP Testversion • läuft als Web-App auf iPhone/iPad • © Lazy Chef</div>
   </div>
-</div>
 
 <script>
-const { createApp } = Vue;
+/** --- 40 echte Lazy-Rezepte (Basics, DACH-tauglich, schnell) --- */
+const RECIPES = [
+  // Pasta/Carbs
+  {id:"tomato_pasta", title:"Tomato Pasta (ultra easy)", time:10, maxIng:5, onePan:false, noChop:true,
+    need:["pasta","tomato","garlic","oil"], tags:["pasta","tomato"],
+    steps:["Pasta kochen (salzen!).","Tomate + Knoblauch kurz in Öl warm machen.","Pasta rein, umrühren, fertig."]},
+  {id:"aglio_olio", title:"Aglio e Olio (Lazy)", time:10, maxIng:5, onePan:false, noChop:false,
+    need:["pasta","garlic","oil","chili"], tags:["pasta","garlic"],
+    steps:["Pasta kochen.","Knoblauch in Öl sanft anziehen lassen, Chili dazu.","Pasta rein, fertig."]},
+  {id:"pesto_pasta", title:"Pesto Pasta", time:9, maxIng:4, onePan:false, noChop:true,
+    need:["pasta","pesto","cheese"], tags:["pasta","pesto"],
+    steps:["Pasta kochen.","Pesto + etwas Kochwasser mischen.","Pasta rein, Käse drauf."]},
+  {id:"butter_noodles", title:"Butter-Nudeln + Parmesan", time:8, maxIng:4, onePan:false, noChop:true,
+    need:["pasta","butter","cheese","salt"], tags:["pasta","butter"],
+    steps:["Pasta kochen.","Butter schmelzen, Pasta rein.","Käse + Salz, fertig."]},
 
-createApp({
-  data() {
-    return {
-      recipes: Array.from({ length: 40 }, (_, i) => ({
-        name: "Lazy Rezept " + (i + 1),
-        time: 10,
-        ingredients: ["Zutat 1", "Zutat 2", "Zutat 3"]
-      }))
+  // Rice bowls
+  {id:"tuna_rice", title:"Tuna Rice Bowl", time:8, maxIng:5, onePan:true, noChop:true,
+    need:["rice","tuna","mayo","soy sauce"], tags:["rice","tuna"],
+    steps:["Reis (Beutel/Mikrowelle/Rest) warm machen.","Tuna + Mayo + Sojasauce mischen.","Oben drauf, fertig."]},
+  {id:"egg_rice", title:"Egg Fried Rice (Restereis)", time:10, maxIng:5, onePan:true, noChop:true,
+    need:["rice","egg","soy sauce","oil"], tags:["rice","egg"],
+    steps:["Öl in Pfanne, Reis rein.","Ei dazu, rühren.","Sojasauce, fertig."]},
+  {id:"beans_rice", title:"Beans & Rice (Budget)", time:10, maxIng:5, onePan:true, noChop:true,
+    need:["rice","beans","tomato","spice"], tags:["rice","beans"],
+    steps:["Reis warm machen.","Bohnen + Tomate in Pfanne warmen.","Reis dazu, würzen."]},
+
+  // Eggs
+  {id:"egg_tortilla", title:"Egg Tortilla Melt", time:7, maxIng:4, onePan:true, noChop:true,
+    need:["egg","tortilla","cheese"], tags:["egg","tortilla","cheese"],
+    steps:["Tortilla in Pfanne.","Ei drauf, stocken lassen.","Käse drauf, zusammenklappen."]},
+  {id:"scramble_toast", title:"Scrambled Eggs + Toast", time:8, maxIng:4, onePan:true, noChop:true,
+    need:["egg","butter","bread","salt"], tags:["egg","bread"],
+    steps:["Toast machen.","Eier in Butter rühren.","Salz drauf, fertig."]},
+  {id:"omelette_cheese", title:"Cheese Omelette", time:9, maxIng:4, onePan:true, noChop:true,
+    need:["egg","cheese","butter"], tags:["egg","cheese"],
+    steps:["Eier verquirlen.","In Pfanne geben, Käse drauf.","Zuklappen, fertig."]},
+
+  // Wraps
+  {id:"ham_cheese_wrap", title:"Ham-Cheese Wrap", time:5, maxIng:5, onePan:false, noChop:true,
+    need:["tortilla","ham","cheese","mayo"], tags:["tortilla","ham","cheese"],
+    steps:["Wrap bestreichen.","Ham + Käse rein.","Rollen, essen."]},
+  {id:"chicken_wrap", title:"Chicken Wrap (Rest)", time:8, maxIng:5, onePan:false, noChop:true,
+    need:["tortilla","chicken","sauce"], tags:["tortilla","chicken"],
+    steps:["Chicken (Reste) warm machen (optional).","In Wrap mit Sauce.","Rollen, fertig."]},
+  {id:"tuna_wrap", title:"Tuna Wrap", time:6, maxIng:5, onePan:false, noChop:true,
+    need:["tortilla","tuna","mayo","salt"], tags:["tortilla","tuna"],
+    steps:["Tuna + Mayo mischen.","In Wrap.","Rollen, fertig."]},
+
+  // Sandwich/Toast
+  {id:"caprese_toast", title:"Caprese Toast", time:6, maxIng:5, onePan:false, noChop:false,
+    need:["bread","tomato","mozzarella","basil"], tags:["bread","mozzarella","tomato"],
+    steps:["Brot toasten.","Tomate + Mozzarella drauf.","Basilikum/Salz, fertig."]},
+  {id:"cheese_toast", title:"Cheese Toast (Pfanne)", time:8, maxIng:4, onePan:true, noChop:true,
+    need:["bread","cheese","butter"], tags:["bread","cheese"],
+    steps:["Brot buttern.","Käse rein, zusammen.","In Pfanne goldbraun."]},
+  {id:"pb_banana", title:"Peanut Butter Banana Toast", time:4, maxIng:4, onePan:false, noChop:false,
+    need:["bread","peanut butter","banana"], tags:["bread","banana"],
+    steps:["Toast.","Erdnussbutter drauf.","Banane drauf, fertig."]},
+
+  // Protein bowls
+  {id:"skyr_bowl", title:"Skyr Bowl (Protein)", time:3, maxIng:5, onePan:false, noChop:true,
+    need:["skyr","honey","nuts"], tags:["skyr","yogurt"],
+    steps:["Skyr in Schüssel.","Honig drauf.","Nüsse drüber."]},
+  {id:"protein_shake", title:"Protein Shake (Ultra Lazy)", time:2, maxIng:3, onePan:false, noChop:true,
+    need:["protein powder","milk"], tags:["protein powder","milk"],
+    steps:["Pulver + Milch in Shaker.","Schütteln.","Fertig."]},
+
+  // Pan meals
+  {id:"sausages_pasta", title:"Würstchen + Pasta", time:10, maxIng:5, onePan:true, noChop:false,
+    need:["sausages","pasta","tomato"], tags:["sausages","pasta","tomato"],
+    steps:["Würstchen anbraten.","Tomate dazu.","Gekochte Pasta rein."]},
+  {id:"frozen_veg_eggs", title:"TK-Gemüse + Ei", time:10, maxIng:5, onePan:true, noChop:true,
+    need:["frozen vegetables","egg","oil","salt"], tags:["frozen vegetables","egg"],
+    steps:["TK-Gemüse in Pfanne.","Ei drüber, stocken.","Salz, fertig."]},
+
+  // Soups / quick warm
+  {id:"ramen_upgrade", title:"Instant Ramen Upgrade", time:10, maxIng:5, onePan:true, noChop:true,
+    need:["ramen","egg","soy sauce"], tags:["ramen","egg"],
+    steps:["Ramen kochen.","Ei rein (optional).","Sojasauce/Extras, fertig."]},
+  {id:"tomato_soup", title:"Tomatensuppe (Dose) + Extra", time:8, maxIng:5, onePan:true, noChop:true,
+    need:["tomato soup","cream","cheese"], tags:["tomato soup","tomato"],
+    steps:["Suppe erhitzen.","Sahne dazu.","Käse oben drauf."]},
+
+  // Microwave / ultra lazy
+  {id:"microwave_oats", title:"Mikrowellen-Oats", time:5, maxIng:5, onePan:false, noChop:true,
+    need:["oats","milk","banana"], tags:["oats","milk"],
+    steps:["Hafer + Milch in Schüssel.","Mikrowelle 2–3 Min.","Banane drauf."]},
+  {id:"couscous_bowl", title:"Couscous Bowl", time:10, maxIng:5, onePan:false, noChop:true,
+    need:["couscous","hot water","spice","oil"], tags:["couscous"],
+    steps:["Couscous + heißes Wasser.","5 Min ziehen lassen.","Öl + Gewürz."]},
+
+  // More easy mains
+  {id:"quesadilla", title:"Quesadilla", time:8, maxIng:5, onePan:true, noChop:true,
+    need:["tortilla","cheese","salsa"], tags:["tortilla","cheese"],
+    steps:["Käse in Tortilla.","In Pfanne knusprig.","Salsa dazu."]},
+  {id:"nacho_plate", title:"Nacho Plate (Ofen optional)", time:10, maxIng:5, onePan:false, noChop:true,
+    need:["nachos","cheese","salsa"], tags:["nachos","cheese"],
+    steps:["Nachos + Käse.","Kurz erhitzen (Ofen/MW).","Salsa drauf."]},
+
+  // 40 auffüllen (weitere simple, echte Kombis)
+  {id:"yogurt_granola", title:"Joghurt + Granola", time:2, maxIng:4, onePan:false, noChop:true,
+    need:["yogurt","granola","honey"], tags:["yogurt","granola"], steps:["Joghurt rein.","Granola drauf.","Honig, fertig."]},
+  {id:"banana_milk", title:"Banane + Milch (Snack)", time:1, maxIng:2, onePan:false, noChop:true,
+    need:["banana","milk"], tags:["banana","milk"], steps:["Banane.","Milch.","Genau."]},
+  {id:"salad_tuna", title:"Tuna Salat (sehr lazy)", time:6, maxIng:5, onePan:false, noChop:true,
+    need:["salad","tuna","dressing"], tags:["salad","tuna"], steps:["Salat in Schüssel.","Tuna drauf.","Dressing, fertig."]},
+  {id:"chickpeas_bowl", title:"Kichererbsen Bowl", time:8, maxIng:5, onePan:true, noChop:true,
+    need:["chickpeas","oil","spice"], tags:["chickpeas"], steps:["Kichererbsen in Pfanne.","Öl + Gewürz.","Kurz knuspern."]},
+  {id:"toast_avocado", title:"Avocado Toast", time:5, maxIng:4, onePan:false, noChop:false,
+    need:["bread","avocado","salt"], tags:["bread","avocado"], steps:["Toast.","Avocado drauf.","Salz, fertig."]},
+  {id:"rice_chicken", title:"Reis + Chicken + Sauce", time:9, maxIng:5, onePan:true, noChop:true,
+    need:["rice","chicken","sauce"], tags:["rice","chicken"], steps:["Reis warm.","Chicken warm.","Sauce drauf, fertig."]},
+  {id:"pasta_tuna", title:"Pasta Tuna", time:10, maxIng:5, onePan:false, noChop:true,
+    need:["pasta","tuna","mayo"], tags:["pasta","tuna"], steps:["Pasta kochen.","Tuna + Mayo mischen.","Alles zusammen."]},
+  {id:"instant_mash", title:"Kartoffelpüree (Instant) + Extra", time:8, maxIng:5, onePan:true, noChop:true,
+    need:["instant mash","milk","butter"], tags:["instant mash","potato"], steps:["Instant nach Packung.","Butter dazu.","Fertig."]},
+  {id:"hotdog", title:"Hotdog (Kitchen Minimal)", time:8, maxIng:5, onePan:true, noChop:true,
+    need:["bun","sausages","ketchup"], tags:["sausages","bun"], steps:["Würstchen warm machen.","Ins Brötchen.","Ketchup."]},
+  {id:"cheese_plate", title:"Käseplatte (0 Aufwand)", time:2, maxIng:5, onePan:false, noChop:true,
+    need:["cheese","crackers"], tags:["cheese","crackers"], steps:["Alles auf Teller.","Fertig.","Kein Kommentar."]},
+  {id:"egg_mayo_sandwich", title:"Egg-Mayo Sandwich", time:10, maxIng:5, onePan:true, noChop:true,
+    need:["egg","mayo","bread"], tags:["egg","bread"], steps:["Eier hart kochen (10).","Mayo rein.","Auf Brot."]},
+  {id:"frozen_pizza", title:"TK-Pizza (Chef’s Choice)", time:10, maxIng:2, onePan:false, noChop:true,
+    need:["frozen pizza"], tags:["frozen pizza","pizza"], steps:["Ofen an.","Pizza rein.","Du bist jetzt Spitzenkoch."]},
+  {id:"airfryer_nuggets", title:"Airfryer Nuggets + Dip", time:10, maxIng:5, onePan:false, noChop:true,
+    need:["nuggets","dip"], tags:["nuggets"], steps:["Nuggets in Airfryer.","Dip bereitstellen.","Fertig."]},
+  {id:"wrap_pizza", title:"Tortilla Pizza", time:10, maxIng:5, onePan:true, noChop:true,
+    need:["tortilla","tomato","cheese"], tags:["tortilla","tomato","cheese"], steps:["Tortilla in Pfanne.","Tomate + Käse drauf.","Deckel drauf, schmelzen."]},
+  {id:"noodles_ketchup", title:"Nudeln + Ketchup (Emergency)", time:8, maxIng:3, onePan:false, noChop:true,
+    need:["pasta","ketchup"], tags:["pasta","ketchup"], steps:["Nudeln kochen.","Ketchup drauf.","Keine Fragen."]},
+  {id:"rice_sardines", title:"Reis + Sardinen", time:8, maxIng:4, onePan:true, noChop:true,
+    need:["rice","sardines","lemon"], tags:["rice","sardines"], steps:["Reis warm.","Sardinen drauf.","Zitrone, fertig."]},
+  {id:"toast_honey", title:"Toast + Butter + Honig", time:3, maxIng:3, onePan:false, noChop:true,
+    need:["bread","butter","honey"], tags:["bread","honey"], steps:["Toast.","Butter.","Honig."]},
+  {id:"beans_toast", title:"Beans on Toast", time:10, maxIng:4, onePan:true, noChop:true,
+    need:["beans","bread","salt"], tags:["beans","bread"], steps:["Beans erhitzen.","Toast.","Beans drauf."]},
+  {id:"yogurt_fruit", title:"Joghurt + Obst", time:3, maxIng:4, onePan:false, noChop:false,
+    need:["yogurt","fruit"], tags:["yogurt","fruit"], steps:["Joghurt.","Obst schneiden/werfen.","Fertig."]},
+  {id:"corn_tuna", title:"Mais + Tuna Bowl", time:6, maxIng:5, onePan:false, noChop:true,
+    need:["corn","tuna","mayo"], tags:["corn","tuna"], steps:["Mais abtropfen.","Tuna + Mayo mischen.","Alles zusammen."]},
+  {id:"pasta_cheese", title:"Mac’n’Cheese (ultra lazy)", time:10, maxIng:5, onePan:true, noChop:true,
+    need:["pasta","cheese","milk","butter"], tags:["pasta","cheese"], steps:["Pasta kochen.","Butter+Milch+Käse schmelzen.","Pasta rein."]},
+];
+
+/** --- State --- */
+let ingredients = loadJSON("lazy.ingredients", ["pasta","tomato","garlic","cheese"]);
+let filters = loadJSON("lazy.filters", {max10:true, max5:true, onePan:false, noChop:true});
+let favorites = new Set(loadJSON("lazy.favorites", []));
+
+/** --- Helpers --- */
+function saveJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+function loadJSON(key, fallback){
+  try { const v = JSON.parse(localStorage.getItem(key)); return v ?? fallback; }
+  catch { return fallback; }
+}
+function norm(s){ return (s||"").trim().toLowerCase(); }
+
+/** --- UI Elements --- */
+const chipsEl = document.getElementById("chips");
+const inputEl = document.getElementById("ingInput");
+const resultsEl = document.getElementById("results");
+const favListEl = document.getElementById("favList");
+
+document.querySelectorAll(".pill[data-filter]").forEach(p => {
+  const k = p.dataset.filter;
+  p.classList.toggle("on", !!filters[k]);
+  p.addEventListener("click", () => {
+    filters[k] = !filters[k];
+    p.classList.toggle("on", !!filters[k]);
+    saveJSON("lazy.filters", filters);
+  });
+});
+
+document.getElementById("btnSuggest").addEventListener("click", suggest);
+document.getElementById("btnReset").addEventListener("click", () => {
+  ingredients = [];
+  favorites = new Set();
+  filters = {max10:true, max5:true, onePan:false, noChop:true};
+  saveJSON("lazy.ingredients", ingredients);
+  saveJSON("lazy.favorites", []);
+  saveJSON("lazy.filters", filters);
+  location.reload();
+});
+
+inputEl.addEventListener("keydown", (e) => {
+  if(e.key === "Enter"){
+    e.preventDefault();
+    const t = norm(inputEl.value);
+    if(!t) return;
+    if(!ingredients.includes(t)){
+      ingredients.push(t);
+      saveJSON("lazy.ingredients", ingredients);
+      renderChips();
     }
+    inputEl.value = "";
   }
-}).mount('#app');
-</script>
+});
 
+/** --- Rendering --- */
+function renderChips(){
+  chipsEl.innerHTML = "";
+  ingredients.forEach(tag => {
+    const el = document.createElement("div");
+    el.className = "chip";
+    el.innerHTML = `<span>${tag}</span>`;
+    const btn = document.createElement("button");
+    btn.textContent = "✕";
+    btn.onclick = () => {
+      ingredients = ingredients.filter(x => x !== tag);
+      saveJSON("lazy.ingredients", ingredients);
+      renderChips();
+    };
+    el.appendChild(btn);
+    chipsEl.appendChild(el);
+  });
+}
+function renderFavorites(){
+  const fav = RECIPES.filter(r => favorites.has(r.id));
+  if(!fav.length){
+    favListEl.className = "hint";
+    favListEl.textContent = "Noch keine Favoriten – klick bei einem Vorschlag auf ❤️.";
+    return;
+  }
+  favListEl.className = "";
+  favListEl.innerHTML = fav.map(r => `• ${r.title}`).join("<br>");
+}
+
+function passesFilters(r){
+  if(filters.max10 && r.time > 10) return false;
+  if(filters.max5 && r.maxIng > 5) return false;
+  if(filters.onePan && !r.onePan) return false;
+  if(filters.noChop && !r.noChop) return false;
+  return true;
+}
+function score(r){
+  const have = new Set(ingredients.map(norm));
+  const needed = r.need.map(norm);
+  const haveCount = needed.filter(n => have.has(n)).length;
+  const missing = needed.length - haveCount;
+  let s = haveCount*10 - missing*8;
+  if(filters.max10 && r.time <= 10) s += 5;
+  if(filters.max5 && r.maxIng <= 5) s += 4;
+  if(filters.onePan && r.onePan) s += 3;
+  if(filters.noChop && r.noChop) s += 3;
+  return s;
+}
+
+function suggest(){
+  const have = new Set(ingredients.map(norm));
+  let list = RECIPES
+    .filter(passesFilters)
+    .filter(r => r.tags.some(t => have.has(norm(t)))); // mind. 1 Tag muss matchen
+
+  list.sort((a,b)=> score(b)-score(a));
+  const top = list.slice(0, 6);
+
+  resultsEl.innerHTML = "";
+  top.forEach(r => resultsEl.appendChild(recipeCard(r)));
+  if(!top.length){
+    resultsEl.innerHTML = `<div class="card">😅 Keine Treffer. Tipp: probier Basics wie <b>egg</b>, <b>rice</b>, <b>tortilla</b>, <b>cheese</b>, <b>tuna</b>.</div>`;
+  }
+  renderFavorites();
+}
+
+function recipeCard(r){
+  const card = document.createElement("div");
+  card.className = "card recipe";
+  const favOn = favorites.has(r.id);
+
+  card.innerHTML = `
+    <div class="row" style="justify-content:space-between;">
+      <h3 class="title">${r.title}</h3>
+      <button class="fav ${favOn ? "on":""}" aria-label="Favorit">${favOn ? "❤️" : "🤍"}</button>
+    </div>
+    <div class="meta">⏱ ${r.time} Min · 🧂 max ${r.maxIng} Zutaten · ${r.onePan ? "1 Pfanne" : "mehrteilig"} · ${r.noChop ? "kein Schnippeln" : "mit Schneiden"}</div>
+    <div><b>Benötigt:</b> ${r.need.join(", ")}</div>
+    <div><b>Steps:</b></div>
+    <ol>${r.steps.map(s=>`<li>${s}</li>`).join("")}</ol>
+  `;
+
+  card.querySelector(".fav").onclick = () => {
+    if(favorites.has(r.id)) favorites.delete(r.id); else favorites.add(r.id);
+    saveJSON("lazy.favorites", Array.from(favorites));
+    suggest(); // rerender cards
+  };
+
+  return card;
+}
+
+/** Init */
+renderChips();
+renderFavorites();
+suggest();
+</script>
 </body>
 </html>
