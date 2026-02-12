@@ -1,20 +1,281 @@
-{
-  "name": "Lazy Chef",
-  "short_name": "LazyChef",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#fff7ef",
-  "theme_color": "#FF7A00",
-  "icons": [
-    {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lazy Chef</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/icon-512.png">
+  <meta name="theme-color" content="#FF7A00">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fff7ef;
+      --card:#ffffff;
+      --border:#f0dfcf;
+      --text:#161616;
+      --muted:#6f6a66;
+      --accent:#FF7A00;
+      --radius:18px;
     }
-  ]
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Nunito",sans-serif;
+      background: radial-gradient(900px 450px at 20% 0%, rgba(255,122,0,.22), transparent 60%),
+                  linear-gradient(180deg, #fff7ef 0%, #ffffff 60%);
+      color:var(--text);
+    }
+
+    header{padding:18px 0 6px;}
+    .wrap{max-width:980px;margin:0 auto;padding:18px}
+
+    .brand{
+      font-weight:900;
+      font-size:28px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .badge{
+      background:var(--accent);
+      color:#111;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+    }
+
+    .sub{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:860px){ .grid{grid-template-columns:1.1fr .9fr;} }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:14px;
+      box-shadow:0 10px 26px rgba(30,10,0,.06);
+    }
+
+    h2{
+      font-size:14px;
+      color:var(--muted);
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      font-size:16px;
+    }
+
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+
+    .pill{
+      border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      background:#fff;
+    }
+
+    .pill.on{
+      background:rgba(255,122,0,.14);
+      border-color:rgba(255,122,0,.4);
+    }
+
+    .chip{
+      background:rgba(255,122,0,.12);
+      border:1px solid rgba(255,122,0,.25);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:800;
+      display:flex;
+      gap:6px;
+      align-items:center;
+    }
+
+    .chip button{
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    .btn{
+      border:none;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:900;
+      cursor:pointer;
+      background:#111;
+      color:#fff;
+    }
+
+    .btn.secondary{
+      background:var(--accent);
+      color:#111;
+    }
+
+    .recipe{display:grid;gap:8px}
+    .title{font-size:18px;font-weight:900;margin:0}
+    .meta{font-size:13px;color:var(--muted)}
+
+    .fav{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:14px;
+      padding:8px 12px;
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    .fav.on{
+      background:rgba(255,122,0,.16);
+      border-color:rgba(255,122,0,.4);
+    }
+
+    .footer{text-align:center;font-size:12px;color:var(--muted);padding:18px}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      LAZY CHEF <span class="badge">NO STRESS</span>
+    </div>
+    <div class="sub">Minimal effort meals. Max taste.</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <section class="card">
+      <h2>Was hast du daheim?</h2>
+      <div id="chips" class="row"></div>
+      <input id="ingInput" placeholder="z.B. pasta, rice, egg, tuna..." />
+
+      <h2 style="margin-top:16px;">Lazy Mode</h2>
+      <div class="row">
+        <div class="pill on" data-filter="max10">≤10 min</div>
+        <div class="pill on" data-filter="max5">≤5 Zutaten</div>
+        <div class="pill on" data-filter="noChop">No-Chop</div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <button class="btn secondary" id="btnSuggest">Rezepte</button>
+        <button class="btn" id="btnReset">Reset</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Favoriten</h2>
+      <div id="favList">Noch keine Favoriten</div>
+    </section>
+  </div>
+
+  <section style="margin-top:18px;">
+    <h2>Vorschläge</h2>
+    <div id="results" class="grid"></div>
+  </section>
+
+  <div class="footer">© Lazy Chef</div>
+</div>
+
+<script>
+const RECIPES = [
+  {id:"pasta", title:"Tomato Pasta", time:10, maxIng:4, noChop:true,
+    need:["pasta","tomato","oil"],
+    steps:["Pasta kochen.","Tomaten erhitzen.","Mischen."]},
+  {id:"egg", title:"Egg Wrap", time:7, maxIng:3, noChop:true,
+    need:["egg","tortilla","cheese"],
+    steps:["Ei braten.","In Wrap.","Fertig."]}
+];
+
+let ingredients = [];
+let favorites = new Set(JSON.parse(localStorage.getItem("fav")||"[]"));
+
+const chipsEl = document.getElementById("chips");
+const inputEl = document.getElementById("ingInput");
+const resultsEl = document.getElementById("results");
+const favListEl = document.getElementById("favList");
+
+inputEl.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"){
+    ingredients.push(inputEl.value.toLowerCase());
+    renderChips();
+    inputEl.value="";
+  }
+});
+
+function renderChips(){
+  chipsEl.innerHTML="";
+  ingredients.forEach(tag=>{
+    const el=document.createElement("div");
+    el.className="chip";
+    el.innerHTML=tag+" <button>✕</button>";
+    el.querySelector("button").onclick=()=>{
+      ingredients=ingredients.filter(t=>t!==tag);
+      renderChips();
+    };
+    chipsEl.appendChild(el);
+  });
 }
+
+function suggest(){
+  resultsEl.innerHTML="";
+  RECIPES.forEach(r=>{
+    if(r.need.some(n=>ingredients.includes(n))){
+      const card=document.createElement("div");
+      card.className="card recipe";
+      card.innerHTML=`
+        <div class="title">${r.title}</div>
+        <div class="meta">${r.time} min · ${r.maxIng} Zutaten</div>
+        <button class="fav ${favorites.has(r.id)?"on":""}">❤</button>
+      `;
+      card.querySelector(".fav").onclick=()=>{
+        if(favorites.has(r.id)){favorites.delete(r.id)}
+        else{favorites.add(r.id)}
+        localStorage.setItem("fav",JSON.stringify([...favorites]));
+        renderFavorites();
+      };
+      resultsEl.appendChild(card);
+    }
+  });
+}
+
+function renderFavorites(){
+  if(!favorites.size){favListEl.innerText="Noch keine Favoriten";return;}
+  favListEl.innerHTML=[...favorites].join("<br>");
+}
+
+document.getElementById("btnSuggest").onclick=suggest;
+document.getElementById("btnReset").onclick=()=>{
+  ingredients=[];favorites.clear();localStorage.clear();location.reload();
+};
+
+renderFavorites();
+</script>
+</body>
+</html>
