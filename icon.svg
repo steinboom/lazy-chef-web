@@ -13,29 +13,27 @@
   <!-- Background -->
   <rect width="512" height="512" rx="110" fill="url(#bg)"/>
 
-  <!-- LC Monogram -->
+  <!-- LC -->
   <g stroke="#FFFFFF" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#softShadow)">
-    <!-- L -->
     <path d="M165 175 V355 H265"/>
-
-    <!-- C (center ~350, 275) -->
     <path d="M395 205 A90 90 0 1 0 395 345"/>
   </g>
 
-  <!-- Chef Hat perfectly centered above C -->
-  <!-- C center X ≈ 350 -->
-  <g transform="translate(290,70)" fill="#FFFFFF" filter="url(#softShadow)">
+  <!-- Chef Hat PERFECTLY centered over C -->
+  <!-- C center X = 350 -->
+  <!-- Hat width = 180 → half = 90 → 350 - 90 = 260 -->
+  <g transform="translate(260,70)" fill="#FFFFFF" filter="url(#softShadow)">
 
-    <!-- Tall classic chef hat top -->
+    <!-- Tall chef hat top -->
     <path d="
-      M60 90
-      C40 40, 80 20, 110 40
-      C120 10, 160 10, 170 40
-      C200 20, 240 40, 220 90
+      M40 90
+      C20 40, 60 20, 90 40
+      C100 10, 140 10, 150 40
+      C180 20, 220 40, 200 90
       Z"/>
 
-    <!-- Hat base -->
-    <rect x="60" y="90" width="160" height="28" rx="12"/>
+    <!-- Base -->
+    <rect x="40" y="90" width="180" height="28" rx="12"/>
 
   </g>
 </svg>
