@@ -1,0 +1,9 @@
+{
+  "name": "Lazy Chef",
+  "short_name": "LazyChef",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff7ef",
+  "theme_color": "#ff8a00",
+  "icons": []
+}
