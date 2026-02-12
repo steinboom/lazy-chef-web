@@ -1,47 +1,41 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Orange -> Weiß Verlauf (clean, ohne Tricks) -->
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#FF7A00"/>
       <stop offset="100%" stop-color="#FFFFFF"/>
     </linearGradient>
 
-    <!-- Subtiler Schatten für Kontrast auf Weiß (premium, nicht cartoon) -->
     <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#B84F00" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#B84F00" flood-opacity="0.22"/>
     </filter>
   </defs>
 
   <!-- Background -->
   <rect width="512" height="512" rx="110" fill="url(#bg)"/>
 
-  <!-- LC Monogram: gleicher Style über Stroke (CLEAN) -->
-  <g filter="url(#softShadow)" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none">
-
-    <!-- L (gleich dick wie C) -->
+  <!-- LC Monogram -->
+  <g stroke="#FFFFFF" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#softShadow)">
+    <!-- L -->
     <path d="M165 175 V355 H265"/>
 
-    <!-- C (Bogen, echte Form, kein Cut) -->
-    <!-- Center (350, 275), Radius 90 -->
-    <path d="M395 205
-             A90 90 0 1 0 395 345"/>
-
+    <!-- C (center ~350, 275) -->
+    <path d="M395 205 A90 90 0 1 0 395 345"/>
   </g>
 
-  <!-- Chef Hat: klar erkennbare Kochmütze (premium, minimal) -->
-  <!-- Zentriert über dem C: C-Zentrum x≈350 -->
-  <g transform="translate(292,112)" fill="#FFFFFF" filter="url(#softShadow)">
-    <!-- Puffy top (3 bumps) -->
+  <!-- Chef Hat perfectly centered above C -->
+  <!-- C center X ≈ 350 -->
+  <g transform="translate(290,70)" fill="#FFFFFF" filter="url(#softShadow)">
+
+    <!-- Tall classic chef hat top -->
     <path d="
-      M20 52
-      C16 26, 40 14, 60 26
-      C68 8, 94 8, 104 26
-      C122 12, 146 18, 150 42
-      C166 34, 184 44, 182 62
-      L18 62
-      C10 60, 14 56, 20 52
+      M60 90
+      C40 40, 80 20, 110 40
+      C120 10, 160 10, 170 40
+      C200 20, 240 40, 220 90
       Z"/>
-    <!-- Base -->
-    <rect x="18" y="62" width="164" height="24" rx="10"/>
+
+    <!-- Hat base -->
+    <rect x="60" y="90" width="160" height="28" rx="12"/>
+
   </g>
 </svg>
