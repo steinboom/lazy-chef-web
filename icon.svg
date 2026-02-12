@@ -1,0 +1,36 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="110" fill="#FF7A00"/>
+
+  <!-- LC Monogram (geometrisch gebaut) -->
+  <!-- L -->
+  <rect x="150" y="170" width="40" height="200" fill="white"/>
+  <rect x="150" y="330" width="120" height="40" fill="white"/>
+
+  <!-- C (geometric arc built from thick stroke look) -->
+  <path d="
+    M360 190
+    A90 90 0 1 0 360 330
+    L320 330
+    A50 50 0 1 1 320 190
+    Z"
+    fill="white"/>
+
+  <!-- Chef Hat (perfectly centered on C) -->
+  <g transform="translate(300,105)">
+    <!-- Puffy top -->
+    <path d="
+      M40 30
+      C20 5, 80 5, 60 30
+      C85 5, 140 10, 120 35
+      C150 15, 190 25, 170 50
+      L20 50
+      C0 25, 20 15, 40 30
+      Z"
+      fill="white"/>
+    <!-- Hat base -->
+    <rect x="20" y="50" width="150" height="20" fill="white"/>
+  </g>
+
+</svg>
