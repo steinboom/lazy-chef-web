@@ -17,108 +17,139 @@
 
   <style>
     :root{
-      --bg:#fff7ef;
-      --card:#ffffff;
-      --border:#f0dfcf;
-      --text:#161616;
-      --muted:#6f6a66;
+      --bg:#F6F4F2;
+      --card:#FFFFFF;
+      --text:#1A1A1A;
+      --muted:#6F6A66;
+      --border:#E9E3DC;
+
+      --header:#111111;
+      --headerText:#F5F5F5;
+
       --accent:#FF7A00;
+      --accentSoft:#FFE6CF;
+
       --radius:18px;
+      --shadow: 0 12px 26px rgba(20,10,0,.08);
     }
 
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:"Nunito",sans-serif;
-      background: radial-gradient(900px 450px at 20% 0%, rgba(255,122,0,.22), transparent 60%),
-                  linear-gradient(180deg, #fff7ef 0%, #ffffff 60%);
+      font-family:"Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(900px 450px at 18% 0%, rgba(255,122,0,.20), transparent 60%),
+                  var(--bg);
       color:var(--text);
     }
 
-    header{padding:18px 0 6px;}
-    .wrap{max-width:980px;margin:0 auto;padding:18px}
-
-    .brand{
-      font-weight:900;
-      font-size:28px;
-      display:flex;
-      align-items:center;
-      gap:10px;
+    header{
+      background: linear-gradient(180deg, #121212 0%, #0f0f0f 100%);
+      color: var(--headerText);
+      padding: 18px 0 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
 
-    .badge{
-      background:var(--accent);
-      color:#111;
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:12px;
-    }
+    .wrap{max-width:980px;margin:0 auto;padding:0 18px}
+    .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .brand{font-weight:900;letter-spacing:.06em;text-transform:uppercase;font-size:20px;line-height:1}
+    .tagline{margin-top:6px;color:rgba(245,245,245,.72);font-size:14px}
 
-    .sub{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:15px;
+    .controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .seg{
+      display:flex;align-items:center;gap:6px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 6px;
+      border-radius: 999px;
     }
+    .seg button{
+      border:none;background:transparent;color:rgba(245,245,245,.78);
+      padding:8px 10px;border-radius:999px;font-weight:900;cursor:pointer;
+    }
+    .seg button.on{background: var(--accent); color:#111;}
+    .seg span{color:rgba(245,245,245,.45); font-size:12px; padding:0 6px}
 
+    main{padding:16px 0 26px}
     .grid{display:grid;grid-template-columns:1fr;gap:12px}
     @media(min-width:860px){ .grid{grid-template-columns:1.1fr .9fr;} }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:14px;
-      box-shadow:0 10px 26px rgba(30,10,0,.06);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
     }
 
     h2{
+      margin:0 0 10px;
       font-size:14px;
-      color:var(--muted);
-      text-transform:uppercase;
-      margin-bottom:10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing:.05em;
+      font-weight: 900;
     }
 
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
     input{
       width:100%;
-      padding:12px;
-      border-radius:14px;
+      padding:12px 12px;
+      border-radius: 14px;
       border:1px solid var(--border);
       font-size:16px;
+      outline:none;
     }
-
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-
-    .pill{
-      border:1px solid var(--border);
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:13px;
-      cursor:pointer;
-      background:#fff;
-    }
-
-    .pill.on{
-      background:rgba(255,122,0,.14);
-      border-color:rgba(255,122,0,.4);
+    input:focus{
+      border-color: rgba(255,122,0,.55);
+      box-shadow: 0 0 0 4px rgba(255,122,0,.16);
     }
 
     .chip{
-      background:rgba(255,122,0,.12);
+      background: var(--accentSoft);
       border:1px solid rgba(255,122,0,.25);
-      padding:6px 10px;
+      color:#111;
+      padding:7px 10px;
       border-radius:999px;
-      font-weight:800;
       display:flex;
-      gap:6px;
+      gap:8px;
       align-items:center;
+      font-weight:900;
     }
-
     .chip button{
-      border:none;
-      background:transparent;
+      border:none;background:transparent;cursor:pointer;font-weight:900;opacity:.7
+    }
+    .chip button:hover{opacity:1}
+
+    .pills{
+      display:flex;gap:8px;flex-wrap:wrap;
+      padding-top:2px;
+    }
+    .pill{
+      border:1px solid var(--border);
+      background:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:13px;
       cursor:pointer;
+      color: var(--muted);
+      display:flex;align-items:center;gap:6px;
+    }
+    .pill.on{
+      background: rgba(255,122,0,.14);
+      border-color: rgba(255,122,0,.35);
+      color:#111;
+    }
+    .pill.disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+    .soon{
+      font-size:11px;
+      padding:2px 8px;
+      border-radius:999px;
+      background: rgba(0,0,0,.06);
+      color: var(--muted);
       font-weight:900;
     }
 
@@ -131,151 +162,1075 @@
       background:#111;
       color:#fff;
     }
+    .btn.secondary{background: var(--accent); color:#111;}
+    .btn.ghost{background: #fff; color:#111; border:1px solid var(--border);}
+    .hint{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
 
-    .btn.secondary{
-      background:var(--accent);
+    /* recipe list */
+    .resultsGrid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .recipeCard{
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .title{
+      font-size:18px;
+      font-weight:900;
+      margin:0;
+    }
+    .meta{
+      color: var(--muted);
+      font-size:13px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .badge{
+      background: rgba(255,122,0,.14);
+      border:1px solid rgba(255,122,0,.25);
       color:#111;
+      padding:4px 8px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+    }
+    .badge.dark{
+      background:#111;
+      border:1px solid #111;
+      color:#fff;
     }
 
-    .recipe{display:grid;gap:8px}
-    .title{font-size:18px;font-weight:900;margin:0}
-    .meta{font-size:13px;color:var(--muted)}
-
-    .fav{
+    .cardActions{
+      display:flex;
+      gap:10px;
+      justify-content:space-between;
+      margin-top:auto;
+      align-items:center;
+    }
+    .linkBtn{
+      border:none;background:transparent;cursor:pointer;
+      font-weight:900;color:#111;padding:0;
+    }
+    .favBtn{
       border:1px solid var(--border);
       background:#fff;
-      border-radius:14px;
-      padding:8px 12px;
+      border-radius:999px;
+      padding:8px 10px;
       cursor:pointer;
       font-weight:900;
     }
-
-    .fav.on{
-      background:rgba(255,122,0,.16);
-      border-color:rgba(255,122,0,.4);
+    .favBtn.on{
+      background: rgba(255,122,0,.16);
+      border-color: rgba(255,122,0,.35);
     }
 
-    .footer{text-align:center;font-size:12px;color:var(--muted);padding:18px}
+    /* slide-up panel */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.35);
+      opacity:0; pointer-events:none;
+      transition: opacity .22s ease;
+      z-index: 50;
+    }
+    .overlay.on{opacity:1; pointer-events:auto;}
+
+    .sheet{
+      position:fixed; left:0; right:0; bottom:0;
+      background:#fff;
+      border-top-left-radius: 26px;
+      border-top-right-radius: 26px;
+      transform: translateY(105%);
+      transition: transform .26s ease;
+      z-index: 60;
+      box-shadow: 0 -20px 40px rgba(0,0,0,.18);
+      max-height: 92vh;
+      overflow: hidden;
+      touch-action: none;
+    }
+    .sheet.on{transform: translateY(0);}
+    .sheetHeader{
+      padding:10px 16px 0;
+    }
+    .grab{
+      width: 46px; height: 5px;
+      background: rgba(0,0,0,.12);
+      border-radius: 999px;
+      margin: 6px auto 10px;
+    }
+    .sheetBody{
+      padding: 0 16px 18px;
+      overflow:auto;
+      max-height: calc(92vh - 24px);
+      -webkit-overflow-scrolling: touch;
+    }
+    .sheetTopRow{
+      display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+    }
+    .closeBtn{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:999px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .bigTitle{
+      margin:0;
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:.01em;
+    }
+    .sectionTitle{
+      margin:16px 0 8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing:.05em;
+      font-weight:900;
+      font-size:13px;
+    }
+    .ingList{margin:0; padding-left: 18px;}
+    .steps{margin:0; padding-left: 18px;}
+    .footer{
+      text-align:center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 18px 0 10px;
+    }
   </style>
 </head>
 
 <body>
 <header>
-  <div class="wrap">
-    <div class="brand">
-      LAZY CHEF <span class="badge">NO STRESS</span>
+  <div class="wrap topbar">
+    <div>
+      <div class="brand">LAZY CHEF</div>
+      <div class="tagline" id="tagline">Minimal effort meals. Max taste.</div>
     </div>
-    <div class="sub">Minimal effort meals. Max taste.</div>
+
+    <div class="controls">
+      <!-- Portion -->
+      <div class="seg" aria-label="Portion">
+        <span id="portionLabel">Portion</span>
+        <button id="p1">1</button>
+        <button id="p2">2</button>
+      </div>
+
+      <!-- Language -->
+      <div class="seg" aria-label="Language">
+        <span>Lang</span>
+        <button id="de">DE</button>
+        <button id="en">EN</button>
+      </div>
+    </div>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="grid">
-    <section class="card">
-      <h2>Was hast du daheim?</h2>
-      <div id="chips" class="row"></div>
-      <input id="ingInput" placeholder="z.B. pasta, rice, egg, tuna..." />
+<main>
+  <div class="wrap">
+    <div class="grid">
+      <section class="card">
+        <h2 id="h_ingredients">Was hast du da?</h2>
+        <div class="row" id="chips"></div>
+        <input id="ingInput" placeholder="z.B. reis, ei, thunfisch, chicken, skyr … (Enter)" />
+        <div class="hint" id="hint1">Enter = Zutat hinzufügen. Du kannst DE oder EN tippen.</div>
 
-      <h2 style="margin-top:16px;">Lazy Mode</h2>
-      <div class="row">
-        <div class="pill on" data-filter="max10">≤10 min</div>
-        <div class="pill on" data-filter="max5">≤5 Zutaten</div>
-        <div class="pill on" data-filter="noChop">No-Chop</div>
-      </div>
+        <div class="sectionTitle" style="margin-top:16px" id="h_filters">Smart Filter</div>
+        <div class="pills">
+          <div class="pill on" data-filter="max10">≤10 min</div>
+          <div class="pill on" data-filter="max5">≤5 Zutaten</div>
+          <div class="pill" data-filter="noChop" id="pillNoChop">No-Chop</div>
+          <div class="pill" data-filter="onePan" id="pillOnePan">1 Topf/Pfanne</div>
+          <div class="pill" data-filter="highProtein" id="pillHP">High-Protein <span class="badge" style="padding:2px 6px">≥30g</span></div>
+          <div class="pill" data-filter="ultraLazy" id="pillUltra">Ultra-Lazy</div>
 
-      <div class="row" style="margin-top:12px;">
-        <button class="btn secondary" id="btnSuggest">Rezepte</button>
-        <button class="btn" id="btnReset">Reset</button>
-      </div>
-    </section>
+          <div class="pill disabled"><span>Airfryer</span><span class="soon">coming soon</span></div>
+          <div class="pill disabled"><span>Budget</span><span class="soon">coming soon</span></div>
+        </div>
 
-    <section class="card">
-      <h2>Favoriten</h2>
-      <div id="favList">Noch keine Favoriten</div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn secondary" id="btnFind">Rezepte finden</button>
+          <button class="btn" id="btnOfflineAI">Offline-KI</button>
+          <button class="btn ghost" id="btnReset">Reset</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="h_favs">Favoriten</h2>
+        <div id="favList" class="hint">Noch keine Favoriten.</div>
+      </section>
+    </div>
+
+    <section style="margin-top:12px">
+      <h2 id="h_results">Vorschläge</h2>
+      <div id="results" class="resultsGrid"></div>
+      <div class="footer">MVP Test • Offline-first • © Lazy Chef</div>
     </section>
   </div>
+</main>
 
-  <section style="margin-top:18px;">
-    <h2>Vorschläge</h2>
-    <div id="results" class="grid"></div>
-  </section>
-
-  <div class="footer">© Lazy Chef</div>
+<!-- Slide panel -->
+<div class="overlay" id="overlay"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="sheetHeader">
+    <div class="grab"></div>
+  </div>
+  <div class="sheetBody" id="sheetBody"></div>
 </div>
 
 <script>
+/* ---------------------------
+  i18n
+---------------------------- */
+const I18N = {
+  de: {
+    tagline: "Minimal effort meals. Max taste.",
+    portion: "Portion",
+    ingredients: "Was hast du da?",
+    filters: "Smart Filter",
+    favs: "Favoriten",
+    results: "Vorschläge",
+    hint1: "Enter = Zutat hinzufügen. Du kannst DE oder EN tippen.",
+    find: "Rezepte finden",
+    offlineAI: "Offline-KI",
+    reset: "Reset",
+    noFavs: "Noch keine Favoriten.",
+    time: "min",
+    protein: "Protein",
+    perPortion: "pro Portion",
+    details: "Details",
+    ingredientsLabel: "Zutaten",
+    stepsLabel: "Schritte",
+    close: "Schließen",
+    empty: "Keine Treffer. Tipp: egg/ei, rice/reis, tuna/thunfisch, chicken/hähnchen, skyr."
+  },
+  en: {
+    tagline: "Minimal effort meals. Max taste.",
+    portion: "Portion",
+    ingredients: "What do you have?",
+    filters: "Smart Filters",
+    favs: "Favorites",
+    results: "Suggestions",
+    hint1: "Enter = add ingredient. You can type DE or EN.",
+    find: "Find recipes",
+    offlineAI: "Offline AI",
+    reset: "Reset",
+    noFavs: "No favorites yet.",
+    time: "min",
+    protein: "Protein",
+    perPortion: "per serving",
+    details: "Details",
+    ingredientsLabel: "Ingredients",
+    stepsLabel: "Steps",
+    close: "Close",
+    empty: "No hits. Try: egg, rice, tuna, chicken, skyr."
+  }
+};
+
+/* ---------------------------
+  Ingredient mapping (DE/EN -> keys)
+---------------------------- */
+const MAP = {
+  // proteins
+  "ei":"egg","eier":"egg","egg":"egg",
+  "hähnchen":"chicken","haehnchen":"chicken","chicken":"chicken",
+  "thunfisch":"tuna","tuna":"tuna",
+  "skyr":"skyr","joghurt":"yogurt","yogurt":"yogurt","greek yogurt":"yogurt",
+  "hüttenkäse":"cottage_cheese","huettenkaese":"cottage_cheese","cottage cheese":"cottage_cheese",
+  "käse":"cheese","kaese":"cheese","cheese":"cheese",
+  // carbs
+  "reis":"rice","rice":"rice",
+  "nudeln":"pasta","pasta":"pasta",
+  "wrap":"wrap","wraps":"wrap","tortilla":"wrap",
+  "brot":"bread","toast":"bread","bread":"bread",
+  "hafer":"oats","haferflocken":"oats","oats":"oats",
+  // sauces/extras
+  "sojasauce":"soy_sauce","soy sauce":"soy_sauce",
+  "mayo":"mayo","mayonnaise":"mayo",
+  "pesto":"pesto",
+  "tomate":"tomato","tomaten":"tomato","tomato":"tomato",
+  "parmesan":"parmesan",
+  "olivenöl":"oil","olivenoel":"oil","oil":"oil",
+  "butter":"butter",
+  "nüsse":"nuts","nuesse":"nuts","nuts":"nuts",
+  "honig":"honey","honey":"honey",
+  "salat":"salad","salad":"salad"
+};
+
+/* ---------------------------
+  Protein reference (rough)
+  - grams protein per 100g OR per unit (egg)
+---------------------------- */
+const PROTEIN = {
+  chicken: { per100g: 22 },
+  tuna: { per100g: 23 },
+  skyr: { per100g: 11 },
+  yogurt: { per100g: 10 },
+  cottage_cheese: { per100g: 12 },
+  egg: { perUnit: 6 },
+  cheese: { per100g: 25 },
+  parmesan: { per100g: 32 },
+  rice: { per100g: 7 },
+  pasta: { per100g: 13 },
+  bread: { per100g: 9 },
+  oats: { per100g: 13 },
+  nuts: { per100g: 20 },
+  mayo: { per100g: 1 },
+  soy_sauce: { per100g: 8 },
+  tomato: { per100g: 1 },
+  oil: { per100g: 0 },
+  butter: { per100g: 1 },
+  honey: { per100g: 0 },
+  salad: { per100g: 1 },
+  wrap: { per100g: 8 }
+};
+
+const UNIT_TO_G = {
+  g: 1,
+  ml: 1,
+  tbsp: 15,
+  tsp: 5,
+  slice: 30,
+  wrap: 60,
+  can: 120
+};
+
+function approxProtein(ingredient){
+  const ref = PROTEIN[ingredient.key];
+  if(!ref) return 0;
+
+  if(ingredient.unit === "pcs" && ref.perUnit){
+    return ingredient.qty * ref.perUnit;
+  }
+
+  let grams = ingredient.qty;
+  if(UNIT_TO_G[ingredient.unit]) grams = ingredient.qty * UNIT_TO_G[ingredient.unit];
+
+  if(ref.per100g){
+    return (grams / 100) * ref.per100g;
+  }
+  return 0;
+}
+
+/* ---------------------------
+  Recipes (10 starter set)
+  Quantities are for 1 person; scaled by portion.
+---------------------------- */
 const RECIPES = [
-  {id:"pasta", title:"Tomato Pasta", time:10, maxIng:4, noChop:true,
-    need:["pasta","tomato","oil"],
-    steps:["Pasta kochen.","Tomaten erhitzen.","Mischen."]},
-  {id:"egg", title:"Egg Wrap", time:7, maxIng:3, noChop:true,
-    need:["egg","tortilla","cheese"],
-    steps:["Ei braten.","In Wrap.","Fertig."]}
+  {
+    id:"tuna_rice_bowl",
+    time:8, maxIng:5, noChop:true, onePan:true, ultraLazy:true,
+    title:{de:"Tuna Rice Bowl", en:"Tuna Rice Bowl"},
+    ingredients:[
+      {key:"rice", qty:75, unit:"g", label:{de:"Reis (trocken)", en:"Rice (dry)"}},
+      {key:"tuna", qty:1, unit:"can", label:{de:"Thunfisch (Dose)", en:"Tuna (can)"}},
+      {key:"mayo", qty:1, unit:"tbsp", label:{de:"Mayo", en:"Mayo"}},
+      {key:"soy_sauce", qty:1, unit:"tsp", label:{de:"Sojasauce", en:"Soy sauce"}},
+      {key:"salad", qty:50, unit:"g", label:{de:"Salat (optional)", en:"Salad (optional)"}}
+    ],
+    steps:{
+      de:["Reis kochen (oder Reste verwenden).","Thunfisch abtropfen.","Mit Mayo + Sojasauce mischen.","Kurz erwärmen oder kalt als Bowl essen."],
+      en:["Cook rice (or use leftovers).","Drain tuna.","Mix with mayo + soy sauce.","Warm briefly or eat cold as a bowl."]
+    },
+    tags:["rice","tuna","high-protein","onePan","noChop"]
+  },
+  {
+    id:"chicken_wrap",
+    time:10, maxIng:5, noChop:false, onePan:true, ultraLazy:false,
+    title:{de:"Creamy Chicken Wrap", en:"Creamy Chicken Wrap"},
+    ingredients:[
+      {key:"wrap", qty:1, unit:"wrap", label:{de:"Wrap", en:"Wrap"}},
+      {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchenbrust", en:"Chicken breast"}},
+      {key:"skyr", qty:2, unit:"tbsp", label:{de:"Skyr", en:"Skyr"}},
+      {key:"salad", qty:50, unit:"g", label:{de:"Salat", en:"Salad"}},
+      {key:"tomato", qty:80, unit:"g", label:{de:"Tomate", en:"Tomato"}}
+    ],
+    steps:{
+      de:["Hähnchen in Streifen schneiden.","In einer Pfanne 5–6 Min braten.","Skyr kurz unterheben, würzen.","In Wrap füllen und rollen."],
+      en:["Slice the chicken.","Pan-fry 5–6 min.","Stir in skyr, season.","Fill wrap and roll."]
+    },
+    tags:["wrap","chicken","high-protein","onePan"]
+  },
+  {
+    id:"skyr_bowl",
+    time:3, maxIng:4, noChop:true, onePan:false, ultraLazy:true,
+    title:{de:"Skyr Power Bowl", en:"Skyr Power Bowl"},
+    ingredients:[
+      {key:"skyr", qty:200, unit:"g", label:{de:"Skyr", en:"Skyr"}},
+      {key:"nuts", qty:30, unit:"g", label:{de:"Nüsse", en:"Nuts"}},
+      {key:"honey", qty:1, unit:"tsp", label:{de:"Honig", en:"Honey"}},
+      {key:"oats", qty:30, unit:"g", label:{de:"Haferflocken (optional)", en:"Oats (optional)"}}
+    ],
+    steps:{
+      de:["Skyr in eine Schüssel.","Nüsse + Honig drauf.","Optional Haferflocken dazu.","Fertig."],
+      en:["Skyr into a bowl.","Add nuts + honey.","Optional oats.","Done."]
+    },
+    tags:["skyr","high-protein","noChop","ultraLazy"]
+  },
+  {
+    id:"egg_cheese_toast",
+    time:7, maxIng:5, noChop:true, onePan:true, ultraLazy:true,
+    title:{de:"Egg & Cheese Toast (Pfanne)", en:"Egg & Cheese Toast (Pan)"},
+    ingredients:[
+      {key:"egg", qty:2, unit:"pcs", label:{de:"Eier", en:"Eggs"}},
+      {key:"bread", qty:2, unit:"slice", label:{de:"Toast", en:"Toast"}},
+      {key:"cheese", qty:30, unit:"g", label:{de:"Käse", en:"Cheese"}},
+      {key:"butter", qty:1, unit:"tsp", label:{de:"Butter", en:"Butter"}}
+    ],
+    steps:{
+      de:["Butter in der Pfanne schmelzen.","Eier rein, leicht verrühren.","Toast reinlegen, Käse drauf.","Zusammenklappen und goldbraun braten."],
+      en:["Melt butter in pan.","Add eggs, gently stir.","Place toast in, add cheese.","Fold and toast until golden."]
+    },
+    tags:["egg","bread","cheese","onePan","ultraLazy"]
+  },
+  {
+    id:"pesto_pasta",
+    time:9, maxIng:4, noChop:true, onePan:false, ultraLazy:true,
+    title:{de:"Lazy Pesto Pasta", en:"Lazy Pesto Pasta"},
+    ingredients:[
+      {key:"pasta", qty:80, unit:"g", label:{de:"Pasta (trocken)", en:"Pasta (dry)"}},
+      {key:"pesto", qty:1, unit:"tbsp", label:{de:"Pesto", en:"Pesto"}},
+      {key:"parmesan", qty:20, unit:"g", label:{de:"Parmesan", en:"Parmesan"}},
+      {key:"oil", qty:1, unit:"tsp", label:{de:"Olivenöl", en:"Olive oil"}}
+    ],
+    steps:{
+      de:["Pasta kochen.","Pesto + Öl mit etwas Kochwasser cremig rühren.","Pasta rein, Parmesan drauf.","Fertig."],
+      en:["Cook pasta.","Mix pesto + oil with a splash of pasta water.","Toss pasta, add parmesan.","Done."]
+    },
+    tags:["pasta","pesto","comfort","ultraLazy"]
+  },
+  {
+    id:"cottage_chicken_bowl",
+    time:10, maxIng:5, noChop:false, onePan:true, ultraLazy:false,
+    title:{de:"Cottage Chicken Bowl", en:"Cottage Chicken Bowl"},
+    ingredients:[
+      {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchenbrust", en:"Chicken breast"}},
+      {key:"cottage_cheese", qty:150, unit:"g", label:{de:"Hüttenkäse", en:"Cottage cheese"}},
+      {key:"rice", qty:60, unit:"g", label:{de:"Reis (trocken)", en:"Rice (dry)"}},
+      {key:"tomato", qty:80, unit:"g", label:{de:"Tomate", en:"Tomato"}}
+    ],
+    steps:{
+      de:["Reis kochen (oder Reste).","Hähnchen in Pfanne anbraten.","Mit Hüttenkäse mischen.","Tomate drauf – fertig."],
+      en:["Cook rice (or use leftovers).","Pan-fry chicken.","Mix with cottage cheese.","Top with tomato—done."]
+    },
+    tags:["chicken","cottage_cheese","high-protein","onePan"]
+  },
+  {
+    id:"creamy_tuna_pasta",
+    time:10, maxIng:5, noChop:true, onePan:false, ultraLazy:true,
+    title:{de:"Creamy Tuna Pasta", en:"Creamy Tuna Pasta"},
+    ingredients:[
+      {key:"pasta", qty:80, unit:"g", label:{de:"Pasta (trocken)", en:"Pasta (dry)"}},
+      {key:"tuna", qty:1, unit:"can", label:{de:"Thunfisch (Dose)", en:"Tuna (can)"}},
+      {key:"cheese", qty:30, unit:"g", label:{de:"Frischkäse/Käse", en:"Cream cheese/cheese"}},
+      {key:"oil", qty:1, unit:"tsp", label:{de:"Olivenöl (optional)", en:"Olive oil (optional)"}}
+    ],
+    steps:{
+      de:["Pasta kochen.","Thunfisch abtropfen.","Mit Käse unterrühren.","Kurz warm machen – fertig."],
+      en:["Cook pasta.","Drain tuna.","Stir in cheese.","Warm briefly—done."]
+    },
+    tags:["pasta","tuna","high-protein","ultraLazy"]
+  },
+  {
+    id:"peanut_chicken_rice",
+    time:10, maxIng:5, noChop:true, onePan:true, ultraLazy:false,
+    title:{de:"Peanut Chicken Rice", en:"Peanut Chicken Rice"},
+    ingredients:[
+      {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchenbrust", en:"Chicken breast"}},
+      {key:"rice", qty:60, unit:"g", label:{de:"Reis (trocken)", en:"Rice (dry)"}},
+      {key:"soy_sauce", qty:1, unit:"tsp", label:{de:"Sojasauce", en:"Soy sauce"}},
+      {key:"oil", qty:1, unit:"tsp", label:{de:"Öl", en:"Oil"}}
+    ],
+    steps:{
+      de:["Reis kochen (oder Reste).","Hähnchen in Pfanne braten.","Mit Sojasauce abschmecken.","Mit Reis zusammenwerfen – passt."],
+      en:["Cook rice (or leftovers).","Pan-fry chicken.","Season with soy sauce.","Toss with rice—done."]
+    },
+    tags:["chicken","rice","high-protein","onePan"]
+  },
+  {
+    id:"lazy_omelette",
+    time:6, maxIng:4, noChop:true, onePan:true, ultraLazy:true,
+    title:{de:"Lazy Omelette", en:"Lazy Omelette"},
+    ingredients:[
+      {key:"egg", qty:3, unit:"pcs", label:{de:"Eier", en:"Eggs"}},
+      {key:"cheese", qty:30, unit:"g", label:{de:"Käse", en:"Cheese"}},
+      {key:"butter", qty:1, unit:"tsp", label:{de:"Butter", en:"Butter"}}
+    ],
+    steps:{
+      de:["Eier verquirlen.","In Pfanne stocken lassen.","Käse rein, zusammenklappen.","Fertig."],
+      en:["Whisk eggs.","Cook in pan.","Add cheese, fold.","Done."]
+    },
+    tags:["egg","cheese","onePan","ultraLazy"]
+  },
+  {
+    id:"tomato_mozz_wrap",
+    time:5, maxIng:5, noChop:false, onePan:false, ultraLazy:true,
+    title:{de:"Tomato Mozzarella Wrap", en:"Tomato Mozzarella Wrap"},
+    ingredients:[
+      {key:"wrap", qty:1, unit:"wrap", label:{de:"Wrap", en:"Wrap"}},
+      {key:"cheese", qty:80, unit:"g", label:{de:"Mozzarella", en:"Mozzarella"}},
+      {key:"tomato", qty:120, unit:"g", label:{de:"Tomate", en:"Tomato"}},
+      {key:"oil", qty:1, unit:"tsp", label:{de:"Olivenöl", en:"Olive oil"}}
+    ],
+    steps:{
+      de:["Tomate + Mozzarella schneiden.","In Wrap packen.","Öl drüber, würzen.","Rollen, fertig."],
+      en:["Slice tomato + mozzarella.","Add to wrap.","Drizzle oil, season.","Roll—done."]
+    },
+    tags:["wrap","cheese","tomato","comfort","ultraLazy"]
+  }
 ];
 
-let ingredients = [];
-let favorites = new Set(JSON.parse(localStorage.getItem("fav")||"[]"));
+/* ---------------------------
+  State + persistence
+---------------------------- */
+const LS = {
+  lang: "lazy.lang",
+  portion: "lazy.portion",
+  filters: "lazy.filters",
+  ingredients: "lazy.ingredients",
+  favorites: "lazy.favorites"
+};
 
-const chipsEl = document.getElementById("chips");
-const inputEl = document.getElementById("ingInput");
-const resultsEl = document.getElementById("results");
-const favListEl = document.getElementById("favList");
+const defaultFilters = { max10:true, max5:true, noChop:false, onePan:false, highProtein:false, ultraLazy:false };
 
-inputEl.addEventListener("keydown",(e)=>{
-  if(e.key==="Enter"){
-    ingredients.push(inputEl.value.toLowerCase());
-    renderChips();
-    inputEl.value="";
+let state = {
+  lang: localStorage.getItem(LS.lang) || "de",
+  portion: parseInt(localStorage.getItem(LS.portion) || "1", 10),
+  filters: (() => {
+    try { return { ...defaultFilters, ...(JSON.parse(localStorage.getItem(LS.filters))||{}) }; }
+    catch { return { ...defaultFilters }; }
+  })(),
+  ingredients: (() => {
+    try { return (JSON.parse(localStorage.getItem(LS.ingredients))||[]); }
+    catch { return []; }
+  })(),
+  favorites: new Set((() => {
+    try { return (JSON.parse(localStorage.getItem(LS.favorites))||[]); }
+    catch { return []; }
+  })())
+};
+
+function save(){
+  localStorage.setItem(LS.lang, state.lang);
+  localStorage.setItem(LS.portion, String(state.portion));
+  localStorage.setItem(LS.filters, JSON.stringify(state.filters));
+  localStorage.setItem(LS.ingredients, JSON.stringify(state.ingredients));
+  localStorage.setItem(LS.favorites, JSON.stringify(Array.from(state.favorites)));
+}
+
+/* ---------------------------
+  DOM
+---------------------------- */
+const $ = (id) => document.getElementById(id);
+
+const chipsEl = $("chips");
+const inputEl = $("ingInput");
+const resultsEl = $("results");
+const favListEl = $("favList");
+
+const overlay = $("overlay");
+const sheet = $("sheet");
+const sheetBody = $("sheetBody");
+
+/* ---------------------------
+  Helpers
+---------------------------- */
+function t(key){ return I18N[state.lang][key]; }
+function norm(s){ return (s||"").trim().toLowerCase(); }
+function toKey(raw){
+  const n = norm(raw);
+  return MAP[n] || n; // if unknown, keep raw normalized
+}
+function unique(arr){ return Array.from(new Set(arr)); }
+
+function scaledIngredients(ings){
+  const factor = state.portion;
+  return ings.map(x => ({...x, qty: x.qty * factor }));
+}
+
+function proteinPerPortion(recipe){
+  const factor = state.portion;
+  const total = recipe.ingredients.reduce((sum, ing) => sum + approxProtein({key:ing.key, qty: ing.qty, unit: ing.unit}), 0);
+  return total; // per 1 person baseline
+}
+function proteinForCurrentPortion(recipe){
+  // if base is per 1 person, total protein scales with portion
+  const base = proteinPerPortion(recipe);
+  const total = base * state.portion;
+  return total / state.portion; // per portion stays same logically; keep stable
+}
+function proteinTotal(recipe){
+  const base = proteinPerPortion(recipe);
+  return base * state.portion;
+}
+function proteinScore(recipe){
+  // simple: convert grams per portion to 0–10 scale
+  const g = proteinForCurrentPortion(recipe);
+  return Math.min(10, Math.round(g / 5));
+}
+
+function passesFilters(recipe){
+  const f = state.filters;
+  if(f.max10 && recipe.time > 10) return false;
+  if(f.max5 && recipe.maxIng > 5) return false;
+  if(f.noChop && !recipe.noChop) return false;
+  if(f.onePan && !recipe.onePan) return false;
+  if(f.ultraLazy && !recipe.ultraLazy) return false;
+
+  if(f.highProtein){
+    // fitness-ish threshold: >= 30g per portion
+    if(proteinForCurrentPortion(recipe) < 30) return false;
   }
-});
+  return true;
+}
+
+function matchScore(recipe){
+  const have = new Set(state.ingredients.map(toKey));
+  let score = 0;
+  for(const tag of (recipe.tags||[])){
+    if(have.has(tag)) score += 3;
+  }
+  for(const ing of (recipe.ingredients||[])){
+    if(have.has(ing.key)) score += 4;
+  }
+  return score;
+}
+
+function sortRecipes(list){
+  if(state.filters.highProtein){
+    return list.sort((a,b) => {
+      const pa = proteinForCurrentPortion(a);
+      const pb = proteinForCurrentPortion(b);
+      if(pb !== pa) return pb - pa;
+      const ms = matchScore(b) - matchScore(a);
+      if(ms !== 0) return ms;
+      return a.time - b.time;
+    });
+  }
+  return list.sort((a,b) => {
+    const ms = matchScore(b) - matchScore(a);
+    if(ms !== 0) return ms;
+    if(a.time !== b.time) return a.time - b.time;
+    return a.maxIng - b.maxIng;
+  });
+}
+
+/* ---------------------------
+  Render
+---------------------------- */
+function renderText(){
+  $("tagline").textContent = t("tagline");
+  $("portionLabel").textContent = t("portion");
+  $("h_ingredients").textContent = t("ingredients");
+  $("h_filters").textContent = t("filters");
+  $("h_favs").textContent = t("favs");
+  $("h_results").textContent = t("results");
+  $("hint1").textContent = t("hint1");
+  $("btnFind").textContent = t("find");
+  $("btnOfflineAI").textContent = t("offlineAI");
+  $("btnReset").textContent = t("reset");
+}
 
 function renderChips(){
-  chipsEl.innerHTML="";
-  ingredients.forEach(tag=>{
-    const el=document.createElement("div");
-    el.className="chip";
-    el.innerHTML=tag+" <button>✕</button>";
-    el.querySelector("button").onclick=()=>{
-      ingredients=ingredients.filter(t=>t!==tag);
-      renderChips();
+  chipsEl.innerHTML = "";
+  state.ingredients.forEach(raw => {
+    const el = document.createElement("div");
+    el.className = "chip";
+    el.innerHTML = `<span>${raw}</span>`;
+    const btn = document.createElement("button");
+    btn.textContent = "✕";
+    btn.onclick = () => {
+      state.ingredients = state.ingredients.filter(x => x !== raw);
+      save();
+      renderAll();
     };
+    el.appendChild(btn);
     chipsEl.appendChild(el);
   });
 }
 
-function suggest(){
-  resultsEl.innerHTML="";
-  RECIPES.forEach(r=>{
-    if(r.need.some(n=>ingredients.includes(n))){
-      const card=document.createElement("div");
-      card.className="card recipe";
-      card.innerHTML=`
-        <div class="title">${r.title}</div>
-        <div class="meta">${r.time} min · ${r.maxIng} Zutaten</div>
-        <button class="fav ${favorites.has(r.id)?"on":""}">❤</button>
-      `;
-      card.querySelector(".fav").onclick=()=>{
-        if(favorites.has(r.id)){favorites.delete(r.id)}
-        else{favorites.add(r.id)}
-        localStorage.setItem("fav",JSON.stringify([...favorites]));
-        renderFavorites();
-      };
-      resultsEl.appendChild(card);
-    }
+function renderFavorites(){
+  const fav = RECIPES.filter(r => state.favorites.has(r.id));
+  if(!fav.length){
+    favListEl.className = "hint";
+    favListEl.textContent = t("noFavs");
+    return;
+  }
+  favListEl.className = "";
+  favListEl.innerHTML = fav.map(r => `• ${r.title[state.lang]}`).join("<br>");
+}
+
+function recipeMetaLine(recipe){
+  const parts = [];
+  parts.push(`⏱ ${recipe.time} ${t("time")}`);
+  if(recipe.onePan) parts.push("🍳 1-pan");
+  if(recipe.noChop) parts.push("✂️ no-chop");
+  const p = Math.round(proteinForCurrentPortion(recipe));
+  parts.push(`🔥 ~${p}g ${t("protein")} ${t("perPortion")}`);
+  return parts.join(" · ");
+}
+
+function renderResults(){
+  resultsEl.innerHTML = "";
+
+  let list = RECIPES
+    .filter(passesFilters)
+    .filter(r => {
+      // if user entered ingredients, require at least 1 match; else show all
+      if(!state.ingredients.length) return true;
+      return matchScore(r) > 0;
+    });
+
+  list = sortRecipes(list).slice(0, 8);
+
+  if(!list.length){
+    resultsEl.innerHTML = `<div class="card">${t("empty")}</div>`;
+    return;
+  }
+
+  list.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "card recipeCard";
+
+    const isFav = state.favorites.has(r.id);
+    const pScore = proteinScore(r);
+
+    card.innerHTML = `
+      <div class="row" style="justify-content:space-between;align-items:flex-start;">
+        <h3 class="title">${r.title[state.lang]}</h3>
+        <button class="favBtn ${isFav ? "on":""}" aria-label="favorite">${isFav ? "❤️" : "🤍"}</button>
+      </div>
+
+      <div class="meta">${recipeMetaLine(r)}</div>
+
+      <div class="row">
+        ${state.filters.highProtein || proteinForCurrentPortion(r) >= 30 ? `<span class="badge">High-Protein</span>` : ``}
+        ${r.ultraLazy ? `<span class="badge dark">Ultra</span>` : ``}
+        ${r.onePan ? `<span class="badge">One-Pan</span>` : ``}
+        ${pScore >= 7 ? `<span class="badge">Score ${pScore}/10</span>` : ``}
+      </div>
+
+      <div class="cardActions">
+        <button class="linkBtn">${t("details")} →</button>
+      </div>
+    `;
+
+    const favBtn = card.querySelector(".favBtn");
+    favBtn.onclick = () => {
+      if(state.favorites.has(r.id)) state.favorites.delete(r.id);
+      else state.favorites.add(r.id);
+      save();
+      renderFavorites();
+      renderResults();
+    };
+
+    card.querySelector(".linkBtn").onclick = () => openSheet(r);
+
+    resultsEl.appendChild(card);
   });
 }
 
-function renderFavorites(){
-  if(!favorites.size){favListEl.innerText="Noch keine Favoriten";return;}
-  favListEl.innerHTML=[...favorites].join("<br>");
+function renderFilterPills(){
+  document.querySelectorAll(".pill[data-filter]").forEach(p => {
+    const k = p.dataset.filter;
+    p.classList.toggle("on", !!state.filters[k]);
+  });
 }
 
-document.getElementById("btnSuggest").onclick=suggest;
-document.getElementById("btnReset").onclick=()=>{
-  ingredients=[];favorites.clear();localStorage.clear();location.reload();
+function renderSegs(){
+  $("p1").classList.toggle("on", state.portion === 1);
+  $("p2").classList.toggle("on", state.portion === 2);
+
+  $("de").classList.toggle("on", state.lang === "de");
+  $("en").classList.toggle("on", state.lang === "en");
+}
+
+function renderAll(){
+  renderText();
+  renderSegs();
+  renderFilterPills();
+  renderChips();
+  renderFavorites();
+  renderResults();
+}
+
+/* ---------------------------
+  Slide Sheet
+---------------------------- */
+function fmtQty(q){ return Number.isInteger(q) ? String(q) : (Math.round(q*10)/10).toString(); }
+
+function openSheet(recipe){
+  const factor = state.portion;
+  const ingsScaled = recipe.ingredients.map(i => ({
+    ...i,
+    qty: i.qty * factor
+  }));
+
+  const proteinPP = Math.round(proteinForCurrentPortion(recipe)); // per portion
+  const meta = recipeMetaLine(recipe);
+
+  sheetBody.innerHTML = `
+    <div class="sheetTopRow">
+      <div>
+        <h3 class="bigTitle">${recipe.title[state.lang]}</h3>
+        <div class="meta" style="margin-top:6px">${meta}</div>
+      </div>
+      <button class="closeBtn" id="closeBtn">✕</button>
+    </div>
+
+    <div class="sectionTitle">${t("portion")}</div>
+    <div class="row">
+      <div class="seg" style="border:1px solid var(--border); background:#fff;">
+        <button id="sheetP1" class="${state.portion===1?'on':''}">1</button>
+        <button id="sheetP2" class="${state.portion===2?'on':''}">2</button>
+      </div>
+      <span class="badge">🔥 ~${proteinPP}g ${t("protein")} ${t("perPortion")}</span>
+    </div>
+
+    <div class="sectionTitle">${t("ingredientsLabel")}</div>
+    <ul class="ingList">
+      ${ingsScaled.map(i => `<li><b>${fmtQty(i.qty)} ${i.unit}</b> — ${i.label[state.lang]}</li>`).join("")}
+    </ul>
+
+    <div class="sectionTitle">${t("stepsLabel")}</div>
+    <ol class="steps">
+      ${recipe.steps[state.lang].map(s => `<li>${s}</li>`).join("")}
+    </ol>
+
+    <div style="margin-top:14px" class="row">
+      <button class="btn" id="sheetFav">${state.favorites.has(recipe.id) ? "❤️ Favorit" : "🤍 Favorit"}</button>
+    </div>
+  `;
+
+  $("closeBtn").onclick = closeSheet;
+
+  $("sheetP1").onclick = () => { state.portion = 1; save(); openSheet(recipe); renderSegs(); renderResults(); };
+  $("sheetP2").onclick = () => { state.portion = 2; save(); openSheet(recipe); renderSegs(); renderResults(); };
+
+  $("sheetFav").onclick = () => {
+    if(state.favorites.has(recipe.id)) state.favorites.delete(recipe.id);
+    else state.favorites.add(recipe.id);
+    save();
+    renderFavorites();
+    openSheet(recipe);
+    renderResults();
+  };
+
+  overlay.classList.add("on");
+  sheet.classList.add("on");
+}
+
+function closeSheet(){
+  overlay.classList.remove("on");
+  sheet.classList.remove("on");
+}
+
+overlay.onclick = closeSheet;
+
+// swipe down to close
+let startY = null;
+let currentY = null;
+
+sheet.addEventListener("touchstart", (e) => {
+  startY = e.touches[0].clientY;
+  currentY = startY;
+}, {passive:true});
+
+sheet.addEventListener("touchmove", (e) => {
+  if(startY == null) return;
+  currentY = e.touches[0].clientY;
+  const dy = currentY - startY;
+  if(dy > 0){
+    sheet.style.transition = "none";
+    sheet.style.transform = `translateY(${dy}px)`;
+  }
+}, {passive:true});
+
+sheet.addEventListener("touchend", () => {
+  if(startY == null) return;
+  const dy = currentY - startY;
+  sheet.style.transition = "";
+  sheet.style.transform = "";
+  if(dy > 90) closeSheet();
+  startY = null; currentY = null;
+});
+
+/* ---------------------------
+  Offline "AI" builder (rule-based)
+  Respects: highProtein / onePan / ultraLazy
+---------------------------- */
+const FITNESS_TOP = ["chicken","tuna","egg","skyr","cottage_cheese"];
+
+function offlineBuild(){
+  const have = new Set(state.ingredients.map(toKey));
+
+  // pick base
+  const bases = ["rice","pasta","wrap","bread","oats"];
+  let base = bases.find(b => have.has(b)) || "rice";
+
+  // pick protein
+  let protein = null;
+  if(state.filters.highProtein){
+    protein = FITNESS_TOP.find(p => have.has(p)) || "chicken";
+  }else{
+    const proteins = ["egg","tuna","chicken","skyr","cottage_cheese","cheese","yogurt"];
+    protein = proteins.find(p => have.has(p)) || "egg";
+  }
+
+  // pick sauce
+  const sauces = ["soy_sauce","tomato","pesto","mayo","oil","butter"];
+  let sauce = sauces.find(s => have.has(s)) || "oil";
+
+  // ultra-lazy reduces ingredient count
+  const ultra = state.filters.ultraLazy;
+
+  const recipe = {
+    id: "offline_ai",
+    time: 10,
+    maxIng: ultra ? 3 : 5,
+    noChop: true,
+    onePan: !!state.filters.onePan,
+    ultraLazy: ultra,
+    title: {
+      de: state.filters.highProtein ? "Offline-KI: High-Protein Bowl" : "Offline-KI: Lazy Bowl",
+      en: state.filters.highProtein ? "Offline AI: High-Protein Bowl" : "Offline AI: Lazy Bowl"
+    },
+    ingredients: [],
+    steps: { de: [], en: [] },
+    tags: ["offline"]
+  };
+
+  // build ingredients list (1 person baseline)
+  const addIng = (key, qty, unit, de, en) => recipe.ingredients.push({key, qty, unit, label:{de,en}});
+
+  if(base === "wrap"){
+    addIng("wrap", 1, "wrap", "Wrap", "Wrap");
+  }else if(base === "bread"){
+    addIng("bread", 2, "slice", "Toast", "Toast");
+  }else if(base === "oats"){
+    addIng("oats", 60, "g", "Haferflocken", "Oats");
+  }else if(base === "pasta"){
+    addIng("pasta", 80, "g", "Pasta (trocken)", "Pasta (dry)");
+  }else{
+    addIng("rice", 75, "g", "Reis (trocken)", "Rice (dry)");
+  }
+
+  if(protein === "egg"){
+    addIng("egg", 2, "pcs", "Eier", "Eggs");
+  }else if(protein === "tuna"){
+    addIng("tuna", 1, "can", "Thunfisch (Dose)", "Tuna (can)");
+  }else if(protein === "skyr"){
+    addIng("skyr", 200, "g", "Skyr", "Skyr");
+  }else if(protein === "cottage_cheese"){
+    addIng("cottage_cheese", 180, "g", "Hüttenkäse", "Cottage cheese");
+  }else if(protein === "chicken"){
+    addIng("chicken", 150, "g", "Hähnchenbrust", "Chicken breast");
+  }else{
+    addIng("cheese", 40, "g", "Käse", "Cheese");
+  }
+
+  // sauce
+  if(!ultra){
+    if(sauce === "soy_sauce") addIng("soy_sauce", 1, "tsp", "Sojasauce", "Soy sauce");
+    else if(sauce === "tomato") addIng("tomato", 120, "g", "Tomate", "Tomato");
+    else if(sauce === "pesto") addIng("pesto", 1, "tbsp", "Pesto", "Pesto");
+    else if(sauce === "mayo") addIng("mayo", 1, "tbsp", "Mayo", "Mayo");
+    else if(sauce === "butter") addIng("butter", 1, "tsp", "Butter", "Butter");
+    else addIng("oil", 1, "tsp", "Öl", "Oil");
+  }
+
+  // steps
+  if(state.filters.onePan){
+    recipe.steps.de = [
+      "Basis (Reis/Pasta) kochen oder Reste nehmen.",
+      "Protein in einer Pfanne kurz warm machen oder anbraten.",
+      "Sauce/Zusatz dazu, alles einmal durchziehen lassen.",
+      "Fertig. Optional: etwas Salz/Pfeffer."
+    ];
+    recipe.steps.en = [
+      "Cook the base (rice/pasta) or use leftovers.",
+      "Warm up or pan-fry the protein.",
+      "Add sauce/extra, mix and heat briefly.",
+      "Done. Optional: salt/pepper."
+    ];
+  }else{
+    recipe.steps.de = [
+      "Basis vorbereiten (kochen oder einfach ready machen).",
+      "Protein dazu.",
+      "Sauce/Zusatz rein, kurz mischen.",
+      "Fertig."
+    ];
+    recipe.steps.en = [
+      "Prepare the base (cook or just get it ready).",
+      "Add the protein.",
+      "Add sauce/extra and mix.",
+      "Done."
+    ];
+  }
+
+  return recipe;
+}
+
+/* ---------------------------
+  Events
+---------------------------- */
+function addIngredient(raw){
+  const cleaned = raw.trim();
+  if(!cleaned) return;
+  if(state.ingredients.includes(cleaned)) return;
+  state.ingredients = unique([...state.ingredients, cleaned]).slice(0, 20);
+  save();
+  renderAll();
+}
+
+inputEl.addEventListener("keydown", (e) => {
+  if(e.key === "Enter"){
+    e.preventDefault();
+    addIngredient(inputEl.value);
+    inputEl.value = "";
+  }
+});
+
+document.querySelectorAll(".pill[data-filter]").forEach(p => {
+  p.addEventListener("click", () => {
+    const k = p.dataset.filter;
+    state.filters[k] = !state.filters[k];
+    save();
+    renderAll();
+  });
+});
+
+$("btnFind").onclick = () => renderResults();
+
+$("btnOfflineAI").onclick = () => {
+  const r = offlineBuild();
+  // show it as first result + open details
+  openSheet(r);
 };
 
-renderFavorites();
+$("btnReset").onclick = () => {
+  state.ingredients = [];
+  state.favorites = new Set();
+  state.filters = { ...defaultFilters };
+  save();
+  renderAll();
+};
+
+$("p1").onclick = () => { state.portion = 1; save(); renderAll(); };
+$("p2").onclick = () => { state.portion = 2; save(); renderAll(); };
+
+$("de").onclick = () => { state.lang = "de"; save(); renderAll(); };
+$("en").onclick = () => { state.lang = "en"; save(); renderAll(); };
+
+/* ---------------------------
+  Init
+---------------------------- */
+renderAll();
 </script>
 </body>
 </html>
