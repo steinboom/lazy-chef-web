@@ -1,48 +1,47 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background: Orange -> Weiß -->
   <defs>
+    <!-- Orange -> Weiß Verlauf (clean, ohne Tricks) -->
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#FF7A00"/>
       <stop offset="100%" stop-color="#FFFFFF"/>
     </linearGradient>
+
+    <!-- Subtiler Schatten für Kontrast auf Weiß (premium, nicht cartoon) -->
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#B84F00" flood-opacity="0.22"/>
+    </filter>
   </defs>
 
+  <!-- Background -->
   <rect width="512" height="512" rx="110" fill="url(#bg)"/>
 
-  <!-- LC Monogram (geometrisch, kein Font) -->
-  <!-- L -->
-  <path d="M150 165 H200 V320 H295 V370 H150 Z" fill="#FFFFFF"/>
+  <!-- LC Monogram: gleicher Style über Stroke (CLEAN) -->
+  <g filter="url(#softShadow)" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round" stroke-linejoin="round" fill="none">
 
-  <!-- C (dicker Ring, offene Seite rechts) -->
-  <!-- Outer circle + inner circle als Donut, dann ein „Cut“ rechts -->
-  <path fill="#FFFFFF" fill-rule="evenodd" d="
-    M350 165
-    A105 105 0 1 0 350 375
-    A105 105 0 1 0 350 165
-    Z
-    M350 215
-    A55 55 0 1 1 350 325
-    A55 55 0 1 1 350 215
-    Z
-  "/>
+    <!-- L (gleich dick wie C) -->
+    <path d="M165 175 V355 H265"/>
 
-  <!-- Cut rechts (öffnet das C sauber) -->
-  <rect x="405" y="150" width="90" height="250" fill="url(#bg)"/>
+    <!-- C (Bogen, echte Form, kein Cut) -->
+    <!-- Center (350, 275), Radius 90 -->
+    <path d="M395 205
+             A90 90 0 1 0 395 345"/>
 
-  <!-- Chef Hat (B: kleiner & subtil), zentriert über dem C -->
-  <!-- C-Mitte ist bei x=350. Wir platzieren die Mütze mittig darüber. -->
-  <g transform="translate(308,95)">
-    <!-- Top (minimal, premium) -->
+  </g>
+
+  <!-- Chef Hat: klar erkennbare Kochmütze (premium, minimal) -->
+  <!-- Zentriert über dem C: C-Zentrum x≈350 -->
+  <g transform="translate(292,112)" fill="#FFFFFF" filter="url(#softShadow)">
+    <!-- Puffy top (3 bumps) -->
     <path d="
-      M30 46
-      C20 22, 52 18, 58 36
-      C68 18, 92 18, 100 38
-      C114 24, 136 28, 140 48
-      L20 48
-      C18 46, 22 44, 30 46
-      Z" fill="#FFFFFF"/>
-
+      M20 52
+      C16 26, 40 14, 60 26
+      C68 8, 94 8, 104 26
+      C122 12, 146 18, 150 42
+      C166 34, 184 44, 182 62
+      L18 62
+      C10 60, 14 56, 20 52
+      Z"/>
     <!-- Base -->
-    <rect x="24" y="48" width="120" height="18" rx="8" fill="#FFFFFF"/>
+    <rect x="18" y="62" width="164" height="24" rx="10"/>
   </g>
 </svg>
