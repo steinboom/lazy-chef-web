@@ -29,6 +29,13 @@ window.I18N = {
     favoritesTitle: "Favoriten",
     favoritesHint: "Tippe ein Rezept an.",
     favoritesSaved: "Gespeichert"
+    
+    f_max10: "≤10 min",
+    f_max5: "≤5 Zutaten",
+    f_noChop: "No-Chop",
+    f_onePan: "1 Topf/Pfanne",
+    f_highProtein: "High-Protein",
+    f_ultraLazy: "Ultra-Lazy",
   },
 
   en: {
@@ -61,5 +68,12 @@ window.I18N = {
     favoritesTitle: "Favorites",
     favoritesHint: "Tap a recipe.",
     favoritesSaved: "Saved"
+    
+    f_max10: "≤10 min",
+f_max5: "≤5 ingredients",
+f_noChop: "No-chop",
+f_onePan: "One-pot/pan",
+f_highProtein: "High-protein",
+f_ultraLazy: "Ultra-lazy",
   }
 };
