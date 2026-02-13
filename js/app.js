@@ -193,12 +193,12 @@ function renderText(){
   $("btnReset").textContent = t("reset");
   $("ingInput").placeholder = t("inputPlaceholder");
   
-  $("pillMax10").textContent = t("f_max10");
-  $("pillMax5").textContent  = t("f_max5");
-  $("pillNoChop").textContent = t("f_noChop");
-  $("pillOnePan").textContent = t("f_onePan");
-  $("pillHPText").textContent = t("f_highProtein");
-  $("pillUltra").textContent  = t("f_ultraLazy");
+  setText("pillMax10", t("f_max10") || "≤10 min");
+  setText("pillMax5",  t("f_max5")  || "≤5");
+  setText("pillNoChop", t("f_noChop") || "No-Chop");
+  setText("pillOnePan", t("f_onePan") || "1 Topf/Pfanne");
+  setText("pillHPText", t("f_highProtein") || "High-Protein");
+  setText("pillUltra",  t("f_ultraLazy") || "Ultra-Lazy");
 }
 
 function renderSegs(){
