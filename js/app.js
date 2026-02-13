@@ -526,3 +526,55 @@ $("favFab").onclick = () => {
 
 /* ---------- Init ---------- */
 renderAll();
+
+(function enableSheetDragToClose(){
+  const sheetEl = document.getElementById("sheet");
+  const bodyEl = document.getElementById("sheetBody");
+  const grabEl = sheetEl.querySelector(".sheetHeader"); // Bereich mit dem Grab
+
+  let startY = 0;
+  let currentY = 0;
+  let dragging = false;
+
+  function setTranslate(y){
+    sheetEl.style.transform = `translateY(${y}px)`;
+  }
+
+  function resetTranslate(){
+    sheetEl.style.transform = "";
+  }
+
+  grabEl.addEventListener("touchstart", (e) => {
+    if(!sheetEl.classList.contains("on")) return;
+
+    // Nur wenn Inhalt oben ist, sonst conflict mit scroll
+    if(bodyEl && bodyEl.scrollTop > 0) return;
+
+    dragging = true;
+    startY = e.touches[0].clientY;
+    currentY = 0;
+    sheetEl.style.transition = "none";
+  }, { passive: true });
+
+  grabEl.addEventListener("touchmove", (e) => {
+    if(!dragging) return;
+    const y = e.touches[0].clientY;
+    currentY = Math.max(0, y - startY); // nur nach unten ziehen
+    setTranslate(currentY);
+  }, { passive: true });
+
+  grabEl.addEventListener("touchend", () => {
+    if(!dragging) return;
+    dragging = false;
+    sheetEl.style.transition = "";
+
+    // threshold: ab 90px schließen
+    if(currentY > 90){
+      resetTranslate();
+      closeSheet();
+    }else{
+      // zurück snappen
+      resetTranslate();
+    }
+  });
+})();
