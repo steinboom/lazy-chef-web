@@ -320,6 +320,8 @@ function openSheet(recipe){
 function closeSheet(){
   overlay.classList.remove("on");
   sheet.classList.remove("on");
+  document.body.style.overflow = "";
+  sheet.dataset.mode = "";
 }
 
 overlay.onclick = closeSheet;
