@@ -489,7 +489,16 @@ $("p2").onclick = () => { state.portion = 2; save(); renderAll(); };
 $("de").onclick = () => { state.lang = "de"; save(); renderAll(); };
 $("en").onclick = () => { state.lang = "en"; save(); renderAll(); };
 
-$("favFab").onclick = openFavoritesSheet;
+$("favFab").onclick = () => {
+  const isOpen = sheet.classList.contains("on");
+  const isFavs = sheet.dataset.mode === "favorites";
+
+  if (isOpen && isFavs) {
+    closeSheet();              // toggle: schließen
+  } else {
+    openFavoritesSheet();      // öffnen (oder von Rezept -> Favoriten wechseln)
+  }
+};
 
 /* ---------- Init ---------- */
 renderAll();
