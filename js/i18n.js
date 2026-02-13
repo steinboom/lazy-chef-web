@@ -70,10 +70,10 @@ window.I18N = {
     favoritesSaved: "Saved"
     
     f_max10: "≤10 min",
-f_max5: "≤5 ingredients",
-f_noChop: "No-chop",
-f_onePan: "One-pot/pan",
-f_highProtein: "High-protein",
-f_ultraLazy: "Ultra-lazy",
+    f_max5: "≤5 ingredients",
+    f_noChop: "No-chop",
+    f_onePan: "One-pot/pan",
+    f_highProtein: "High-protein",
+    f_ultraLazy: "Ultra-lazy",
   }
 };
