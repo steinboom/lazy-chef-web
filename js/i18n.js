@@ -28,7 +28,7 @@ window.I18N = {
 
     favoritesTitle: "Favoriten",
     favoritesHint: "Tippe ein Rezept an.",
-    favoritesSaved: "Gespeichert"
+    favoritesSaved: "Gespeichert",
     
     f_max10: "≤10 min",
     f_max5: "≤5 Zutaten",
@@ -67,7 +67,7 @@ window.I18N = {
 
     favoritesTitle: "Favorites",
     favoritesHint: "Tap a recipe.",
-    favoritesSaved: "Saved"
+    favoritesSaved: "Saved",
     
     f_max10: "≤10 min",
     f_max5: "≤5 ingredients",
