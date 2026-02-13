@@ -335,12 +335,13 @@ function openSheet(recipe){
   sheet.dataset.mode = "recipe";
   overlay.classList.add("on");
   sheet.classList.add("on");
+  lockScroll();
 }
 
 function closeSheet(){
   overlay.classList.remove("on");
   sheet.classList.remove("on");
-  document.body.style.overflow = "";
+  unlockScroll();
   sheet.dataset.mode = "";
 }
 
@@ -389,6 +390,7 @@ function openFavoritesSheet(){
   sheet.dataset.mode = "favorites";
   overlay.classList.add("on");
   sheet.classList.add("on");
+  lockScroll();
 }
 
 /* ---------- Lazy Mix: Offline Builder (regelbasiert) ---------- */
