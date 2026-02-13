@@ -1097,8 +1097,50 @@ function offlineBuild(){
   const sauces = ["soy_sauce","tomato","pesto","mayo","oil","butter"];
   let sauce = sauces.find(s => have.has(s)) || "oil";
 
-  // ultra-lazy reduces ingredient count
   const ultra = state.filters.ultraLazy;
+
+  // pretty names (outside of recipe object!)
+  const NAME = {
+    chicken: {de:"Chicken", en:"Chicken"},
+    tuna: {de:"Thunfisch", en:"Tuna"},
+    egg: {de:"Ei", en:"Egg"},
+    skyr: {de:"Skyr", en:"Skyr"},
+    cottage_cheese: {de:"Hüttenkäse", en:"Cottage Cheese"},
+    rice: {de:"Rice Bowl", en:"Rice Bowl"},
+    pasta: {de:"Pasta", en:"Pasta"},
+    wrap: {de:"Wrap", en:"Wrap"},
+    bread: {de:"Toast", en:"Toast"},
+    oats: {de:"Oat Bowl", en:"Oat Bowl"}
+  };
+
+  const protName = NAME[protein]?.[state.lang] || protein;
+  const baseName = NAME[base]?.[state.lang] || base;
+
+  let coreTitle;
+  if(base === "rice" || base === "oats"){
+    coreTitle = `${protName} ${baseName}`;
+  }else if(base === "pasta"){
+    coreTitle = `${protName} Pasta`;
+  }else if(base === "wrap"){
+    coreTitle = `${protName} Wrap`;
+  }else if(base === "bread"){
+    coreTitle = `${protName} Toast`;
+  }else{
+    coreTitle = `${protName} ${baseName}`;
+  }
+
+  const prefix = state.lang === "de" ? "Offline-KI" : "Offline AI";
+
+  const mods = [
+    state.filters.highProtein ? "High-Protein" : null,
+    state.filters.onePan ? (state.lang==="de" ? "1 Pfanne" : "One-Pan") : null,
+    state.filters.ultraLazy ? "Ultra-Lazy" : null
+  ].filter(Boolean);
+
+  const modStr = mods.length ? `: ${mods.join(" • ")}` : "";
+
+  const titleDE = `${prefix}${modStr} — ${coreTitle}`;
+  const titleEN = `${prefix}${modStr} — ${coreTitle}`;
 
   const recipe = {
     id: "offline_ai",
@@ -1107,18 +1149,80 @@ function offlineBuild(){
     noChop: true,
     onePan: !!state.filters.onePan,
     ultraLazy: ultra,
-    title: {const NAME = {
-  chicken: {de:"Chicken", en:"Chicken"},
-  tuna: {de:"Thunfisch", en:"Tuna"},
-  egg: {de:"Ei", en:"Egg"},
-  skyr: {de:"Skyr", en:"Skyr"},
-  cottage_cheese: {de:"Hüttenkäse", en:"Cottage Cheese"},
-  rice: {de:"Rice Bowl", en:"Rice Bowl"},
-  pasta: {de:"Pasta", en:"Pasta"},
-  wrap: {de:"Wrap", en:"Wrap"},
-  bread: {de:"Toast", en:"Toast"},
-  oats: {de:"Oat Bowl", en:"Oat Bowl"}
-};
+    title: { de: titleDE, en: titleEN },
+    ingredients: [],
+    steps: { de: [], en: [] },
+    tags: ["offline"]
+  };
+
+  // build ingredients list (1 person baseline)
+  const addIng = (key, qty, unit, de, en) => recipe.ingredients.push({key, qty, unit, label:{de,en}});
+
+  if(base === "wrap"){
+    addIng("wrap", 1, "wrap", "Wrap", "Wrap");
+  }else if(base === "bread"){
+    addIng("bread", 2, "slice", "Toast", "Toast");
+  }else if(base === "oats"){
+    addIng("oats", 60, "g", "Haferflocken", "Oats");
+  }else if(base === "pasta"){
+    addIng("pasta", 80, "g", "Pasta (trocken)", "Pasta (dry)");
+  }else{
+    addIng("rice", 75, "g", "Reis (trocken)", "Rice (dry)");
+  }
+
+  if(protein === "egg"){
+    addIng("egg", 2, "pcs", "Eier", "Eggs");
+  }else if(protein === "tuna"){
+    addIng("tuna", 1, "can", "Thunfisch (Dose)", "Tuna (can)");
+  }else if(protein === "skyr"){
+    addIng("skyr", 200, "g", "Skyr", "Skyr");
+  }else if(protein === "cottage_cheese"){
+    addIng("cottage_cheese", 180, "g", "Hüttenkäse", "Cottage cheese");
+  }else if(protein === "chicken"){
+    addIng("chicken", 150, "g", "Hähnchenbrust", "Chicken breast");
+  }else{
+    addIng("cheese", 40, "g", "Käse", "Cheese");
+  }
+
+  if(!ultra){
+    if(sauce === "soy_sauce") addIng("soy_sauce", 1, "tsp", "Sojasauce", "Soy sauce");
+    else if(sauce === "tomato") addIng("tomato", 120, "g", "Tomate", "Tomato");
+    else if(sauce === "pesto") addIng("pesto", 1, "tbsp", "Pesto", "Pesto");
+    else if(sauce === "mayo") addIng("mayo", 1, "tbsp", "Mayo", "Mayo");
+    else if(sauce === "butter") addIng("butter", 1, "tsp", "Butter", "Butter");
+    else addIng("oil", 1, "tsp", "Öl", "Oil");
+  }
+
+  if(state.filters.onePan){
+    recipe.steps.de = [
+      "Basis (Reis/Pasta) kochen oder Reste nehmen.",
+      "Protein in einer Pfanne kurz warm machen oder anbraten.",
+      "Sauce/Zusatz dazu, alles einmal durchziehen lassen.",
+      "Fertig. Optional: Salz/Pfeffer."
+    ];
+    recipe.steps.en = [
+      "Cook the base (rice/pasta) or use leftovers.",
+      "Warm up or pan-fry the protein.",
+      "Add sauce/extra, mix and heat briefly.",
+      "Done. Optional: salt/pepper."
+    ];
+  }else{
+    recipe.steps.de = [
+      "Basis vorbereiten (kochen oder ready machen).",
+      "Protein dazu.",
+      "Sauce/Zusatz rein, kurz mischen.",
+      "Fertig."
+    ];
+    recipe.steps.en = [
+      "Prepare the base (cook or get it ready).",
+      "Add the protein.",
+      "Add sauce/extra and mix.",
+      "Done."
+    ];
+  }
+
+  return recipe;
+}
 
 const protName = NAME[protein]?.[state.lang] || protein;
 const baseName = NAME[base]?.[state.lang] || base;
