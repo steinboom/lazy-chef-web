@@ -1107,10 +1107,51 @@ function offlineBuild(){
     noChop: true,
     onePan: !!state.filters.onePan,
     ultraLazy: ultra,
-    title: {
-      de: state.filters.highProtein ? "Offline-KI: High-Protein Bowl" : "Offline-KI: Lazy Bowl",
-      en: state.filters.highProtein ? "Offline AI: High-Protein Bowl" : "Offline AI: Lazy Bowl"
-    },
+    title: {const NAME = {
+  chicken: {de:"Chicken", en:"Chicken"},
+  tuna: {de:"Thunfisch", en:"Tuna"},
+  egg: {de:"Ei", en:"Egg"},
+  skyr: {de:"Skyr", en:"Skyr"},
+  cottage_cheese: {de:"Hüttenkäse", en:"Cottage Cheese"},
+  rice: {de:"Rice Bowl", en:"Rice Bowl"},
+  pasta: {de:"Pasta", en:"Pasta"},
+  wrap: {de:"Wrap", en:"Wrap"},
+  bread: {de:"Toast", en:"Toast"},
+  oats: {de:"Oat Bowl", en:"Oat Bowl"}
+};
+
+const protName = NAME[protein]?.[state.lang] || protein;
+const baseName = NAME[base]?.[state.lang] || base;
+
+let coreTitle;
+
+// schöner kombinieren
+if(base === "rice" || base === "oats"){
+  coreTitle = `${protName} ${baseName}`;
+}else if(base === "pasta"){
+  coreTitle = `${protName} Pasta`;
+}else if(base === "wrap"){
+  coreTitle = `${protName} Wrap`;
+}else if(base === "bread"){
+  coreTitle = `${protName} Toast`;
+}else{
+  coreTitle = `${protName} ${baseName}`;
+}
+
+const prefix = state.lang === "de" ? "Offline-KI" : "Offline AI";
+
+const mods = [
+  state.filters.highProtein ? "High-Protein" : null,
+  state.filters.onePan ? (state.lang==="de" ? "1 Pfanne" : "One-Pan") : null,
+  state.filters.ultraLazy ? "Ultra-Lazy" : null
+].filter(Boolean);
+
+const modStr = mods.length ? `: ${mods.join(" • ")}` : "";
+
+title: {
+  de: `${prefix}${modStr} — ${coreTitle}`,
+  en: `${prefix}${modStr} — ${coreTitle}`
+},},
     ingredients: [],
     steps: { de: [], en: [] },
     tags: ["offline"]
