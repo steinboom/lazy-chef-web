@@ -5,6 +5,7 @@ window.I18N = {
     ingredients: "Was hast du da?",
     filters: "Smart Filter",
     results: "Vorschläge",
+    inputPlaceholder: "z.B. reis, ei, thunfisch, chicken, skyr … (Enter)",
     hint1: "Enter = Zutat hinzufügen. Du kannst DE oder EN tippen.",
 
     find: "Rezepte finden",
@@ -36,6 +37,7 @@ window.I18N = {
     ingredients: "What do you have?",
     filters: "Smart Filters",
     results: "Suggestions",
+    inputPlaceholder: "e.g. rice, egg, tuna, chicken, skyr … (Enter)",
     hint1: "Enter = add ingredient. You can type DE or EN.",
 
     find: "Find recipes",
