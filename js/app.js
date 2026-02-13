@@ -167,6 +167,7 @@ function renderText(){
   $("btnFind").textContent = t("find");
   $("btnOfflineAI").textContent = t("offlineAI"); // Lazy Mix
   $("btnReset").textContent = t("reset");
+  $("ingInput").placeholder = t("inputPlaceholder");
 }
 
 function renderSegs(){
