@@ -856,13 +856,24 @@ function renderChips(){
 
 function renderFavorites(){
   const fav = RECIPES.filter(r => state.favorites.has(r.id));
+
   if(!fav.length){
     favListEl.className = "hint";
     favListEl.textContent = t("noFavs");
     return;
   }
+
   favListEl.className = "";
-  favListEl.innerHTML = fav.map(r => `• ${r.title[state.lang]}`).join("<br>");
+  favListEl.innerHTML = "";
+
+  fav.forEach(r => {
+    const el = document.createElement("div");
+    el.style.cursor = "pointer";
+    el.style.padding = "6px 0";
+    el.innerHTML = `❤️ ${r.title[state.lang]}`;
+    el.onclick = () => openSheet(r);
+    favListEl.appendChild(el);
+  });
 }
 
 function recipeMetaLine(recipe){
