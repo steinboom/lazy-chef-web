@@ -2,6 +2,6 @@
   "name": "lazy-chef-static",
   "private": true,
   "scripts": {
-    "build": "mkdir -p dist && cp index.html dist/index.html"
+    "build": "rm -rf dist && mkdir -p dist && cp index.html dist/index.html && cp -R css dist/css && cp -R js dist/js && cp manifest.webmanifest dist/ && (cp -R icons dist/icons 2>/dev/null || true)"
   }
 }
