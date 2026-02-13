@@ -1215,7 +1215,6 @@ $("btnOfflineAI").onclick = () => {
 
 $("btnReset").onclick = () => {
   state.ingredients = [];
-  state.favorites = new Set();
   state.filters = { ...defaultFilters };
   save();
   renderAll();
