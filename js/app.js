@@ -312,7 +312,7 @@ function openSheet(recipe){
     renderResults();
   };
 
-  sheet.dataset.mode = "favorites";
+  sheet.dataset.mode = "recipe";
   overlay.classList.add("on");
   sheet.classList.add("on");
 }
@@ -364,6 +364,7 @@ function openFavoritesSheet(){
     };
   });
 
+  sheet.dataset.mode = "favorites";
   overlay.classList.add("on");
   sheet.classList.add("on");
 }
