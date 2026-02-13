@@ -312,6 +312,7 @@ function openSheet(recipe){
     renderResults();
   };
 
+  sheet.dataset.mode = "favorites";
   overlay.classList.add("on");
   sheet.classList.add("on");
 }
