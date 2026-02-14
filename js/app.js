@@ -381,11 +381,16 @@ function openFavoritesSheet(){
       ${
         fav.length
           ? fav.map(r => `
-              <div class="card" style="box-shadow:none; margin-bottom:10px; cursor:pointer;" data-favid="${r.id}">
-                <div style="font-weight:900; font-size:16px;">${r.title[state.lang]}</div>
-                <div class="meta" style="margin-top:6px;">${recipeMetaLine(r)}</div>
-              </div>
-            `).join("")
+    <div class="card" style="box-shadow:none; margin-bottom:10px; cursor:pointer;" data-favid="${r.id}">
+      <div class="row" style="justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-weight:900; font-size:16px;">${r.title[state.lang]}</div>
+          <div class="meta" style="margin-top:6px;">${recipeMetaLine(r)}</div>
+        </div>
+        <button class="favBtn on" data-unfav="${r.id}" aria-label="remove">❤️</button>
+      </div>
+    </div>
+  `).join("")
           : `<div class="hint">${t("noFavs")}</div>`
       }
     </div>
