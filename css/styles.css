@@ -164,8 +164,6 @@ input:focus{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 12px;
-  padding-bottom: calc(110px + env(safe-area-inset-bottom));
-}
 }
 .recipeCard{
   padding:14px;
@@ -249,6 +247,7 @@ input:focus{
   overflow:auto;
   max-height: calc(92vh - 24px);
   -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(110px + env(safe-area-inset-bottom));
 }
 .sheetTopRow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
 .closeBtn{
