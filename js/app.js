@@ -405,6 +405,15 @@ function openFavoritesSheet(){
       if(recipe) openSheet(recipe);
     };
   });
+  
+  sheetBody.querySelectorAll("[data-unfav]").forEach(btn => {
+  btn.onclick = (e) => {
+    e.stopPropagation(); // verhindert, dass das Rezept geöffnet wird
+    const id = btn.getAttribute("data-unfav");
+    toggleFavorite(id);
+    openFavoritesSheet(); // neu rendern
+  };
+});
 
   sheet.dataset.mode = "favorites";
   overlay.classList.add("on");
