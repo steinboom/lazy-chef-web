@@ -36,6 +36,9 @@ window.I18N = {
     f_onePan: "1 Topf/Pfanne",
     f_highProtein: "High-Protein",
     f_ultraLazy: "Ultra-Lazy",
+    
+    needBase: "Für Lazy Mix brauchst du eine Basis (z.B. Reis, Pasta, Wrap, Brot, Oats).",
+    needProtein: "Für Lazy Mix brauchst du ein Protein (z.B. Ei, Chicken, Tuna, Skyr).",
   },
 
   en: {
@@ -75,5 +78,8 @@ window.I18N = {
     f_onePan: "One-pot/pan",
     f_highProtein: "High-protein",
     f_ultraLazy: "Ultra-lazy",
+    
+    needBase: "For Lazy Mix you need a base (e.g. rice, pasta, wrap, bread, oats).",
+    needProtein: "For Lazy Mix you need a protein (e.g. egg, chicken, tuna, skyr).",
   }
 };
