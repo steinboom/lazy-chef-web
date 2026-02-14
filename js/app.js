@@ -192,9 +192,7 @@ function renderText(){
   $("h_results").textContent = t("results");
   $("hint1").textContent = t("hint1");
 
-  $("btnFind").textContent = t("find");
-  $("btnOfflineAI").textContent = t("offlineAI"); // Lazy Mix
-  $("btnReset").textContent = t("reset");
+  $("btnOfflineAI").textContent = t("offlineAI");
   $("ingInput").placeholder = t("inputPlaceholder");
   
   setText("pillMax10", t("f_max10") || "≤10 min");
