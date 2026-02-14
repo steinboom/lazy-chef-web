@@ -365,7 +365,7 @@ input:focus{
 }
 .pill:active{ transform: scale(.97); }
 
-/* 4) FAB pulse (if missing) */
+/* 4) FAB pulse (if missing) 
 @keyframes fabPulse{
   0%{ transform: scale(1); }
   50%{ transform: scale(1.06); }
@@ -373,7 +373,7 @@ input:focus{
 }
 .fab.pulse{
   animation: fabPulse .28s ease;
-}
+}*/
 
 /* 5) Toast pop */
 .toast{
