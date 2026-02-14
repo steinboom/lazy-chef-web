@@ -506,8 +506,6 @@ document.querySelectorAll(".pill[data-filter]").forEach(p => {
   });
 });
 
-$("btnFind").onclick = () => renderResults();
-
 $("btnOfflineAI").onclick = () => {
   const r = lazyMixBuild();
   openSheet(r);
