@@ -303,7 +303,8 @@ function fmtQty(q){ return Number.isInteger(q) ? String(q) : (Math.round(q*10)/1
 function openSheet(recipe){
   const factor = state.portion;
   const ingsScaled = recipe.ingredients.map(i => ({ ...i, qty: i.qty * factor }));
-
+  document.querySelector(".fab")?.classList.add("hidden");
+  
   sheetBody.innerHTML = `
     <div class="sheetTopRow">
       <div>
@@ -363,6 +364,7 @@ function closeSheet(){
 
   unlockScroll();
   sheet.dataset.mode = "";
+  document.querySelector(".fab")?.classList.remove("hidden");
 }
 
 overlay.onclick = closeSheet;
