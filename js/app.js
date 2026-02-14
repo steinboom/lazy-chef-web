@@ -411,6 +411,7 @@ function openFavoritesSheet(){
     e.stopPropagation(); // verhindert, dass das Rezept geöffnet wird
     const id = btn.getAttribute("data-unfav");
     toggleFavorite(id);
+    renderResults();
     openFavoritesSheet(); // neu rendern
   };
 });
