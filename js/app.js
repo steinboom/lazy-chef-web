@@ -594,6 +594,7 @@ document.querySelectorAll(".pill[data-filter]").forEach(p => {
 
 $("btnOfflineAI").onclick = () => {
   const r = lazyMixBuild();
+  if(!r) return;
   openSheet(r);
 };
 
