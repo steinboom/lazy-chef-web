@@ -221,7 +221,8 @@ function renderChips(){
   chipsEl.innerHTML = "";
   state.ingredients.forEach(raw => {
     const el = document.createElement("div");
-    el.className = "chip";
+el.className = "chip new";
+setTimeout(()=> el.classList.remove("new"), 220);
     el.innerHTML = `<span>${raw}</span>`;
     const btn = document.createElement("button");
     btn.textContent = "✕";
