@@ -356,6 +356,10 @@ function openSheet(recipe){
 function closeSheet(){
   overlay.classList.remove("on");
   sheet.classList.remove("on");
+
+  sheet.style.transform = "";        // wichtig nach Drag
+  sheet.style.transition = "";
+
   unlockScroll();
   sheet.dataset.mode = "";
 }
