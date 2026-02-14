@@ -429,20 +429,73 @@ function lazyMixBuild(){
   const have = new Set(state.ingredients.map(toKey));
 
   const bases = ["rice","pasta","wrap","bread","oats"];
-  let base = bases.find(b => have.has(b)) || "rice";
+  const proteinsAll = ["egg","tuna","chicken","skyr","cottage_cheese","yogurt","cheese"];
+  const proteinsHP  = FITNESS_TOP;
+  const sauces = ["soy_sauce","pesto","tomato","mayo","butter","oil"];
 
-  let protein = null;
-  if(state.filters.highProtein){
-    protein = FITNESS_TOP.find(p => have.has(p)) || "chicken";
-  }else{
-    const proteins = ["egg","tuna","chicken","skyr","cottage_cheese","cheese","yogurt"];
-    protein = proteins.find(p => have.has(p)) || "egg";
+  const hasBase = bases.some(b => have.has(b));
+  const hasProtein = (state.filters.highProtein ? proteinsHP : proteinsAll).some(p => have.has(p));
+
+  // Smartere Hinweise (wie "KI")
+  if(!hasBase && !hasProtein){
+    showToast(t("mixNeedMore"));
+    return null;
+  }
+  if(!hasBase && hasProtein){
+    showToast(t("mixNeedBase"));
+    return null;
+  }
+  if(hasBase && !hasProtein){
+    showToast(t("mixNeedProtein"));
+    return null;
   }
 
-  const sauces = ["soy_sauce","tomato","pesto","mayo","oil","butter"];
-  let sauce = sauces.find(s => have.has(s)) || "oil";
+  // 1) Base wählen: prefer "echte" Bases, ansonsten erste gefundene
+  let base = bases.find(b => have.has(b));
+
+  // 2) Protein wählen: je nach highProtein Filter
+  let protein = (state.filters.highProtein ? proteinsHP : proteinsAll).find(p => have.has(p));
+
+  // 3) Sauce wählen: passend zur Kombi, aber nur wenn vorhanden
+  const preferSauceOrder = (() => {
+    if(base === "rice" && (protein === "tuna" || protein === "egg")) return ["mayo","soy_sauce","oil","butter","tomato","pesto"];
+    if(base === "rice" && protein === "chicken") return ["soy_sauce","tomato","oil","butter","pesto","mayo"];
+    if(base === "pasta") return ["pesto","tomato","butter","oil","mayo","soy_sauce"];
+    if(base === "wrap" || base === "bread") return ["mayo","tomato","pesto","butter","oil","soy_sauce"];
+    if(base === "oats") return ["honey","nuts"]; // falls duutat drinnen – bei dir optional
+    return ["soy_sauce","tomato","pesto","mayo","oil","butter"];
+  })();
+
+  let sauce = preferSauceOrder.find(s => have.has(s)) || sauces.find(s => have.has(s)) || null;
 
   const ultra = state.filters.ultraLazy;
+
+  // Rezept-Name wie echte KI (Base + Protein)
+  const NAME = {
+    chicken: {de:"Chicken", en:"Chicken"},
+    tuna: {de:"Thunfisch", en:"Tuna"},
+    egg: {de:"Ei", en:"Egg"},
+    skyr: {de:"Skyr", en:"Skyr"},
+    cottage_cheese: {de:"Hüttenkäse", en:"Cottage Cheese"},
+    yogurt: {de:"Joghurt", en:"Yogurt"},
+    cheese: {de:"Käse", en:"Cheese"},
+    rice: {de:"Rice Bowl", en:"Rice Bowl"},
+    pasta: {de:"Pasta", en:"Pasta"},
+    wrap: {de:"Wrap", en:"Wrap"},
+    bread: {de:"Toast", en:"Toast"},
+    oats: {de:"Oat Bowl", en:"Oat Bowl"},
+    soy_sauce: {de:"Soja", en:"Soy"},
+    pesto: {de:"Pesto", en:"Pesto"},
+    tomato: {de:"Tomate", en:"Tomato"},
+    mayo: {de:"Mayo", en:"Mayo"},
+    butter: {de:"Butter", en:"Butter"},
+    oil: {de:"Öl", en:"Oil"}
+  };
+
+  const title = {
+    de: `Lazy Mix — ${NAME[protein].de} ${NAME[base].de}${sauce && !ultra ? ` (${NAME[sauce].de})` : ""}`,
+    en: `Lazy Mix — ${NAME[protein].en} ${NAME[base].en}${sauce && !ultra ? ` (${NAME[sauce].en})` : ""}`
+  };
 
   const recipe = {
     id: "lazy_mix",
@@ -451,7 +504,7 @@ function lazyMixBuild(){
     noChop: true,
     onePan: !!state.filters.onePan,
     ultraLazy: ultra,
-    title: { de: "Lazy Mix", en: "Lazy Mix" },
+    title,
     ingredients: [],
     steps: { de: [], en: [] },
     tags: ["lazy_mix"]
@@ -459,36 +512,48 @@ function lazyMixBuild(){
 
   const addIng = (key, qty, unit, de, en) => recipe.ingredients.push({key, qty, unit, label:{de,en}});
 
+  // Base Zutaten (nur was vorhanden ist)
   if(base === "wrap") addIng("wrap", 1, "wrap", "Wrap", "Wrap");
   else if(base === "bread") addIng("bread", 2, "slice", "Toast", "Toast");
   else if(base === "oats") addIng("oats", 60, "g", "Haferflocken", "Oats");
   else if(base === "pasta") addIng("pasta", 80, "g", "Pasta (trocken)", "Pasta (dry)");
   else addIng("rice", 75, "g", "Reis (trocken)", "Rice (dry)");
 
+  // Protein (nur was vorhanden ist)
   if(protein === "egg") addIng("egg", 2, "pcs", "Eier", "Eggs");
   else if(protein === "tuna") addIng("tuna", 1, "can", "Thunfisch (Dose)", "Tuna (can)");
   else if(protein === "skyr") addIng("skyr", 200, "g", "Skyr", "Skyr");
   else if(protein === "cottage_cheese") addIng("cottage_cheese", 180, "g", "Hüttenkäse", "Cottage cheese");
+  else if(protein === "yogurt") addIng("yogurt", 200, "g", "Joghurt", "Yogurt");
   else if(protein === "chicken") addIng("chicken", 150, "g", "Hähnchenbrust", "Chicken breast");
   else addIng("cheese", 40, "g", "Käse", "Cheese");
 
-  if(!ultra){
+  // Sauce nur wenn vorhanden und nicht ultra
+  if(!ultra && sauce){
     if(sauce === "soy_sauce") addIng("soy_sauce", 1, "tsp", "Sojasauce", "Soy sauce");
     else if(sauce === "tomato") addIng("tomato", 120, "g", "Tomate", "Tomato");
     else if(sauce === "pesto") addIng("pesto", 1, "tbsp", "Pesto", "Pesto");
     else if(sauce === "mayo") addIng("mayo", 1, "tbsp", "Mayo", "Mayo");
     else if(sauce === "butter") addIng("butter", 1, "tsp", "Butter", "Butter");
-    else addIng("oil", 1, "tsp", "Öl", "Oil");
+    else if(sauce === "oil") addIng("oil", 1, "tsp", "Öl", "Oil");
   }
 
-  recipe.steps.de = state.filters.onePan
-    ? ["Basis kochen oder Reste nehmen.","Protein in Pfanne kurz warm machen.","Sauce dazu, kurz mischen.","Fertig."]
-    : ["Basis vorbereiten.","Protein dazu.","Sauce rein, kurz mischen.","Fertig."];
+  // Schritte: klingen “KI-mäßig” und passen zu onePan / ultra
+  recipe.steps.de = [
+    base === "rice" || base === "pasta" || base === "oats" ? "Basis vorbereiten (kochen oder Reste verwenden)." : "Basis bereitlegen.",
+    protein === "chicken" ? "Protein in der Pfanne anbraten (oder kurz erwärmen)." : "Protein dazugeben (ggf. kurz erwärmen).",
+    (!ultra && sauce) ? "Sauce dazu, alles kurz mischen." : "Kurz mischen & abschmecken.",
+    "Fertig. Optional: Salz/Pfeffer, wenn du willst."
+  ];
 
-  recipe.steps.en = state.filters.onePan
-    ? ["Cook base or use leftovers.","Warm protein in a pan.","Add sauce, mix briefly.","Done."]
-    : ["Prepare the base.","Add protein.","Add sauce, mix.","Done."];
+  recipe.steps.en = [
+    (base === "rice" || base === "pasta" || base === "oats") ? "Prepare the base (cook or use leftovers)." : "Get the base ready.",
+    (protein === "chicken") ? "Pan-fry the protein (or warm it briefly)." : "Add the protein (warm briefly if needed).",
+    (!ultra && sauce) ? "Add sauce and mix briefly." : "Mix briefly & season to taste.",
+    "Done. Optional: salt/pepper if you want."
+  ];
 
+  showToast(t("mixBuilt"));
   return recipe;
 }
 
