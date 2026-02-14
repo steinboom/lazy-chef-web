@@ -623,12 +623,18 @@ $("favFab").onclick = () => {
 };
 
 /* ---------- Init ---------- */
-renderAll();
 
-(function enableSheetDragToClose(){
+let sheetDragInitialized = false;
+
+function enableSheetDragToClose(){
+  if(sheetDragInitialized) return;
+  sheetDragInitialized = true;
+
   const sheetEl = document.getElementById("sheet");
   const bodyEl = document.getElementById("sheetBody");
-  const grabEl = sheetEl.querySelector(".sheetHeader"); // Bereich mit dem Grab
+  const grabEl = sheetEl.querySelector(".sheetHeader");
+
+  if(!grabEl) return;
 
   let startY = 0;
   let currentY = 0;
@@ -644,8 +650,6 @@ renderAll();
 
   grabEl.addEventListener("touchstart", (e) => {
     if(!sheetEl.classList.contains("on")) return;
-
-    // Nur wenn Inhalt oben ist, sonst conflict mit scroll
     if(bodyEl && bodyEl.scrollTop > 0) return;
 
     dragging = true;
@@ -657,7 +661,7 @@ renderAll();
   grabEl.addEventListener("touchmove", (e) => {
     if(!dragging) return;
     const y = e.touches[0].clientY;
-    currentY = Math.max(0, y - startY); // nur nach unten ziehen
+    currentY = Math.max(0, y - startY);
     setTranslate(currentY);
   }, { passive: true });
 
@@ -666,13 +670,17 @@ renderAll();
     dragging = false;
     sheetEl.style.transition = "";
 
-    // threshold: ab 90px schließen
     if(currentY > 90){
       resetTranslate();
       closeSheet();
-    }else{
-      // zurück snappen
+    } else {
       resetTranslate();
     }
   });
-})();
+}
+
+
+/* ---------- Start App ---------- */
+
+renderAll();
+enableSheetDragToClose();
