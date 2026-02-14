@@ -48,7 +48,11 @@ function save(){
   localStorage.setItem(LS.favorites, JSON.stringify(Array.from(state.favorites)));
 }
 
-function t(key){ return I18N[state.lang][key]; }
+function t(key){
+  return (window.I18N && window.I18N[state.lang] && window.I18N[state.lang][key])
+    ? window.I18N[state.lang][key]
+    : "";
+}
 function norm(s){ return (s||"").trim().toLowerCase(); }
 function toKey(raw){ const n = norm(raw); return MAP[n] || n; }
 function unique(arr){ return Array.from(new Set(arr)); }
