@@ -274,14 +274,19 @@ input:focus{
 }
 
 /* BOTTOM SHEET */
+/* BOTTOM SHEET (korrigiert) */
 .sheet{
   position:fixed;
   left:0; right:0; bottom:0;
   background:#fff;
   border-top-left-radius: 26px;
   border-top-right-radius: 26px;
-  transform: translateY(18px);
-  opacity:.98;
+
+  /* wichtig: initial unsichtbar/aus dem Viewport */
+  transform: translateY(105%);
+  opacity: 0;
+  pointer-events: none;
+
   transition: transform .22s cubic-bezier(.2,.8,.2,1), opacity .22s ease;
   z-index:60;
   box-shadow: 0 -20px 40px rgba(0,0,0,.18);
@@ -292,7 +297,8 @@ input:focus{
 
 .sheet.on{
   transform: translateY(0);
-  opacity:1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sheetHeader{padding:10px 16px 0;}
