@@ -286,7 +286,7 @@ input:focus{
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  z-index: 70;
+  z-index: 40;
 }
 .fabIcon{font-size: 20px;font-weight: 900;transform: translateY(-1px);}
 .fabCount{
