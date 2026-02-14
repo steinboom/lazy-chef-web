@@ -226,10 +226,11 @@ function renderChips(){
     const btn = document.createElement("button");
     btn.textContent = "✕";
     btn.onclick = () => {
-      state.ingredients = state.ingredients.filter(x => x !== raw);
-      save();
-      renderAll();
-    };
+  const idx = state.ingredients.indexOf(raw);
+  if(idx >= 0) state.ingredients.splice(idx, 1);
+  save();
+  renderAll();
+};
     el.appendChild(btn);
     chipsEl.appendChild(el);
   });
