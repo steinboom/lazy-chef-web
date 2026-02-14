@@ -511,13 +511,6 @@ $("btnOfflineAI").onclick = () => {
   openSheet(r);
 };
 
-$("btnReset").onclick = () => {
-  state.ingredients = [];
-  state.filters = { ...defaultFilters };
-  save();
-  renderAll();
-};
-
 $("p1").onclick = () => { state.portion = 1; save(); renderAll(); };
 $("p2").onclick = () => { state.portion = 2; save(); renderAll(); };
 
