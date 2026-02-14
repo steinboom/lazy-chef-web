@@ -136,7 +136,8 @@ function unlockScroll(){
   document.body.style.left = "";
   document.body.style.right = "";
   document.body.style.width = "";
-  window.scrollTo(0, _scrollY);
+  document.body.style.overflow = "";
+  window.scrollTo(0, _scrollY || 0);
 }
 
 function renderFavCount(){
