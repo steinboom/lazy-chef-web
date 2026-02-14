@@ -480,9 +480,15 @@ function lazyMixBuild(){
 /* ---------- Events ---------- */
 
 function addIngredient(raw){
-  const cleaned = raw.trim();
-  if(!cleaned) return;
-  if(state.ingredients.includes(cleaned)) return;
+  const cleaned = (raw || "").trim();
+  if(!cleaned) return; // (2) leere Eingabe blocken
+
+  const newKey = toKey(cleaned);
+
+  // (1) doppelte Zutaten verhindern (case/DE-EN egal)
+  const exists = state.ingredients.some(x => toKey(x) === newKey);
+  if(exists) return;
+
   state.ingredients = unique([...state.ingredients, cleaned]).slice(0, 20);
   save();
   renderAll();
