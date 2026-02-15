@@ -121,6 +121,58 @@ function matchScore(recipe){
 
 let _scrollY = 0;
 
+function computeTags(recipe){
+  const tags = new Set();
+
+  // Flags
+  if(recipe.onePan) tags.add("onePan");
+  if(recipe.noChop) tags.add("noChop");
+  if(recipe.ultraLazy) tags.add("ultraLazy");
+
+  const keys = (recipe.ingredients || []).map(i => i.key);
+
+  // Base tags
+  if(keys.includes("rice")) tags.add("rice");
+  if(keys.includes("pasta")) tags.add("pasta");
+  if(keys.includes("wrap")) tags.add("wrap");
+  if(keys.includes("bread")) tags.add("bread");
+  if(keys.includes("oats")) tags.add("oats");
+
+  // Protein tags
+  if(keys.includes("chicken")) tags.add("chicken");
+  if(keys.includes("tuna")) tags.add("tuna");
+  if(keys.includes("egg")) tags.add("egg");
+  if(keys.includes("skyr")) tags.add("skyr");
+  if(keys.includes("cottage_cheese")) tags.add("cottage_cheese");
+  if(keys.includes("yogurt")) tags.add("yogurt");
+  if(keys.includes("cheese")) tags.add("cheese");
+  if(keys.includes("mozzarella")) tags.add("mozzarella");
+
+  // Taste tags
+  if(keys.includes("soy_sauce")) tags.add("soy");
+  if(keys.includes("pesto")) tags.add("pesto");
+  if(keys.includes("tomato")) tags.add("tomato");
+  if(keys.includes("mayo") || keys.includes("skyr") || keys.includes("cottage_cheese")) tags.add("creamy");
+  if(keys.includes("chili_flakes")) tags.add("spicy");
+  if(keys.includes("cinnamon") || keys.includes("honey")) tags.add("sweet");
+
+  // Meal heuristics
+  if(tags.has("oats")) tags.add("breakfast");
+  if(tags.has("bread") && tags.has("egg")) tags.add("breakfast");
+  if(tags.has("wrap")) tags.add("lunch");
+  if(tags.has("pasta") || tags.has("rice")) tags.add("dinner");
+
+  // 🔥 NEW: High Protein auto-detection
+  try{
+    const protein = proteinPerPerson(recipe);
+    if(protein >= 30){
+      tags.add("highProtein");
+    }
+  }catch(e){}
+
+  return Array.from(tags);
+}
+
 function lockScroll(){
   _scrollY = window.scrollY || 0;
   document.body.style.position = "fixed";
