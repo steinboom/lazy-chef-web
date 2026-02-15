@@ -736,6 +736,5 @@ function enableSheetDragToClose(){
 
 /* ---------- Start App ---------- */
 
-normalizeRecipes();
 renderAll();
 enableSheetDragToClose();
