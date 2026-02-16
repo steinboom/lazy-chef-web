@@ -733,8 +733,18 @@ function enableSheetDragToClose(){
   });
 }
 
+function normalizeRecipes(){
+  // RECIPES ist global (const) – aber nicht zwingend window.RECIPES
+  if(typeof RECIPES === "undefined") return;
+
+  RECIPES.forEach(r => {
+    r.tags = computeTags(r);
+  });
+}
+
 
 /* ---------- Start App ---------- */
 
+normalizeRecipes();
 renderAll();
 enableSheetDragToClose();
