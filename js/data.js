@@ -59,6 +59,49 @@ window.PROTEIN = {
 window.RECIPES = [
 
 {
+  id:"stuffed_sweet_potato_protein",
+  category:"bowl",
+  time:25,
+  maxIng:5,
+  noChop:false,
+  onePan:true,
+  ultraLazy:false,
+  difficulty:"normal",
+
+  title:{
+    de:"Gefüllte Süßkartoffel mit Hack oder Hähnchen",
+    en:"Stuffed Sweet Potato with Beef or Chicken"
+  },
+
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"ground_beef", qty:150, unit:"g", label:{de:"Hackfleisch", en:"Ground beef"}},
+    {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchen", en:"Chicken breast"}},
+    {key:"cream_cheese", qty:2, unit:"tbsp", label:{de:"Frischkäse", en:"Cream cheese"}},
+    {key:"salt_pepper", qty:1, unit:"pinch", label:{de:"Salz & Pfeffer", en:"Salt & pepper"}}
+  ],
+
+  steps:{
+    de:[
+      "Süßkartoffel 8–10 Min. in der Mikrowelle oder 20 Min. im Ofen garen.",
+      "Hack oder Hähnchen in einer Pfanne anbraten.",
+      "Mit Salz & Pfeffer würzen.",
+      "Süßkartoffel aufschneiden und Frischkäse einrühren.",
+      "Fleisch darauf geben und servieren."
+    ],
+    en:[
+      "Cook sweet potato in microwave (8–10 min) or oven (20 min).",
+      "Pan-fry beef or chicken.",
+      "Season with salt & pepper.",
+      "Cut open sweet potato and mix in cream cheese.",
+      "Top with meat and serve."
+    ]
+  },
+
+  tags:["sweet-potato","high-protein","beef","chicken","fitness"]
+},
+
+{
   id:"tuna_rice_bowl",
   time:8, maxIng:5, noChop:true, onePan:true, ultraLazy:true,
   title:{de:"Tuna Rice Bowl", en:"Tuna Rice Bowl"},
