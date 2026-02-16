@@ -22,14 +22,6 @@ window.MAP = {
   "nüsse":"nuts","nuesse":"nuts","nuts":"nuts",
   "honig":"honey","honey":"honey",
   "salat":"salad","salad":"salad",
-  
-  "pesto rosso":"pesto_rosso","rotes pesto":"pesto_rosso","tomatenpesto":"pesto_rosso","pesto_rosso":"pesto_rosso",
-  "philadelphia":"cream_cheese","frischkäse":"cream_cheese","frischkaese":"cream_cheese","cream cheese":"cream_cheese","cream_cheese":"cream_cheese",
-  "sauerrahm":"sour_cream","saure sahne":"sour_cream","sour cream":"sour_cream","sour_cream":"sour_cream",
-  "passierte tomaten":"passata","passata":"passata","tomatensauce":"passata","tomaten sauce":"passata",
-  "süßkartoffel":"sweet_potato","suesskartoffel":"sweet_potato","sweet potato":"sweet_potato","sweet_potato":"sweet_potato",
-  "hack":"ground_beef","hackfleisch":"ground_beef","rinderhack":"ground_beef","faschiertes":"ground_beef","ground beef":"ground_beef","ground_beef":"ground_beef"
-  
 };
 
 window.PROTEIN = {
