@@ -500,6 +500,34 @@ window.RECIPES = [
     de:["Pasta kochen (salzen).","Abgießen, Butter rein, pfeffern.","Optional Käse drüber, 20 Sek. mischen.","Fertig."],
     en:["Cook pasta (salted water).","Drain, add butter, pepper.","Optional cheese, toss 20 sec.","Done."]
   }
+},
+{
+  id: "one_pot_creamy_pesto_rosso_pasta",
+  name: "One Pot Creamy Pesto Rosso Pasta",
+  time: 18,
+  protein: 18,
+  ingredients: [
+    "120 g Nudeln (ungekocht)",
+    "2 EL Pesto Rosso",
+    "2 EL Philadelphia",
+    "1–2 EL Sauerrahm",
+    "200 ml passierte Tomaten",
+    "350 ml Wasser",
+    "Salz",
+    "Pfeffer"
+  ],
+  steps: [
+    "Nudeln, passierte Tomaten, Wasser und eine Prise Salz in einen Topf geben.",
+    "Alles aufkochen und bei mittlerer Hitze 10–12 Minuten köcheln lassen.",
+    "Gelegentlich umrühren damit nichts klebt.",
+    "Wenn die Nudeln weich sind und die Flüssigkeit reduziert ist, Hitze niedrig stellen.",
+    "Pesto Rosso unterrühren.",
+    "Philadelphia einrühren bis alles cremig wird.",
+    "Sauerrahm unterheben.",
+    "Mit Pfeffer abschmecken. Falls zu dick → kleiner Schluck Wasser."
+  ],
+  tags: ["vegetarisch", "onepot", "cremig", "lazy"],
+  difficulty: "easy"
 }
 
 ];
