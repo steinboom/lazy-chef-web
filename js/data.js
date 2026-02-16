@@ -501,46 +501,5 @@ window.RECIPES = [
     en:["Cook pasta (salted water).","Drain, add butter, pepper.","Optional cheese, toss 20 sec.","Done."]
   }
 },
-{
-  id: "one_pot_creamy_pesto_pasta",
-  name: "One Pot Creamy Pesto Pasta",
-  time: 18,
-  protein: 18,
-  ingredients: [
-    "120 g Nudeln (ungekocht)",
-    "2 EL Pesto",
-    "2 EL Philadelphia",
-    "1–2 EL Sauerrahm",
-    "200 ml passierte Tomaten",
-    "350 ml Wasser",
-    "Salz",
-    "Pfeffer"
-  ],
-  steps: {
-    de: [
-      "Nudeln, passierte Tomaten, Wasser und eine Prise Salz in einen Topf geben.",
-      "Alles aufkochen und bei mittlerer Hitze 10–12 Minuten köcheln lassen.",
-      "Gelegentlich umrühren, damit nichts am Boden klebt.",
-      "Wenn die Nudeln weich sind und die Flüssigkeit reduziert ist, Hitze niedrig stellen.",
-      "Pesto unterrühren.",
-      "Philadelphia einrühren, bis die Sauce cremig wird.",
-      "Sauerrahm unterheben.",
-      "Mit Pfeffer abschmecken. Falls zu dick → etwas Wasser zugeben."
-    ],
-    en: [
-      "Add pasta, strained tomatoes, water and a pinch of salt to a pot.",
-      "Bring to a boil, then simmer on medium heat for 10–12 minutes.",
-      "Stir occasionally to prevent sticking.",
-      "Once pasta is tender and liquid reduced, lower the heat.",
-      "Stir in pesto.",
-      "Mix in cream cheese until creamy.",
-      "Fold in sour cream.",
-      "Season with pepper. If too thick → add a splash of water."
-    ]
-  },
-  tags: ["vegetarisch", "onepot", "cremig", "lazy"],
-  difficulty: "easy"
-  }
-},
 
 ];
