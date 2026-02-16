@@ -21,7 +21,7 @@ window.MAP = {
   "butter":"butter",
   "nüsse":"nuts","nuesse":"nuts","nuts":"nuts",
   "honig":"honey","honey":"honey",
-  "salat":"salad","salad":"salad"
+  "salat":"salad","salad":"salad",
   
     // --- NEW (for the new recipes) ---
   "pesto rosso":"pesto_rosso","rotes pesto":"pesto_rosso","tomatenpesto":"pesto_rosso","pesto_rosso":"pesto_rosso",
