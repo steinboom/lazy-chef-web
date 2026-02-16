@@ -502,7 +502,6 @@ window.RECIPES = [
   }
 },
 {
-{
   id: "one_pot_creamy_pesto_pasta",
   name: "One Pot Creamy Pesto Pasta",
   time: 18,
