@@ -29,7 +29,8 @@ window.MAP = {
   "sauerrahm":"sour_cream","saure sahne":"sour_cream","sour cream":"sour_cream","sour_cream":"sour_cream",
   "passierte tomaten":"passata","passata":"passata","tomatensauce":"passata","tomaten sauce":"passata",
   "süßkartoffel":"sweet_potato","suesskartoffel":"sweet_potato","sweet potato":"sweet_potato","sweet_potato":"sweet_potato",
-  "hack":"ground_beef","hackfleisch":"ground_beef","rinderhack":"ground_beef","faschiertes":"ground_beef","ground beef":"ground_beef","ground_beef":"ground_beef",
+  "hack":"ground_beef","hackfleisch":"ground_beef","rinderhack":"ground_beef","faschiertes":"ground_beef","ground beef":"ground_beef","ground_beef":"ground_beef"
+  
 };
 
 window.PROTEIN = {
