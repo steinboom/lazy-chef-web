@@ -163,6 +163,53 @@ window.RECIPES = [
   },
   tags:["pasta","tuna","high-protein"]
 },
+{
+  id:"creamy_pesto_rosso_pasta",
+  category:"pasta",
+  time:15,
+  maxIng:6,
+  noChop:true,
+  onePan:true,
+  ultraLazy:true,
+  difficulty:"lazy",
+
+  title:{
+    de:"Creamy Pesto Rosso Pasta",
+    en:"Creamy Pesto Rosso Pasta"
+  },
+
+  ingredients:[
+    {key:"pasta", qty:80, unit:"g", label:{de:"Nudeln (trocken)", en:"Pasta (dry)"}},
+    {key:"pesto_rosso", qty:2, unit:"tbsp", label:{de:"Pesto Rosso", en:"Pesto Rosso"}},
+    {key:"cream_cheese", qty:2, unit:"tbsp", label:{de:"Philadelphia", en:"Cream cheese"}},
+    {key:"sour_cream", qty:2, unit:"tbsp", label:{de:"Sauerrahm", en:"Sour cream"}},
+    {key:"passata", qty:180, unit:"ml", label:{de:"Passierte Tomaten", en:"Passata"}},
+    {key:"salt_pepper", qty:1, unit:"pinch", label:{de:"Salz & Pfeffer", en:"Salt & pepper"}}
+  ],
+
+  steps:{
+    de:[
+      "Nudeln in salzigem Wasser kochen.",
+      "Passierte Tomaten erhitzen, Pesto Rosso einrühren.",
+      "Philadelphia unterrühren bis cremig.",
+      "Sauerrahm dazugeben.",
+      "Mit Salz & Pfeffer abschmecken.",
+      "Etwas Nudelwasser zugeben falls zu dick.",
+      "Nudeln unterheben und 1 Minute ziehen lassen."
+    ],
+    en:[
+      "Cook pasta in salted water.",
+      "Heat passata and stir in pesto rosso.",
+      "Add cream cheese until creamy.",
+      "Stir in sour cream.",
+      "Season with salt & pepper.",
+      "Add some pasta water if too thick.",
+      "Mix in pasta and let sit for 1 minute."
+    ]
+  },
+
+  tags:["pasta","vegetarian","creamy","ultra-lazy"]
+},
 
 {
   id:"lazy_omelette",
