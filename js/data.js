@@ -23,7 +23,6 @@ window.MAP = {
   "honig":"honey","honey":"honey",
   "salat":"salad","salad":"salad",
   
-    // --- NEW (for the new recipes) ---
   "pesto rosso":"pesto_rosso","rotes pesto":"pesto_rosso","tomatenpesto":"pesto_rosso","pesto_rosso":"pesto_rosso",
   "philadelphia":"cream_cheese","frischkäse":"cream_cheese","frischkaese":"cream_cheese","cream cheese":"cream_cheese","cream_cheese":"cream_cheese",
   "sauerrahm":"sour_cream","saure sahne":"sour_cream","sour cream":"sour_cream","sour_cream":"sour_cream",
