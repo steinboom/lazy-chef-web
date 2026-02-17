@@ -102,6 +102,94 @@ window.RECIPES = [
 },
 
 {
+  id:"skyr_chocolate_bowl",
+  time:5, maxIng:4, noChop:true, onePan:false, ultraLazy:true,
+  title:{de:"Schoko Skyr Bowl", en:"Chocolate Skyr Bowl"},
+  ingredients:[
+    {key:"skyr", qty:200, unit:"g", label:{de:"Skyr", en:"Skyr"}},
+    {key:"cocoa_powder", qty:1, unit:"tbsp", label:{de:"Kakaopulver", en:"Cocoa powder"}},
+    {key:"honey", qty:1, unit:"tbsp", label:{de:"Honig", en:"Honey"}},
+    {key:"banana", qty:0.5, unit:"pc", label:{de:"Banane", en:"Banana"}}
+  ],
+  steps:{
+    de:["Skyr mit Kakaopulver & Honig verrühren.","Banane in Scheiben schneiden.","Alles in einer Bowl servieren."],
+    en:["Mix skyr with cocoa powder & honey.","Slice banana.","Serve in a bowl."]
+  },
+  tags:["breakfast","skyr","sweet","ultra-lazy"]
+},
+
+{
+  id:"banana_oat_protein_pancake",
+  time:15, maxIng:4, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Banane Hafer Protein Pancake", en:"Banana Oat Protein Pancake"},
+  ingredients:[
+    {key:"banana", qty:1, unit:"pc", label:{de:"Banane", en:"Banana"}},
+    {key:"oats", qty:40, unit:"g", label:{de:"Haferflocken", en:"Oats"}},
+    {key:"egg", qty:2, unit:"pc", label:{de:"Eier", en:"Eggs"}},
+    {key:"olive_oil", qty:1, unit:"tsp", label:{de:"Olivenöl", en:"Olive oil"}}
+  ],
+  steps:{
+    de:["Banane zerdrücken.","Mit Haferflocken & Eiern mischen.","In etwas Öl kleine Pancakes ausbacken."],
+    en:["Mash banana.","Mix with oats & eggs.","Cook small pancakes in a little oil."]
+  },
+  tags:["breakfast","pancake","high-protein"]
+},
+
+{
+  id:"protein_egg_toast",
+  time:10, maxIng:5, noChop:true, onePan:true, ultraLazy:true,
+  title:{de:"Protein Ei Toast", en:"Protein Egg Toast"},
+  ingredients:[
+    {key:"bread", qty:2, unit:"pc", label:{de:"Toast", en:"Bread"}},
+    {key:"egg", qty:2, unit:"pc", label:{de:"Eier", en:"Eggs"}},
+    {key:"cottage_cheese", qty:2, unit:"tbsp", label:{de:"Hüttenkäse", en:"Cottage cheese"}},
+    {key:"pepper", qty:1, unit:"pinch", label:{de:"Pfeffer", en:"Pepper"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Toast rösten.","Eier braten.","Toast mit Hüttenkäse bestreichen.","Ei darauf legen, salzen & pfeffern."],
+    en:["Toast bread.","Fry eggs.","Spread cottage cheese on toast.","Add egg, season with salt & pepper."]
+  },
+  tags:["breakfast","egg","high-protein","ultra-lazy"]
+},
+
+{
+  id:"sweet_potato_breakfast_bowl",
+  time:15, maxIng:5, noChop:true, onePan:false, ultraLazy:false,
+  title:{de:"Süßkartoffel Frühstück Bowl", en:"Sweet Potato Breakfast Bowl"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"skyr", qty:150, unit:"g", label:{de:"Skyr", en:"Skyr"}},
+    {key:"peanut_butter", qty:1, unit:"tbsp", label:{de:"Erdnussbutter", en:"Peanut butter"}},
+    {key:"honey", qty:1, unit:"tbsp", label:{de:"Honig", en:"Honey"}},
+    {key:"cinnamon", qty:1, unit:"tsp", label:{de:"Zimt", en:"Cinnamon"}}
+  ],
+  steps:{
+    de:["Süßkartoffel garen und halbieren.","Skyr darauf geben.","Mit Erdnussbutter, Honig & Zimt toppen."],
+    en:["Cook sweet potato and cut open.","Add skyr on top.","Top with peanut butter, honey & cinnamon."]
+  },
+  tags:["breakfast","sweet-potato","fitness"]
+},
+
+{
+  id:"protein_skyr_bowl_classic",
+  time:5, maxIng:5, noChop:true, onePan:false, ultraLazy:true,
+  title:{de:"Protein Skyr Bowl", en:"Protein Skyr Bowl"},
+  ingredients:[
+    {key:"skyr", qty:200, unit:"g", label:{de:"Skyr", en:"Skyr"}},
+    {key:"oats", qty:30, unit:"g", label:{de:"Haferflocken", en:"Oats"}},
+    {key:"banana", qty:0.5, unit:"pc", label:{de:"Banane", en:"Banana"}},
+    {key:"honey", qty:1, unit:"tbsp", label:{de:"Honig", en:"Honey"}},
+    {key:"cinnamon", qty:1, unit:"tsp", label:{de:"Zimt", en:"Cinnamon"}}
+  ],
+  steps:{
+    de:["Skyr in eine Bowl geben.","Haferflocken unterrühren.","Banane in Scheiben schneiden.","Mit Honig & Zimt toppen."],
+    en:["Add skyr to a bowl.","Stir in oats.","Slice banana.","Top with honey & cinnamon."]
+  },
+  tags:["breakfast","skyr","high-protein","ultra-lazy"]
+},
+
+{
   id:"sweet_potato_chili_bowl",
   time:30, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
   title:{de:"Süßkartoffel Chili Bowl", en:"Sweet Potato Chili Bowl"},
