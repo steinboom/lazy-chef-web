@@ -30,6 +30,30 @@ window.MAP = {
   "passierte tomaten":"passata","passata":"passata","tomatensauce":"passata","tomaten sauce":"passata",
   "süßkartoffel":"sweet_potato","suesskartoffel":"sweet_potato","sweet potato":"sweet_potato","sweet_potato":"sweet_potato",
   "hack":"ground_beef","hackfleisch":"ground_beef","rinderhack":"ground_beef","faschiertes":"ground_beef","ground beef":"ground_beef","ground_beef":"ground_beef",
+  
+    // --- sauces ---
+  "bbq":"bbq_sauce","bbq sauce":"bbq_sauce","barbecue sauce":"bbq_sauce",
+
+  // --- spices ---
+  "paprika":"paprika_powder","paprikapulver":"paprika_powder","paprika powder":"paprika_powder",
+  "chili":"chili_powder","chilipulver":"chili_powder","chili powder":"chili_powder",
+  "knoblauchpulver":"garlic_powder","garlic powder":"garlic_powder",
+  "zimt":"cinnamon","cinnamon":"cinnamon",
+  "kakao":"cocoa_powder","kakaopulver":"cocoa_powder","cocoa powder":"cocoa_powder",
+
+  // --- vegetables / extras ---
+  "bohnen":"beans","beans":"beans",
+  "mais":"corn","corn":"corn",
+  "spinat":"spinach","spinach":"spinach",
+  "avocado":"avocado",
+  "banane":"banana","banana":"banana",
+
+  // --- dairy / fats ---
+  "feta":"feta",
+  "olivenöl":"olive_oil","olivenoel":"olive_oil","olive oil":"olive_oil",
+  "honig":"honey","honey":"honey",
+  "erdnussbutter":"peanut_butter","peanut butter":"peanut_butter",
+  "parmesan":"parmesan",
 };
 
 window.PROTEIN = {
