@@ -31,24 +31,42 @@ body{
 header{
   background: linear-gradient(180deg, #121212 0%, #0f0f0f 100%);
   color: var(--headerText);
-  padding: 18px 0 14px;
+  padding: 26px 0 20px; /* mehr Raum = dominanter Look */
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.wrap{max-width:980px;margin:0 auto;padding:0 18px}
+.wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:0 18px;
+}
 
 .topbar{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:12px
+  display:flex;
+  align-items:center;            /* statt flex-start */
+  justify-content:space-between;
+  gap:12px;
 }
 
 .brand{
-  font-weight:900;letter-spacing:.06em;text-transform:uppercase;
-  font-size:20px;line-height:1
+  display:flex;
+  align-items:center;
+  line-height:1;
 }
 
-.tagline{
-  margin-top:6px;color:rgba(245,245,245,.72);
-  font-size:14px
+/* Logo dominant */
+.brandLogo{
+  height: clamp(48px, 8vw, 70px);
+  width: auto;
+  object-fit: contain;
+  display:block;
+}
+
+/* optionaler rechter Bereich */
+.topbarRight{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 /* FILTER CONTROLS */
