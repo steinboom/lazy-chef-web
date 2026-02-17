@@ -57,27 +57,26 @@ window.MAP = {
 };
 
 window.PROTEIN = {
+  // Animal
   chicken: { per100g: 22 },
   tuna: { per100g: 23 },
+  ground_beef: { per100g: 26 },
+  egg: { perUnit: 6 },
+
+  // Dairy
   skyr: { per100g: 11 },
   yogurt: { per100g: 10 },
   cottage_cheese: { per100g: 12 },
-  egg: { perUnit: 6 },
   cheese: { per100g: 25 },
   parmesan: { per100g: 32 },
-  rice: { per100g: 7 },
-  pasta: { per100g: 13 },
-  bread: { per100g: 9 },
+  feta: { per100g: 14 },
+  cream_cheese: { per100g: 6 },
+
+  // Plant
+  beans: { per100g: 8 },
   oats: { per100g: 13 },
-  nuts: { per100g: 20 },
-  mayo: { per100g: 1 },
-  soy_sauce: { per100g: 8 },
-  tomato: { per100g: 1 },
-  oil: { per100g: 0 },
-  butter: { per100g: 1 },
-  honey: { per100g: 0 },
-  salad: { per100g: 1 },
-  wrap: { per100g: 8 }
+  peanut_butter: { per100g: 25 },
+  nuts: { per100g: 20 }
 };
 
 window.RECIPES = [
