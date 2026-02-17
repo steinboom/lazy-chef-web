@@ -139,6 +139,99 @@ window.RECIPES = [
 },
 
 {
+  id:"creamy_garlic_chicken_rice",
+  time:25, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Cremiger Knoblauch Hähnchen Reis", en:"Creamy Garlic Chicken Rice"},
+  ingredients:[
+    {key:"rice", qty:80, unit:"g", label:{de:"Reis (trocken)", en:"Rice (dry)"}},
+    {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchen", en:"Chicken"}},
+    {key:"cream_cheese", qty:2, unit:"tbsp", label:{de:"Frischkäse", en:"Cream cheese"}},
+    {key:"garlic_powder", qty:1, unit:"tsp", label:{de:"Knoblauchpulver", en:"Garlic powder"}},
+    {key:"olive_oil", qty:1, unit:"tbsp", label:{de:"Olivenöl", en:"Olive oil"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Reis kochen.","Hähnchen würfeln und in Olivenöl anbraten.","Knoblauchpulver & Salz dazugeben.","Frischkäse unterrühren bis cremig.","Reis unterheben und kurz ziehen lassen."],
+    en:["Cook rice.","Dice chicken and cook in olive oil.","Add garlic powder & salt.","Stir in cream cheese until creamy.","Mix in rice and let rest briefly."]
+  },
+  tags:["rice","chicken","creamy","high-protein"]
+},
+
+{
+  id:"tuna_skyr_wrap",
+  time:10, maxIng:5, noChop:true, onePan:false, ultraLazy:true,
+  title:{de:"Thunfisch Skyr Wrap", en:"Tuna Skyr Wrap"},
+  ingredients:[
+    {key:"wrap", qty:1, unit:"pc", label:{de:"Wrap", en:"Wrap"}},
+    {key:"tuna", qty:1, unit:"can", label:{de:"Thunfisch", en:"Tuna"}},
+    {key:"skyr", qty:2, unit:"tbsp", label:{de:"Skyr", en:"Skyr"}},
+    {key:"pepper", qty:1, unit:"pinch", label:{de:"Pfeffer", en:"Pepper"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Thunfisch abtropfen.","Mit Skyr, Salz & Pfeffer mischen.","In Wrap füllen und einrollen."],
+    en:["Drain tuna.","Mix with skyr, salt & pepper.","Fill wrap and roll up."]
+  },
+  tags:["wrap","tuna","high-protein","ultra-lazy"]
+},
+
+{
+  id:"chicken_caesar_wrap",
+  time:15, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Chicken Caesar Wrap", en:"Chicken Caesar Wrap"},
+  ingredients:[
+    {key:"wrap", qty:1, unit:"pc", label:{de:"Wrap", en:"Wrap"}},
+    {key:"chicken", qty:120, unit:"g", label:{de:"Hähnchen", en:"Chicken"}},
+    {key:"yogurt", qty:2, unit:"tbsp", label:{de:"Joghurt", en:"Yogurt"}},
+    {key:"parmesan", qty:1, unit:"tbsp", label:{de:"Parmesan", en:"Parmesan"}},
+    {key:"garlic_powder", qty:1, unit:"tsp", label:{de:"Knoblauchpulver", en:"Garlic powder"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Hähnchen würfeln und anbraten.","Mit Salz & Knoblauchpulver würzen.","Joghurt mit Parmesan mischen.","Alles in den Wrap geben und einrollen."],
+    en:["Dice and cook chicken.","Season with salt & garlic powder.","Mix yogurt with parmesan.","Fill wrap and roll."]
+  },
+  tags:["wrap","chicken","fitness"]
+},
+
+{
+  id:"creamy_tuna_rice_bowl",
+  time:15, maxIng:5, noChop:true, onePan:false, ultraLazy:true,
+  title:{de:"Cremige Thunfisch Reis Bowl", en:"Creamy Tuna Rice Bowl"},
+  ingredients:[
+    {key:"rice", qty:80, unit:"g", label:{de:"Reis (trocken)", en:"Rice (dry)"}},
+    {key:"tuna", qty:1, unit:"can", label:{de:"Thunfisch", en:"Tuna"}},
+    {key:"cream_cheese", qty:2, unit:"tbsp", label:{de:"Frischkäse", en:"Cream cheese"}},
+    {key:"soy_sauce", qty:1, unit:"tbsp", label:{de:"Sojasauce", en:"Soy sauce"}},
+    {key:"pepper", qty:1, unit:"pinch", label:{de:"Pfeffer", en:"Pepper"}}
+  ],
+  steps:{
+    de:["Reis kochen.","Thunfisch mit Frischkäse mischen.","Sojasauce & Pfeffer dazugeben.","Mit Reis vermengen."],
+    en:["Cook rice.","Mix tuna with cream cheese.","Add soy sauce & pepper.","Combine with rice."]
+  },
+  tags:["rice","tuna","creamy","ultra-lazy"]
+},
+
+{
+  id:"sweet_potato_pesto_chicken",
+  time:25, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Süßkartoffel Pesto Hähnchen", en:"Sweet Potato Pesto Chicken"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchen", en:"Chicken"}},
+    {key:"pesto", qty:2, unit:"tbsp", label:{de:"Pesto", en:"Pesto"}},
+    {key:"paprika_powder", qty:1, unit:"tsp", label:{de:"Paprikapulver", en:"Paprika powder"}},
+    {key:"olive_oil", qty:1, unit:"tbsp", label:{de:"Olivenöl", en:"Olive oil"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel würfeln und backen.","Hähnchen anbraten und würzen.","Pesto unter das Hähnchen mischen.","Mit Süßkartoffel kombinieren."],
+    en:["Dice and bake sweet potato.","Cook and season chicken.","Mix pesto into chicken.","Combine with sweet potato."]
+  },
+  tags:["sweet-potato","chicken","pesto","high-protein"]
+},
+
+{
   id:"sweet_potato_skyr_bowl",
   time:15, maxIng:4, noChop:true, onePan:false, ultraLazy:true,
   title:{de:"Süßkartoffel Skyr Bowl", en:"Sweet Potato Skyr Bowl"},
