@@ -102,6 +102,98 @@ window.RECIPES = [
 },
 
 {
+  id:"sweet_potato_bbq_chicken",
+  time:25, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Süßkartoffel mit BBQ Hähnchen", en:"Sweet Potato BBQ Chicken"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchen", en:"Chicken breast"}},
+    {key:"bbq_sauce", qty:2, unit:"tbsp", label:{de:"BBQ Sauce", en:"BBQ sauce"}},
+    {key:"paprika_powder", qty:1, unit:"tsp", label:{de:"Paprikapulver", en:"Paprika powder"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}},
+    {key:"pepper", qty:1, unit:"pinch", label:{de:"Pfeffer", en:"Pepper"}}
+  ],
+  steps:{
+    de:["Süßkartoffel im Ofen (200°C, 20 Min) oder Mikrowelle (8–10 Min) garen.","Hähnchen würfeln, mit Salz, Pfeffer & Paprika würzen.","In der Pfanne anbraten.","BBQ Sauce unterheben.","Süßkartoffel aufschneiden und Hähnchen einfüllen."],
+    en:["Cook sweet potato (200°C oven 20 min or microwave 8–10 min).","Dice chicken, season with salt, pepper & paprika.","Pan-fry chicken.","Mix in BBQ sauce.","Cut sweet potato open and fill with chicken."]
+  },
+  tags:["sweet-potato","chicken","high-protein"]
+},
+
+{
+  id:"sweet_potato_tex_mex_hack",
+  time:25, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Tex-Mex Süßkartoffel mit Hack", en:"Tex-Mex Sweet Potato with Beef"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"ground_beef", qty:150, unit:"g", label:{de:"Hackfleisch", en:"Ground beef"}},
+    {key:"corn", qty:2, unit:"tbsp", label:{de:"Mais", en:"Corn"}},
+    {key:"paprika_powder", qty:1, unit:"tsp", label:{de:"Paprikapulver", en:"Paprika powder"}},
+    {key:"chili_powder", qty:1, unit:"tsp", label:{de:"Chilipulver", en:"Chili powder"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel garen.","Hack in der Pfanne anbraten.","Mais & Gewürze unterrühren.","Süßkartoffel aufschneiden und füllen."],
+    en:["Cook sweet potato.","Pan-fry beef.","Add corn & spices.","Cut sweet potato open and fill."]
+  },
+  tags:["sweet-potato","beef","tex-mex"]
+},
+
+{
+  id:"sweet_potato_feta_spinach",
+  time:20, maxIng:5, noChop:true, onePan:true, ultraLazy:false,
+  title:{de:"Süßkartoffel mit Feta & Spinat", en:"Sweet Potato with Feta & Spinach"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"spinach", qty:50, unit:"g", label:{de:"Spinat", en:"Spinach"}},
+    {key:"feta", qty:50, unit:"g", label:{de:"Feta", en:"Feta"}},
+    {key:"olive_oil", qty:1, unit:"tbsp", label:{de:"Olivenöl", en:"Olive oil"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel garen.","Spinat in Olivenöl kurz anbraten.","Süßkartoffel aufschneiden, Feta zerbröseln.","Spinat darüber geben und salzen."],
+    en:["Cook sweet potato.","Sauté spinach in olive oil.","Cut sweet potato open, crumble feta.","Top with spinach and salt."]
+  },
+  tags:["sweet-potato","vegetarian","healthy"]
+},
+
+{
+  id:"sweet_potato_tuna_protein",
+  time:15, maxIng:4, noChop:true, onePan:false, ultraLazy:true,
+  title:{de:"Süßkartoffel mit Thunfisch", en:"Sweet Potato with Tuna"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"tuna", qty:1, unit:"can", label:{de:"Thunfisch", en:"Tuna"}},
+    {key:"yogurt", qty:2, unit:"tbsp", label:{de:"Joghurt", en:"Yogurt"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel in der Mikrowelle garen.","Thunfisch abtropfen lassen.","Mit Joghurt & Salz mischen.","Süßkartoffel aufschneiden und füllen."],
+    en:["Cook sweet potato in microwave.","Drain tuna.","Mix with yogurt & salt.","Cut sweet potato open and fill."]
+  },
+  tags:["sweet-potato","tuna","high-protein","ultra-lazy"]
+},
+
+{
+  id:"crispy_sweet_potato_bowl",
+  time:25, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Crispy Süßkartoffel Bowl", en:"Crispy Sweet Potato Bowl"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"chicken", qty:120, unit:"g", label:{de:"Hähnchen", en:"Chicken"}},
+    {key:"paprika_powder", qty:1, unit:"tsp", label:{de:"Paprikapulver", en:"Paprika powder"}},
+    {key:"garlic_powder", qty:1, unit:"tsp", label:{de:"Knoblauchpulver", en:"Garlic powder"}},
+    {key:"olive_oil", qty:1, unit:"tbsp", label:{de:"Olivenöl", en:"Olive oil"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel würfeln, mit Öl & Gewürzen mischen.","Bei 200°C 20 Min backen oder Airfryer 15 Min.","Hähnchen anbraten und salzen.","Alles in einer Bowl kombinieren."],
+    en:["Dice sweet potato, mix with oil & spices.","Bake at 200°C 20 min or airfry 15 min.","Cook chicken and season.","Combine everything in a bowl."]
+  },
+  tags:["sweet-potato","chicken","bowl"]
+},
+
+{
   id:"tuna_rice_bowl",
   time:8, maxIng:5, noChop:true, onePan:true, ultraLazy:true,
   title:{de:"Tuna Rice Bowl", en:"Tuna Rice Bowl"},
