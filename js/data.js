@@ -102,6 +102,96 @@ window.RECIPES = [
 },
 
 {
+  id:"sweet_potato_chili_bowl",
+  time:30, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Süßkartoffel Chili Bowl", en:"Sweet Potato Chili Bowl"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"ground_beef", qty:150, unit:"g", label:{de:"Hackfleisch", en:"Ground beef"}},
+    {key:"beans", qty:100, unit:"g", label:{de:"Bohnen", en:"Beans"}},
+    {key:"passata", qty:150, unit:"ml", label:{de:"Passierte Tomaten", en:"Passata"}},
+    {key:"chili_powder", qty:1, unit:"tsp", label:{de:"Chilipulver", en:"Chili powder"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel würfeln und 20 Min backen.","Hack anbraten.","Bohnen, Passata & Gewürze dazugeben.","5–10 Min köcheln lassen.","Alles in einer Bowl servieren."],
+    en:["Dice sweet potato and bake 20 min.","Cook beef.","Add beans, passata & spices.","Simmer 5–10 min.","Serve in a bowl."]
+  },
+  tags:["sweet-potato","beef","chili","high-protein"]
+},
+
+{
+  id:"sweet_potato_egg_avocado",
+  time:20, maxIng:5, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Süßkartoffel mit Ei & Avocado", en:"Sweet Potato with Egg & Avocado"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"egg", qty:2, unit:"pc", label:{de:"Eier", en:"Eggs"}},
+    {key:"avocado", qty:0.5, unit:"pc", label:{de:"Avocado", en:"Avocado"}},
+    {key:"olive_oil", qty:1, unit:"tbsp", label:{de:"Olivenöl", en:"Olive oil"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel garen.","Eier in Olivenöl braten.","Avocado in Scheiben schneiden.","Süßkartoffel aufschneiden, alles darauf legen & salzen."],
+    en:["Cook sweet potato.","Fry eggs in olive oil.","Slice avocado.","Cut sweet potato open, add toppings & salt."]
+  },
+  tags:["sweet-potato","egg","healthy"]
+},
+
+{
+  id:"sweet_potato_skyr_bowl",
+  time:15, maxIng:4, noChop:true, onePan:false, ultraLazy:true,
+  title:{de:"Süßkartoffel Skyr Bowl", en:"Sweet Potato Skyr Bowl"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"skyr", qty:150, unit:"g", label:{de:"Skyr", en:"Skyr"}},
+    {key:"honey", qty:1, unit:"tbsp", label:{de:"Honig", en:"Honey"}},
+    {key:"cinnamon", qty:1, unit:"tsp", label:{de:"Zimt", en:"Cinnamon"}}
+  ],
+  steps:{
+    de:["Süßkartoffel garen und etwas abkühlen lassen.","Skyr darüber geben.","Mit Honig & Zimt toppen."],
+    en:["Cook sweet potato and let cool slightly.","Add skyr on top.","Top with honey & cinnamon."]
+  },
+  tags:["sweet-potato","skyr","sweet","fitness"]
+},
+
+{
+  id:"garlic_chicken_sweet_potato_pan",
+  time:25, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
+  title:{de:"Knoblauch Hähnchen mit Süßkartoffel", en:"Garlic Chicken with Sweet Potato"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"chicken", qty:150, unit:"g", label:{de:"Hähnchen", en:"Chicken"}},
+    {key:"garlic_powder", qty:1, unit:"tsp", label:{de:"Knoblauchpulver", en:"Garlic powder"}},
+    {key:"paprika_powder", qty:1, unit:"tsp", label:{de:"Paprikapulver", en:"Paprika powder"}},
+    {key:"olive_oil", qty:1, unit:"tbsp", label:{de:"Olivenöl", en:"Olive oil"}},
+    {key:"salt", qty:1, unit:"pinch", label:{de:"Salz", en:"Salt"}}
+  ],
+  steps:{
+    de:["Süßkartoffel würfeln und anbraten oder backen.","Hähnchen würzen und anbraten.","Alles zusammen in einer Pfanne mischen."],
+    en:["Dice sweet potato and cook or bake.","Season and cook chicken.","Combine everything in one pan."]
+  },
+  tags:["sweet-potato","chicken","one-pan"]
+},
+
+{
+  id:"sweet_potato_cottage_cheese",
+  time:15, maxIng:4, noChop:true, onePan:false, ultraLazy:true,
+  title:{de:"Süßkartoffel mit Hüttenkäse", en:"Sweet Potato with Cottage Cheese"},
+  ingredients:[
+    {key:"sweet_potato", qty:1, unit:"pc", label:{de:"Süßkartoffel", en:"Sweet potato"}},
+    {key:"cottage_cheese", qty:150, unit:"g", label:{de:"Hüttenkäse", en:"Cottage cheese"}},
+    {key:"pepper", qty:1, unit:"pinch", label:{de:"Pfeffer", en:"Pepper"}},
+    {key:"olive_oil", qty:1, unit:"tsp", label:{de:"Olivenöl", en:"Olive oil"}}
+  ],
+  steps:{
+    de:["Süßkartoffel garen.","Aufschneiden und Hüttenkäse einfüllen.","Mit Pfeffer & etwas Olivenöl toppen."],
+    en:["Cook sweet potato.","Cut open and fill with cottage cheese.","Top with pepper & olive oil."]
+  },
+  tags:["sweet-potato","cottage-cheese","high-protein","ultra-lazy"]
+},
+
+{
   id:"sweet_potato_bbq_chicken",
   time:25, maxIng:6, noChop:false, onePan:true, ultraLazy:false,
   title:{de:"Süßkartoffel mit BBQ Hähnchen", en:"Sweet Potato BBQ Chicken"},
