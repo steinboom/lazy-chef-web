@@ -486,6 +486,54 @@ function openFavoritesSheet(){
 
 const FITNESS_TOP = ["chicken","tuna","egg","skyr","cottage_cheese"];
 
+function pickFirstHave(haveSet, keys){
+  return keys.find(k => haveSet.has(k)) || null;
+}
+
+function proteinKeyOrder(){
+  // HighProtein bevorzugt diese, sonst normaler Mix
+  return state.filters.highProtein
+    ? ["chicken","tuna","egg","skyr","cottage_cheese","yogurt","cheese"]
+    : ["egg","tuna","chicken","skyr","cottage_cheese","yogurt","cheese"];
+}
+
+function baseIntentOrder(){
+  // Intent Detection: was fühlt sich am “lazy”-sten an?
+  // Wrap/Bread = schnell, Rice leftovers/Bowl, Pasta, Oats
+  return ["wrap","bread","rice","pasta","oats"];
+}
+
+function saucePreferenceFor(base, protein){
+  // Flavor Pairing Matrix (nur Reihenfolge; genommen wird nur, was du hast)
+  if(base === "rice" && protein === "tuna") return ["mayo","soy_sauce","tomato","pesto","oil","butter"];
+  if(base === "rice" && protein === "egg")  return ["soy_sauce","mayo","oil","butter","tomato","pesto"];
+  if(base === "rice" && protein === "chicken") return ["soy_sauce","tomato","pesto","oil","butter","mayo"];
+
+  if(base === "pasta") return ["pesto","tomato","butter","oil","mayo","soy_sauce"];
+
+  if(base === "wrap" || base === "bread"){
+    if(protein === "tuna") return ["mayo","tomato","pesto","soy_sauce","oil","butter"];
+    if(protein === "egg")  return ["butter","mayo","tomato","pesto","oil","soy_sauce"];
+    return ["mayo","tomato","pesto","soy_sauce","oil","butter"];
+  }
+
+  if(base === "oats") return ["honey"]; // nur wenn du honey hast
+  return ["soy_sauce","tomato","pesto","mayo","oil","butter"];
+}
+
+function bumpProteinQty(proteinKey, qty){
+  // Protein-Optimierung: HighProtein soll ≥30g treffen
+  // Wir erhöhen nur sinnvolle Protein-Zutaten.
+  if(proteinKey === "chicken") return Math.max(qty, 180);
+  if(proteinKey === "tuna") return qty; // 1 can bleibt
+  if(proteinKey === "egg") return Math.max(qty, 3); // 3 Eier
+  if(proteinKey === "skyr") return Math.max(qty, 250);
+  if(proteinKey === "cottage_cheese") return Math.max(qty, 220);
+  if(proteinKey === "yogurt") return Math.max(qty, 250);
+  if(proteinKey === "cheese") return Math.max(qty, 60);
+  return qty;
+}
+
 function lazyMixBuild(){
   const have = new Set(state.ingredients.map(toKey));
 
