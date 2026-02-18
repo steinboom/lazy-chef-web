@@ -694,6 +694,10 @@ else{
   recipe.why = {
     de: `Ich habe ${proteinName} + ${baseName} aus deinen Zutaten gewählt.${sauceName ? ` Dazu passt ${sauceName} am besten.` : ""}${state.filters.highProtein ? " Ziel: High Protein (≥30g)." : ""}`,
     en: `Picked ${proteinName} + ${baseName} from your ingredients.${sauceName ? ` Best match: ${sauceName}.` : ""}${state.filters.highProtein ? " Goal: High Protein (≥30g)." : ""}`
+    
+      showToast(t("mixBuilt"));
+  return recipe;
+}
 };
 
 /* ---------- Events ---------- */
