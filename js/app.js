@@ -537,7 +537,8 @@ function bumpProteinQty(proteinKey, qty){
 function lazyMixBuild(){
   const have = new Set(state.ingredients.map(toKey));
 
-  const bases = ["rice","pasta","wrap","bread","oats"];
+  // Intent: was ist am "laziest"?
+  const bases = ["wrap","bread","rice","pasta","oats"];
   const proteinsAll = ["egg","tuna","chicken","skyr","cottage_cheese","yogurt","cheese"];
   const proteinsHP  = FITNESS_TOP;
   const sauces = ["soy_sauce","pesto","tomato","mayo","butter","oil"];
@@ -628,14 +629,34 @@ function lazyMixBuild(){
   else if(base === "pasta") addIng("pasta", 80, "g", "Pasta (trocken)", "Pasta (dry)");
   else addIng("rice", 75, "g", "Reis (trocken)", "Rice (dry)");
 
-  // Protein (nur was vorhanden ist)
-  if(protein === "egg") addIng("egg", 2, "pcs", "Eier", "Eggs");
-  else if(protein === "tuna") addIng("tuna", 1, "can", "Thunfisch (Dose)", "Tuna (can)");
-  else if(protein === "skyr") addIng("skyr", 200, "g", "Skyr", "Skyr");
-  else if(protein === "cottage_cheese") addIng("cottage_cheese", 180, "g", "Hüttenkäse", "Cottage cheese");
-  else if(protein === "yogurt") addIng("yogurt", 200, "g", "Joghurt", "Yogurt");
-  else if(protein === "chicken") addIng("chicken", 150, "g", "Hähnchenbrust", "Chicken breast");
-  else addIng("cheese", 40, "g", "Käse", "Cheese");
+  // Protein (nur was vorhanden ist) + High-Protein Optimierung
+if(protein === "egg"){
+  const q = state.filters.highProtein ? bumpProteinForHP("egg", 2) : 2;
+  addIng("egg", q, "pcs", "Eier", "Eggs");
+}
+else if(protein === "tuna"){
+  addIng("tuna", 1, "can", "Thunfisch (Dose)", "Tuna (can)");
+}
+else if(protein === "skyr"){
+  const q = state.filters.highProtein ? bumpProteinForHP("skyr", 200) : 200;
+  addIng("skyr", q, "g", "Skyr", "Skyr");
+}
+else if(protein === "cottage_cheese"){
+  const q = state.filters.highProtein ? bumpProteinForHP("cottage_cheese", 180) : 180;
+  addIng("cottage_cheese", q, "g", "Hüttenkäse", "Cottage cheese");
+}
+else if(protein === "yogurt"){
+  const q = state.filters.highProtein ? bumpProteinForHP("yogurt", 200) : 200;
+  addIng("yogurt", q, "g", "Joghurt", "Yogurt");
+}
+else if(protein === "chicken"){
+  const q = state.filters.highProtein ? bumpProteinForHP("chicken", 150) : 150;
+  addIng("chicken", q, "g", "Hähnchenbrust", "Chicken breast");
+}
+else{
+  const q = state.filters.highProtein ? bumpProteinForHP("cheese", 40) : 40;
+  addIng("cheese", q, "g", "Käse", "Cheese");
+}
 
   // Sauce nur wenn vorhanden und nicht ultra
   if(!ultra && sauce){
@@ -661,10 +682,15 @@ function lazyMixBuild(){
     (!ultra && sauce) ? "Add sauce and mix briefly." : "Mix briefly & season to taste.",
     "Done. Optional: salt/pepper if you want."
   ];
+  
+    const proteinName = NAME[protein] ? NAME[protein][state.lang] : protein;
+    const baseName = NAME[base] ? NAME[base][state.lang] : base;
+    const sauceName = (sauce && NAME[sauce]) ? NAME[sauce][state.lang] : null;
 
-  showToast(t("mixBuilt"));
-  return recipe;
-}
+  recipe.why = {
+    de: `Ich habe ${proteinName} + ${baseName} aus deinen Zutaten gewählt.${sauceName ? ` Dazu passt ${sauceName} am besten.` : ""}${state.filters.highProtein ? " Ziel: High Protein (≥30g)." : ""}`,
+    en: `Picked ${proteinName} + ${baseName} from your ingredients.${sauceName ? ` Best match: ${sauceName}.` : ""}${state.filters.highProtein ? " Goal: High Protein (≥30g)." : ""}`
+};
 
 /* ---------- Events ---------- */
 
