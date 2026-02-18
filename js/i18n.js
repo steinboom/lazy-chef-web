@@ -47,7 +47,6 @@ window.I18N = {
     
     mixWhy: "Warum diese Kombi:",
     mixGoalHP: "Ziel: High Protein (≥30g)"
-    
   },
 
   en: {
@@ -97,7 +96,6 @@ window.I18N = {
     needProtein: "For Lazy Mix you need a protein (e.g. egg, chicken, tuna, skyr).",
     
     mixWhy: "Why this combo:",
-    mixGoalHP: "Goal: High Protein (≥30g)"
-    
+    mixGoalHP: "Goal: High Protein (≥30g)"  
   }
 };
