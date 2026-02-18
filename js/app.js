@@ -525,7 +525,7 @@ function saucePreferenceFor(base, protein){
   return ["soy_sauce","tomato","pesto","mayo","oil","butter"];
 }
 
-function bumpProteinQty(proteinKey, qty){
+function bumpProteinForHP(proteinKey, qty){
   // Protein-Optimierung: HighProtein soll ≥30g treffen
   // Wir erhöhen nur sinnvolle Protein-Zutaten.
   if(proteinKey === "chicken") return Math.max(qty, 180);
