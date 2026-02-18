@@ -44,6 +44,9 @@ window.I18N = {
     
     needBase: "Für Lazy Mix brauchst du eine Basis (z.B. Reis, Pasta, Wrap, Brot, Oats).",
     needProtein: "Für Lazy Mix brauchst du ein Protein (z.B. Ei, Chicken, Tuna, Skyr).",
+    
+    mixWhy: "Warum diese Kombi:",
+    mixGoalHP: "Ziel: High Protein (≥30g)",
   },
 
   en: {
@@ -91,5 +94,8 @@ window.I18N = {
     
     needBase: "For Lazy Mix you need a base (e.g. rice, pasta, wrap, bread, oats).",
     needProtein: "For Lazy Mix you need a protein (e.g. egg, chicken, tuna, skyr).",
+    
+    mixWhy: "Why this combo:",
+    mixGoalHP: "Goal: High Protein (≥30g)",
   }
 };
