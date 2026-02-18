@@ -48,7 +48,6 @@ window.I18N = {
     mixWhy: "Warum diese Kombi:",
     mixGoalHP: "Ziel: High Protein (≥30g)",
     
-    mixWhy: "Warum diese Kombi:",
   },
 
   en: {
