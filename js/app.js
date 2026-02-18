@@ -362,7 +362,6 @@ function openSheet(recipe){
       <div>
         <h3 class="bigTitle">${recipe.title[state.lang]}</h3>
         <div class="meta" style="margin-top:6px">${recipeMetaLine(recipe)}</div>
-        ${recipe.why ? `<div class="hint" style="margin-top:8px"><b>${t("mixWhy")}</b> ${recipe.why[state.lang]}</div>` : ""}
       </div>
       <button class="closeBtn" id="closeBtn">✕</button>
     </div>
