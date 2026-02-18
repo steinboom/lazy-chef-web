@@ -564,11 +564,13 @@ function lazyMixBuild(){
     return null;
   }
 
-  // 1) Base wählen: prefer "echte" Bases, ansonsten erste gefundene
-  let base = bases.find(b => have.has(b));
+  // 1) Base wählen (Intent Reihenfolge)
+  const base = bases.find(b => have.has(b));
 
-  // 2) Protein wählen: je nach highProtein Filter
-  let protein = (state.filters.highProtein ? proteinsHP : proteinsAll).find(p => have.has(p));
+  // 2) Protein wählen
+  const protein = (state.filters.highProtein ? proteinsHP : proteinsAll).find(p => have.has(p));
+
+  const ultra = state.filters.ultraLazy;
 
   // 3) Sauce wählen: passend zur Kombi, aber nur wenn vorhanden
   const preferSauceOrder = (() => {
@@ -576,15 +578,14 @@ function lazyMixBuild(){
     if(base === "rice" && protein === "chicken") return ["soy_sauce","tomato","oil","butter","pesto","mayo"];
     if(base === "pasta") return ["pesto","tomato","butter","oil","mayo","soy_sauce"];
     if(base === "wrap" || base === "bread") return ["mayo","tomato","pesto","butter","oil","soy_sauce"];
-    if(base === "oats") return ["honey","nuts"]; // falls duutat drinnen – bei dir optional
+    // oats: nur wenn du wirklich honey hast – sonst ignorieren
+    if(base === "oats") return ["honey","mayo","skyr","yogurt"]; 
     return ["soy_sauce","tomato","pesto","mayo","oil","butter"];
   })();
 
   let sauce = preferSauceOrder.find(s => have.has(s)) || sauces.find(s => have.has(s)) || null;
 
-  const ultra = state.filters.ultraLazy;
-
-  // Rezept-Name wie echte KI (Base + Protein)
+  // Rezept-Name (safe)
   const NAME = {
     chicken: {de:"Chicken", en:"Chicken"},
     tuna: {de:"Thunfisch", en:"Tuna"},
@@ -593,22 +594,28 @@ function lazyMixBuild(){
     cottage_cheese: {de:"Hüttenkäse", en:"Cottage Cheese"},
     yogurt: {de:"Joghurt", en:"Yogurt"},
     cheese: {de:"Käse", en:"Cheese"},
+
     rice: {de:"Rice Bowl", en:"Rice Bowl"},
     pasta: {de:"Pasta", en:"Pasta"},
     wrap: {de:"Wrap", en:"Wrap"},
     bread: {de:"Toast", en:"Toast"},
     oats: {de:"Oat Bowl", en:"Oat Bowl"},
+
     soy_sauce: {de:"Soja", en:"Soy"},
     pesto: {de:"Pesto", en:"Pesto"},
     tomato: {de:"Tomate", en:"Tomato"},
     mayo: {de:"Mayo", en:"Mayo"},
     butter: {de:"Butter", en:"Butter"},
-    oil: {de:"Öl", en:"Oil"}
+    oil: {de:"Öl", en:"Oil"},
+    honey: {de:"Honig", en:"Honey"}
   };
 
+  const sauceTitleDE = (sauce && NAME[sauce]) ? ` (${NAME[sauce].de})` : "";
+  const sauceTitleEN = (sauce && NAME[sauce]) ? ` (${NAME[sauce].en})` : "";
+
   const title = {
-    de: `Lazy Mix — ${NAME[protein].de} ${NAME[base].de}${sauce && !ultra ? ` (${NAME[sauce].de})` : ""}`,
-    en: `Lazy Mix — ${NAME[protein].en} ${NAME[base].en}${sauce && !ultra ? ` (${NAME[sauce].en})` : ""}`
+    de: `Lazy Mix — ${(NAME[protein]?.de || protein)} ${(NAME[base]?.de || base)}${(sauce && !ultra) ? sauceTitleDE : ""}`,
+    en: `Lazy Mix — ${(NAME[protein]?.en || protein)} ${(NAME[base]?.en || base)}${(sauce && !ultra) ? sauceTitleEN : ""}`
   };
 
   const recipe = {
@@ -624,43 +631,44 @@ function lazyMixBuild(){
     tags: ["lazy_mix"]
   };
 
-  const addIng = (key, qty, unit, de, en) => recipe.ingredients.push({key, qty, unit, label:{de,en}});
+  const addIng = (key, qty, unit, de, en) =>
+    recipe.ingredients.push({key, qty, unit, label:{de,en}});
 
-  // Base Zutaten (nur was vorhanden ist)
+  // Base Zutaten
   if(base === "wrap") addIng("wrap", 1, "wrap", "Wrap", "Wrap");
   else if(base === "bread") addIng("bread", 2, "slice", "Toast", "Toast");
   else if(base === "oats") addIng("oats", 60, "g", "Haferflocken", "Oats");
   else if(base === "pasta") addIng("pasta", 80, "g", "Pasta (trocken)", "Pasta (dry)");
   else addIng("rice", 75, "g", "Reis (trocken)", "Rice (dry)");
 
-  // Protein (nur was vorhanden ist) + High-Protein Optimierung
-if(protein === "egg"){
-  const q = state.filters.highProtein ? bumpProteinForHP("egg", 2) : 2;
-  addIng("egg", q, "pcs", "Eier", "Eggs");
-}
-else if(protein === "tuna"){
-  addIng("tuna", 1, "can", "Thunfisch (Dose)", "Tuna (can)");
-}
-else if(protein === "skyr"){
-  const q = state.filters.highProtein ? bumpProteinForHP("skyr", 200) : 200;
-  addIng("skyr", q, "g", "Skyr", "Skyr");
-}
-else if(protein === "cottage_cheese"){
-  const q = state.filters.highProtein ? bumpProteinForHP("cottage_cheese", 180) : 180;
-  addIng("cottage_cheese", q, "g", "Hüttenkäse", "Cottage cheese");
-}
-else if(protein === "yogurt"){
-  const q = state.filters.highProtein ? bumpProteinForHP("yogurt", 200) : 200;
-  addIng("yogurt", q, "g", "Joghurt", "Yogurt");
-}
-else if(protein === "chicken"){
-  const q = state.filters.highProtein ? bumpProteinForHP("chicken", 150) : 150;
-  addIng("chicken", q, "g", "Hähnchenbrust", "Chicken breast");
-}
-else{
-  const q = state.filters.highProtein ? bumpProteinForHP("cheese", 40) : 40;
-  addIng("cheese", q, "g", "Käse", "Cheese");
-}
+  // Protein + High-Protein Optimierung
+  if(protein === "egg"){
+    const q = state.filters.highProtein ? bumpProteinForHP("egg", 2) : 2;
+    addIng("egg", q, "pcs", "Eier", "Eggs");
+  }
+  else if(protein === "tuna"){
+    addIng("tuna", 1, "can", "Thunfisch (Dose)", "Tuna (can)");
+  }
+  else if(protein === "skyr"){
+    const q = state.filters.highProtein ? bumpProteinForHP("skyr", 200) : 200;
+    addIng("skyr", q, "g", "Skyr", "Skyr");
+  }
+  else if(protein === "cottage_cheese"){
+    const q = state.filters.highProtein ? bumpProteinForHP("cottage_cheese", 180) : 180;
+    addIng("cottage_cheese", q, "g", "Hüttenkäse", "Cottage cheese");
+  }
+  else if(protein === "yogurt"){
+    const q = state.filters.highProtein ? bumpProteinForHP("yogurt", 200) : 200;
+    addIng("yogurt", q, "g", "Joghurt", "Yogurt");
+  }
+  else if(protein === "chicken"){
+    const q = state.filters.highProtein ? bumpProteinForHP("chicken", 150) : 150;
+    addIng("chicken", q, "g", "Hähnchenbrust", "Chicken breast");
+  }
+  else{
+    const q = state.filters.highProtein ? bumpProteinForHP("cheese", 40) : 40;
+    addIng("cheese", q, "g", "Käse", "Cheese");
+  }
 
   // Sauce nur wenn vorhanden und nicht ultra
   if(!ultra && sauce){
@@ -670,12 +678,13 @@ else{
     else if(sauce === "mayo") addIng("mayo", 1, "tbsp", "Mayo", "Mayo");
     else if(sauce === "butter") addIng("butter", 1, "tsp", "Butter", "Butter");
     else if(sauce === "oil") addIng("oil", 1, "tsp", "Öl", "Oil");
+    else if(sauce === "honey") addIng("honey", 1, "tsp", "Honig", "Honey");
   }
 
-  // Schritte: klingen “KI-mäßig” und passen zu onePan / ultra
+  // Steps (onePan/ultra wirkt trotzdem)
   recipe.steps.de = [
-    base === "rice" || base === "pasta" || base === "oats" ? "Basis vorbereiten (kochen oder Reste verwenden)." : "Basis bereitlegen.",
-    protein === "chicken" ? "Protein in der Pfanne anbraten (oder kurz erwärmen)." : "Protein dazugeben (ggf. kurz erwärmen).",
+    (base === "rice" || base === "pasta" || base === "oats") ? "Basis vorbereiten (kochen oder Reste verwenden)." : "Basis bereitlegen.",
+    (protein === "chicken") ? "Protein in der Pfanne anbraten (oder kurz erwärmen)." : "Protein dazugeben (ggf. kurz erwärmen).",
     (!ultra && sauce) ? "Sauce dazu, alles kurz mischen." : "Kurz mischen & abschmecken.",
     "Fertig. Optional: Salz/Pfeffer, wenn du willst."
   ];
@@ -686,16 +695,18 @@ else{
     (!ultra && sauce) ? "Add sauce and mix briefly." : "Mix briefly & season to taste.",
     "Done. Optional: salt/pepper if you want."
   ];
-  
-    const proteinName = NAME[protein] ? NAME[protein][state.lang] : protein;
-    const baseName = NAME[base] ? NAME[base][state.lang] : base;
-    const sauceName = (sauce && NAME[sauce]) ? NAME[sauce][state.lang] : null;
+
+  // KI-Erklärung
+  const proteinName = NAME[protein] ? NAME[protein][state.lang] : protein;
+  const baseName = NAME[base] ? NAME[base][state.lang] : base;
+  const sauceName = (sauce && NAME[sauce]) ? NAME[sauce][state.lang] : null;
 
   recipe.why = {
-    de: `Ich habe ${proteinName} + ${baseName} aus deinen Zutaten gewählt.${sauceName ? ` Dazu passt ${sauceName} am besten.` : ""}${state.filters.highProtein ? " Ziel: High Protein (≥30g)." : ""}`,
-    en: `Picked ${proteinName} + ${baseName} from your ingredients.${sauceName ? ` Best match: ${sauceName}.` : ""}${state.filters.highProtein ? " Goal: High Protein (≥30g)." : ""}`
-    
-      showToast(t("mixBuilt"));
+    de: `Ich habe ${proteinName} + ${baseName} aus deinen Zutaten gewählt.${sauceName && !ultra ? ` Dazu passt ${sauceName} am besten.` : ""}${state.filters.highProtein ? " Ziel: High Protein (≥30g)." : ""}`,
+    en: `Picked ${proteinName} + ${baseName} from your ingredients.${sauceName && !ultra ? ` Best match: ${sauceName}.` : ""}${state.filters.highProtein ? " Goal: High Protein (≥30g)." : ""}`
+  };
+
+  showToast(t("mixBuilt"));
   return recipe;
 }
 };
