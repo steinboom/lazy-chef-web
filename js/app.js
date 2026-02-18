@@ -1,10 +1,3 @@
-window.onerror = function(msg, src, line, col, err){
-  alert("JS Error:\n" + msg + "\n" + (src||"") + ":" + line + ":" + col);
-};
-window.onunhandledrejection = function(e){
-  alert("Promise Error:\n" + (e.reason?.message || e.reason));
-};
-
 /* globals I18N, MAP, PROTEIN, RECIPES */
 
 const LS = {
