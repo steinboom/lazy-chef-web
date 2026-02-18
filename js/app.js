@@ -709,7 +709,6 @@ function lazyMixBuild(){
   showToast(t("mixBuilt"));
   return recipe;
 }
-};
 
 /* ---------- Events ---------- */
 
