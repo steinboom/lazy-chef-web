@@ -354,6 +354,9 @@ function fmtQty(q){ return Number.isInteger(q) ? String(q) : (Math.round(q*10)/1
 
 function openSheet(recipe){
   const factor = state.portion;
+  const whyHtml = recipe.why
+  ? `<div class="hint" style="margin-top:8px"><b>${t("mixWhy") || "Why:"}</b> ${recipe.why[state.lang]}</div>`
+  : ""; 
   const ingsScaled = recipe.ingredients.map(i => ({ ...i, qty: i.qty * factor }));
   document.querySelector(".fab")?.classList.add("hidden");
   
@@ -362,6 +365,7 @@ function openSheet(recipe){
       <div>
         <h3 class="bigTitle">${recipe.title[state.lang]}</h3>
         <div class="meta" style="margin-top:6px">${recipeMetaLine(recipe)}</div>
+        ${whyHtml}
       </div>
       <button class="closeBtn" id="closeBtn">✕</button>
     </div>
