@@ -303,8 +303,6 @@ function renderResults(){
   // simple sort
   list.sort((a,b)=> (matchScore(b)-matchScore(a)) || (a.time-b.time));
 
-  list = list.slice(0, 8);
-
   if(!list.length){
     resultsEl.innerHTML = `<div class="card">${t("empty")}</div>`;
     return;
