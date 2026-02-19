@@ -5,7 +5,7 @@
   --muted:#6F6A66;
   --border:#E9E3DC;
 
-  --header:#1c86ee;
+  --header:#1A1A1A;
   --headerText:#F5F5F5;
 
   --accent:#FF7A00;
@@ -20,18 +20,20 @@
 
 body{
   margin:0;
+  height 100%;
   font-family:"Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial;
   background:
     radial-gradient(900px 450px at 18% 0%, rgba(255,122,0,.20), transparent 60%),
     var(--bg);
   color:var(--text);
+  min-height: 100svh;
 }
 
 /* HEADER */
 header{
   background: linear-gradient(180deg, var(--header) 0%, #0f0f0f 100%);
   color: var(--headerText);
-  padding: 18px 0 14px;
+  padding: calc(18px + env(safe-area-inset-top)) 0 14px;
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
