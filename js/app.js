@@ -78,58 +78,49 @@ function proteinPerPerson(recipe){
   return recipe.ingredients.reduce((sum, ing) => sum + approxProtein({key:ing.key, qty: ing.qty, unit: ing.unit}), 0);
 }
 
-function approxKcal(ingredient){
-  const ref = PROTEIN[ingredient.key];
-  if(!ref) return 0;
+function approxMacros(ingredient){
+  const ref = (window.NUTRITION || {})[ingredient.key];
+  if(!ref) return { p:0, c:0, f:0, kcal:0 };
 
-  let grams = ingredient.qty;
-
-  if(ingredient.unit === "pcs" && ref.perUnitKcal){
-    return ingredient.qty * ref.perUnitKcal;
+  // per unit (pcs)
+  if(ingredient.unit === "pcs" && ref.perUnit){
+    const p = ingredient.qty * (ref.perUnit.p || 0);
+    const c = ingredient.qty * (ref.perUnit.c || 0);
+    const f = ingredient.qty * (ref.perUnit.f || 0);
+    const kcal = 4*(p+c) + 9*f;
+    return { p, c, f, kcal };
   }
 
-  if(UNIT_TO_G[ingredient.unit]) grams = ingredient.qty * UNIT_TO_G[ingredient.unit];
-
-  if(ref.per100gKcal) return (grams / 100) * ref.per100gKcal;
-
-  return 0;
-}
-
-function approxCarbs(ingredient){
-  const ref = PROTEIN[ingredient.key];
-  if(!ref) return 0;
-
+  // per 100g
   let grams = ingredient.qty;
   if(UNIT_TO_G[ingredient.unit]) grams = ingredient.qty * UNIT_TO_G[ingredient.unit];
 
-  if(ref.per100gCarbs) return (grams / 100) * ref.per100gCarbs;
-  return 0;
-}
+  if(ref.per100g){
+    const p = (grams/100) * (ref.per100g.p || 0);
+    const c = (grams/100) * (ref.per100g.c || 0);
+    const f = (grams/100) * (ref.per100g.f || 0);
+    const kcal = 4*(p+c) + 9*f;
+    return { p, c, f, kcal };
+  }
 
-function approxFat(ingredient){
-  const ref = PROTEIN[ingredient.key];
-  if(!ref) return 0;
-
-  let grams = ingredient.qty;
-  if(UNIT_TO_G[ingredient.unit]) grams = ingredient.qty * UNIT_TO_G[ingredient.unit];
-
-  if(ref.per100gFat) return (grams / 100) * ref.per100gFat;
-  return 0;
+  return { p:0, c:0, f:0, kcal:0 };
 }
 
 function macrosForRecipe(recipe){
-  let kcal = 0, carbs = 0, fat = 0;
+  const total = { p:0, c:0, f:0, kcal:0 };
 
-  recipe.ingredients.forEach(i => {
-    kcal += approxKcal(i);
-    carbs += approxCarbs(i);
-    fat += approxFat(i);
+  (recipe.ingredients || []).forEach(ing => {
+    const m = approxMacros({ key: ing.key, qty: ing.qty, unit: ing.unit });
+    total.p += m.p;
+    total.c += m.c;
+    total.f += m.f;
+    total.kcal += m.kcal;
   });
 
   return {
-    kcal: Math.round(kcal),
-    carbs: Math.round(carbs),
-    fat: Math.round(fat)
+    kcal: Math.round(total.kcal),
+    carbs: Math.round(total.c),
+    fat: Math.round(total.f)
   };
 }
 
