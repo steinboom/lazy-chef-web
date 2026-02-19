@@ -424,13 +424,22 @@ function openSheet(recipe){
     </div>
 
     <div class="sectionTitle">${t("portion")}</div>
-    <div class="row">
-      <div class="seg" style="border:1px solid var(--border); background:#fff;">
-        <button id="sheetP1" class="${state.portion===1?'on':''}">1</button>
-        <button id="sheetP2" class="${state.portion===2?'on':''}">2</button>
-      </div>
-      <span class="badge">🔥 ~${Math.round(proteinForCurrentPortion(recipe))}g ${t("protein")} ${t("perPortion")}</span>
+<div class="row">
+  <div class="seg" style="border:1px solid var(--border); background:#fff;">
+    <button id="sheetP1" class="${state.portion===1?'on':''}">1</button>
+    <button id="sheetP2" class="${state.portion===2?'on':''}">2</button>
+  </div>
+  <span class="badge">🔥 ~${Math.round(proteinForCurrentPortion(recipe))}g ${t("protein")} ${t("perPortion")}</span>
+</div>
+
+${state.filters.highProtein ? (() => {
+  const m = macrosForRecipe(recipe);
+  return `
+    <div class="macroLine">
+      ⚡ ${m.kcal} kcal · 🍞 ${m.carbs}g C · 🧈 ${m.fat}g F
     </div>
+  `;
+})() : ""}
 
     <div class="sectionTitle">${t("ingredientsLabel")}</div>
     <ul class="ingList">
