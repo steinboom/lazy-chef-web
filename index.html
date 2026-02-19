@@ -55,10 +55,12 @@
         <input id="ingInput" placeholder="z.B. reis, ei, thunfisch, chicken, skyr … (Enter)" />
         <div class="hint" id="hint1">Enter = Zutat hinzufügen. Du kannst DE oder EN tippen.</div>
 
-        <div class="sectionTitle collapsible" id="filterToggle" style="margin-top:16px">
-        <span id="h_filters">Smart Filter</span>
+        <div class="filterHeader" style="margin-top:16px">
+        <div class="sectionTitle" id="h_filters">Smart Filter</div>
+        <button id="filterToggle" class="filterToggle" aria-label="toggle filters">
         <span id="filterArrow">▾</span>
-        </div>
+        </button>
+      </div>
         <div class="pills">
           <div class="pill on" data-filter="max10" id="pillMax10">≤10 min</div>
           <div class="pill on" data-filter="max5" id="pillMax5">≤5 Zutaten</div>
