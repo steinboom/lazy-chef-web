@@ -2,27 +2,29 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-
-
-
-<!-- PWA / iOS-Standalone: Statusbar dunkel transparent über Inhalt -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Nur EIN Viewport-Tag, inkl. viewport-fit=cover -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Lazy Chef</title>
-  <meta name="theme-color" content="#1A1A1A">
+
+  <!-- Nur EIN (oder zwei mit media) theme-color. Letzter gewinnt! -->
+  <!-- Falls du Light/Dark unterstützen willst, nutze beide: -->
+  <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+  <!-- Wenn du kein Light/Dark brauchst, reicht EINER ohne media: -->
+  <!-- <meta name="theme-color" content="#0f0f0f"> -->
+
+  <!-- Optional: nur für Standalone / Homescreen-Apps relevant -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
   <!-- PWA -->
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="apple-touch-icon" href="/icons/icon-512.png">
-  <meta name="theme-color" content="#FF7A00">
 
-  <!-- Font -->
+  <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;900&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 
