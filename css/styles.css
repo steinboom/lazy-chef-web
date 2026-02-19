@@ -448,6 +448,11 @@ input:focus{
   *{transition:none !important; animation:none !important;}
 }
 
+html, body {
+  margin: 0;
+  background-color: #000;
+}
+
 .tabs{
   display:flex;
   gap:8px;
