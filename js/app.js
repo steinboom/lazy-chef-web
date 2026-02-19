@@ -686,10 +686,16 @@ const mealType = (() => {
   const sauceTitleDE = (sauce && NAME[sauce]) ? ` (${NAME[sauce].de})` : "";
   const sauceTitleEN = (sauce && NAME[sauce]) ? ` (${NAME[sauce].en})` : "";
 
-  const title = {
-    de: `Lazy Mix — ${(NAME[protein]?.de || protein)} ${(NAME[base]?.de || base)}${(sauce && !ultra) ? sauceTitleDE : ""}`,
-    en: `Lazy Mix — ${(NAME[protein]?.en || protein)} ${(NAME[base]?.en || base)}${(sauce && !ultra) ? sauceTitleEN : ""}`
-  };
+  const modeLabel = ultra
+  ? "Ultra Lazy"
+  : state.filters.highProtein
+    ? "High Protein"
+    : "Smart";
+
+const title = {
+  de: `${modeLabel} — ${(NAME[protein]?.de || protein)} ${(NAME[base]?.de || base)}${(sauce && !ultra) ? sauceTitleDE : ""}`,
+  en: `${modeLabel} — ${(NAME[protein]?.en || protein)} ${(NAME[base]?.en || base)}${(sauce && !ultra) ? sauceTitleEN : ""}`
+};
 
   const recipe = {
     id: "lazy_mix",
