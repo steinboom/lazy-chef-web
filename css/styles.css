@@ -484,3 +484,25 @@ input:focus{
     transform: translateY(0);
   }
 }
+
+.collapsible{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  user-select:none;
+}
+
+#filterArrow{
+  transition: transform .18s ease, opacity .18s ease;
+  opacity:.7;
+}
+
+body.filtersHidden .pills{
+  display:none;
+}
+
+body.filtersHidden #filterArrow{
+  transform: rotate(-90deg);
+  opacity:.9;
+}
