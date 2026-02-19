@@ -447,3 +447,25 @@ input:focus{
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important; animation:none !important;}
 }
+
+.tabs{
+  display:flex;
+  gap:8px;
+  width:100%;
+}
+
+.tabBtn{
+  flex:1;
+  border:none;
+  padding:10px;
+  border-radius:12px;
+  font-weight:800;
+  background:#f2f2f2;
+  cursor:pointer;
+  transition:all .2s ease;
+}
+
+.tabBtn.on{
+  background: var(--accent);
+  color:white;
+}
