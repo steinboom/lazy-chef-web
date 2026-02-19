@@ -959,6 +959,19 @@ $("favFab").onclick = () => {
   }
 };
 
+/* ---------- Filter Toggle ---------- */
+
+const LS_UI = "lazy.ui.filtersHidden";
+
+if(localStorage.getItem(LS_UI) === "1"){
+  document.body.classList.add("filtersHidden");
+}
+
+$("filterToggle").onclick = () => {
+  const hidden = document.body.classList.toggle("filtersHidden");
+  localStorage.setItem(LS_UI, hidden ? "1" : "0");
+};
+
 /* ---------- Init ---------- */
 
 let sheetDragInitialized = false;
