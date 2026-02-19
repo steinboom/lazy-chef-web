@@ -505,10 +505,11 @@ input:focus{
 
 #filterArrow{
   display:inline-block;
-  font-size:22px;        /* größer */
+  font-size:22px;
   font-weight:900;
-  opacity:.75;
-  transition: transform .18s ease, opacity .18s ease;
+  color:#111;          /* schwarz */
+  opacity:1;           /* volle Deckkraft */
+  transition: transform .18s ease;
 }
 
 body.filtersHidden .pills{
@@ -517,5 +518,4 @@ body.filtersHidden .pills{
 
 body.filtersHidden #filterArrow{
   transform: rotate(-90deg);
-  opacity:.95;
 }
