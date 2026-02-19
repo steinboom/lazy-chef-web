@@ -357,7 +357,7 @@ function openSheet(recipe){
   const whyHtml = recipe.why
   ? `<div class="hint" style="margin-top:8px"><b>${t("mixWhy") || "Why:"}</b> ${recipe.why[state.lang]}</div>`
   : ""; 
-  const ingsScaled = recipe.ingredients.map(i => ({ ...i, qty: i.qty * factor }));
+  const ingsScaled = (recipe.ingredients || []).map(i => ({ ...i, qty: i.qty * factor }));
   document.querySelector(".fab")?.classList.add("hidden");
   
   sheetBody.innerHTML = `
@@ -386,7 +386,7 @@ function openSheet(recipe){
 
     <div class="sectionTitle">${t("stepsLabel")}</div>
     <ol class="steps">
-      ${recipe.steps[state.lang].map(s => `<li>${s}</li>`).join("")}
+      ${(recipe.steps?.[state.lang] || []).map(s => `<li>${s}</li>`).join("")}
     </ol>
 
     <div style="margin-top:14px" class="row">
