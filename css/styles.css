@@ -448,9 +448,8 @@ input:focus{
   *{transition:none !important; animation:none !important;}
 }
 
-html, body {
-  margin: 0;
-  background-color: #000;
+html {
+  overscroll-behavior: none;
 }
 
 .tabs{
