@@ -772,9 +772,13 @@ document.querySelectorAll(".pill[data-filter]").forEach(p => {
 });
 
 $("btnOfflineAI").onclick = () => {
-  const r = lazyMixBuild();
-  if(!r) return;
-  openSheet(r);
+  const variants = buildLazyMixVariants();
+
+  if(!variants.ultra && !variants.smart && !variants.highProtein){
+    return;
+  }
+
+  openLazyMixSheet(variants);
 };
 
 $("p1").onclick = () => { state.portion = 1; save(); renderAll(); };
