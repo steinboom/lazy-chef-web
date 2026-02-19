@@ -469,3 +469,18 @@ input:focus{
   background: var(--accent);
   color:white;
 }
+
+#lazyMixContent {
+  animation: fadeSlideIn 140ms ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
