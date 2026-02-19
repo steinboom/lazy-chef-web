@@ -79,6 +79,33 @@ window.PROTEIN = {
   nuts: { per100g: 20 }
 };
 
+window.NUTRITION = {
+  // per100g (wenn sinnvoll), sonst perUnit (z.B. Ei)
+  chicken: { per100g: { p:22, c:0, f:2 } },
+  tuna:    { per100g: { p:23, c:0, f:1 } },      // konservativ
+  skyr:    { per100g: { p:11, c:4, f:0 } },
+  yogurt:  { per100g: { p:10, c:4, f:1 } },
+  cottage_cheese:{ per100g:{ p:12, c:3, f:4 } },
+  cheese:  { per100g: { p:25, c:2, f:30 } },
+
+  rice:    { per100g: { p:7,  c:78, f:1 } },     // trocken
+  pasta:   { per100g: { p:13, c:75, f:2 } },     // trocken
+  oats:    { per100g: { p:13, c:60, f:7 } },
+
+  soy_sauce:{ per100g:{ p:8,  c:5,  f:0 } },
+  mayo:    { per100g: { p:1,  c:1,  f:75 } },
+  butter:  { per100g: { p:1,  c:0,  f:82 } },
+  oil:     { per100g: { p:0,  c:0,  f:100 } },
+  tomato:  { per100g: { p:1,  c:4,  f:0 } },
+
+  egg:     { perUnit: { p:6,  c:0.4, f:5 } },    // 1 Ei
+  bread:   { per100g: { p:9,  c:49, f:3 } },
+  wrap:    { per100g: { p:8,  c:50, f:8 } },
+
+  // optional falls du es nutzt
+  honey:   { per100g: { p:0,  c:82, f:0 } }
+};
+
 window.RECIPES = [
 
 {
