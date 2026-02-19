@@ -645,13 +645,6 @@ const mealType = (() => {
   return "dinner";
 })();
 
-const mealType = (() => {
-  if(base === "oats" || protein === "skyr" || protein === "yogurt") return "breakfast";
-  if(base === "bread" && protein === "egg") return "breakfast";
-  if(base === "wrap") return "lunch";
-  return "dinner";
-})();
-
   // 3) Sauce wählen: passend zur Kombi, aber nur wenn vorhanden
   const preferSauceOrder = (() => {
     if(base === "rice" && (protein === "tuna" || protein === "egg")) return ["mayo","soy_sauce","oil","butter","tomato","pesto"];
