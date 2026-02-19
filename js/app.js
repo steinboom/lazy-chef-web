@@ -409,6 +409,72 @@ function openSheet(recipe){
   lockScroll();
 }
 
+function openLazyMixSheet(variants){
+
+  let active = "smart"; // Default
+
+  function render(){
+    const recipe = variants[active];
+    if(!recipe){
+      sheetBody.innerHTML = `<div class="card">${t("empty")}</div>`;
+      return;
+    }
+
+    // Tabs + Content
+    sheetBody.innerHTML = `
+      <div class="sheetTopRow">
+        <div class="tabs">
+          <button class="tabBtn ${active==="ultra"?"on":""}" data-tab="ultra">💤 Ultra Lazy</button>
+          <button class="tabBtn ${active==="smart"?"on":""}" data-tab="smart">🧠 Smart</button>
+          <button class="tabBtn ${active==="highProtein"?"on":""}" data-tab="highProtein">💪 High Protein</button>
+        </div>
+        <button class="closeBtn" id="closeBtn">✕</button>
+      </div>
+
+      <div id="lazyMixContent"></div>
+    `;
+
+    $("closeBtn").onclick = closeSheet;
+
+    document.querySelectorAll(".tabBtn").forEach(btn => {
+      btn.onclick = () => {
+        active = btn.dataset.tab;
+        render();
+      };
+    });
+
+    const content = document.getElementById("lazyMixContent");
+
+    // Temporär normales Rezept-Rendering nutzen
+    const factor = state.portion;
+    const ingsScaled = (recipe.ingredients || []).map(i => ({ ...i, qty: i.qty * factor }));
+
+    content.innerHTML = `
+      <h3 class="bigTitle">${recipe.title[state.lang]}</h3>
+      <div class="meta" style="margin-top:6px">${recipeMetaLine(recipe)}</div>
+
+      ${recipe.why ? `<div class="hint" style="margin-top:8px"><b>${t("mixWhy")}</b> ${recipe.why[state.lang]}</div>` : ""}
+
+      <div class="sectionTitle">${t("ingredientsLabel")}</div>
+      <ul class="ingList">
+        ${ingsScaled.map(i => `<li><b>${fmtQty(i.qty)} ${i.unit}</b> — ${i.label[state.lang]}</li>`).join("")}
+      </ul>
+
+      <div class="sectionTitle">${t("stepsLabel")}</div>
+      <ol class="steps">
+        ${(recipe.steps?.[state.lang] || []).map(s => `<li>${s}</li>`).join("")}
+      </ol>
+    `;
+  }
+
+  sheet.dataset.mode = "lazyMix";
+  overlay.classList.add("on");
+  sheet.classList.add("on");
+  lockScroll();
+
+  render();
+}
+
 function closeSheet(){
   overlay.classList.remove("on");
   sheet.classList.remove("on");
