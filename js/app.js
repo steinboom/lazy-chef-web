@@ -797,7 +797,7 @@ recipe.steps.en = [
   const sauceName = (sauce && NAME[sauce]) ? NAME[sauce][state.lang] : null;
 
   recipe.why = {
-    de: `Ich habe ${proteinName} + ${baseName} aus deinen Zutaten gewählt.${sauceName && !ultra ? ` Dazu passt ${sauceName} am besten.` : ""}${state.filters.highProtein ? " Ziel: High Protein (≥30g)." : ""}`,
+    de: `Ich habe ${proteinName} + ${baseName} aus deinen Zutaten gewählt.${sauceName && !ultra ? ` Dazu passt ${sauceName} am besten.` : ""}${state.filters.highProtein ? " Ziel: High Protein (≥30g)." : isSmart ? " Optimiert für Geschmack & Balance." : ""}`,
     en: `Picked ${proteinName} + ${baseName} from your ingredients.${sauceName && !ultra ? ` Best match: ${sauceName}.` : ""}${state.filters.highProtein ? " Goal: High Protein (≥30g)." : ""}`
   };
 
