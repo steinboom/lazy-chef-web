@@ -5,7 +5,7 @@
   --muted:#6F6A66;
   --border:#E9E3DC;
 
-  --header:#111111;
+  --header:#1c86ee;
   --headerText:#F5F5F5;
 
   --accent:#FF7A00;
@@ -29,7 +29,7 @@ body{
 
 /* HEADER */
 header{
-  background: linear-gradient(180deg, #121212 0%, #0f0f0f 100%);
+  background: linear-gradient(180deg, var(--header) 0%, #0f0f0f 100%);
   color: var(--headerText);
   padding: 18px 0 14px;
   border-bottom: 1px solid rgba(255,255,255,.08);
