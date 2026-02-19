@@ -465,7 +465,6 @@ ${state.filters.highProtein ? (() => {
 }
 
 function openLazyMixSheet(variants){
-
   let active = "smart"; // Default
 
   function render(){
@@ -475,7 +474,7 @@ function openLazyMixSheet(variants){
       return;
     }
 
-    // Tabs + Content
+    // Tabs + Content shell
     sheetBody.innerHTML = `
       <div class="sheetTopRow">
         <div class="tabs">
@@ -500,36 +499,38 @@ function openLazyMixSheet(variants){
 
     const content = document.getElementById("lazyMixContent");
 
-    // Temporär normales Rezept-Rendering nutzen
+    // Render recipe
     const factor = state.portion;
     const ingsScaled = (recipe.ingredients || []).map(i => ({ ...i, qty: i.qty * factor }));
 
     content.innerHTML = `
-  <h3 class="bigTitle">${recipe.title[state.lang]}</h3>
-  <div class="meta" style="margin-top:6px">${recipeMetaLine(recipe)}</div>
+      <h3 class="bigTitle">${recipe.title[state.lang]}</h3>
+      <div class="meta" style="margin-top:6px">${recipeMetaLine(recipe)}</div>
 
-  ${active === "highProtein" ? (() => {
-    const m = macrosForRecipe(recipe);
-    return `
-      <div class="macroLine">
-        ⚡ ${m.kcal} kcal · 🍞 ${m.carbs}g C · 🧈 ${m.fat}g F
-      </div>
+      ${active === "highProtein" ? (() => {
+        const m = macrosForRecipe(recipe);
+        return `
+          <div class="macroLine">
+            ⚡ ${m.kcal} kcal · 🍞 ${m.carbs}g C · 🧈 ${m.fat}g F
+          </div>
+        `;
+      })() : ""}
+
+      ${recipe.why ? `<div class="hint" style="margin-top:8px"><b>${t("mixWhy")}</b> ${recipe.why[state.lang]}</div>` : ""}
+
+      <div class="sectionTitle">${t("ingredientsLabel")}</div>
+      <ul class="ingList">
+        ${ingsScaled.map(i => `<li><b>${fmtQty(i.qty)} ${i.unit}</b> — ${i.label[state.lang]}</li>`).join("")}
+      </ul>
+
+      <div class="sectionTitle">${t("stepsLabel")}</div>
+      <ol class="steps">
+        ${(recipe.steps?.[state.lang] || []).map(s => `<li>${s}</li>`).join("")}
+      </ol>
     `;
-  })() : ""}
+  }
 
-  ${recipe.why ? `<div class="hint" style="margin-top:8px"><b>${t("mixWhy")}</b> ${recipe.why[state.lang]}</div>` : ""}
-
-  <div class="sectionTitle">${t("ingredientsLabel")}</div>
-  <ul class="ingList">
-    ${ingsScaled.map(i => `<li><b>${fmtQty(i.qty)} ${i.unit}</b> — ${i.label[state.lang]}</li>`).join("")}
-  </ul>
-
-  <div class="sectionTitle">${t("stepsLabel")}</div>
-  <ol class="steps">
-    ${(recipe.steps?.[state.lang] || []).map(s => `<li>${s}</li>`).join("")}
-  </ol>
-`;
-
+  // OPEN SHEET (einmalig!)
   sheet.dataset.mode = "lazyMix";
   overlay.classList.add("on");
   sheet.classList.add("on");
