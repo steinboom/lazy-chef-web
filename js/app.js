@@ -754,20 +754,36 @@ const mealType = (() => {
     else if(sauce === "honey") addIng("honey", 1, "tsp", "Honig", "Honey");
   }
 
-  // Steps (onePan/ultra wirkt trotzdem)
-  recipe.steps.de = [
-    (base === "rice" || base === "pasta" || base === "oats") ? "Basis vorbereiten (kochen oder Reste verwenden)." : "Basis bereitlegen.",
-    (protein === "chicken") ? "Protein in der Pfanne anbraten (oder kurz erwärmen)." : "Protein dazugeben (ggf. kurz erwärmen).",
-    (!ultra && sauce) ? "Sauce dazu, alles kurz mischen." : "Kurz mischen & abschmecken.",
-    "Fertig. Optional: Salz/Pfeffer, wenn du willst."
-  ];
+  const flavorDE = isSmart ? "Optional: Salz/Pfeffer + Chili oder Knoblauchpulver." : "Optional: Salz/Pfeffer.";
+const flavorEN = isSmart ? "Optional: salt/pepper + chili or garlic powder." : "Optional: salt/pepper.";
 
-  recipe.steps.en = [
-    (base === "rice" || base === "pasta" || base === "oats") ? "Prepare the base (cook or use leftovers)." : "Get the base ready.",
-    (protein === "chicken") ? "Pan-fry the protein (or warm it briefly)." : "Add the protein (warm briefly if needed).",
-    (!ultra && sauce) ? "Add sauce and mix briefly." : "Mix briefly & season to taste.",
-    "Done. Optional: salt/pepper if you want."
-  ];
+recipe.steps.de = [
+  mealType === "breakfast"
+    ? "Basis vorbereiten (z.B. Oats/Skyr in eine Bowl)."
+    : (base === "rice" || base === "pasta")
+      ? "Basis vorbereiten (kochen oder Reste verwenden)."
+      : "Basis bereitlegen.",
+  protein === "chicken"
+    ? "Protein in der Pfanne anbraten (oder kurz erwärmen)."
+    : "Protein dazugeben (ggf. kurz erwärmen).",
+  (!ultra && sauce) ? "Sauce dazu, alles kurz mischen." : "Kurz mischen & abschmecken.",
+  flavorDE,
+  "Fertig."
+];
+
+recipe.steps.en = [
+  mealType === "breakfast"
+    ? "Prep the base (e.g., oats/skyr into a bowl)."
+    : (base === "rice" || base === "pasta")
+      ? "Prepare the base (cook or use leftovers)."
+      : "Get the base ready.",
+  protein === "chicken"
+    ? "Pan-fry the protein (or warm it briefly)."
+    : "Add the protein (warm briefly if needed).",
+  (!ultra && sauce) ? "Add sauce and mix briefly." : "Mix briefly & season to taste.",
+  flavorEN,
+  "Done."
+];
 
   // KI-Erklärung
   const proteinName = NAME[protein] ? NAME[protein][state.lang] : protein;
