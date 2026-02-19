@@ -708,6 +708,34 @@ function lazyMixBuild(){
   return recipe;
 }
 
+function buildLazyMixVariants(){
+  const originalHighProtein = state.filters.highProtein;
+  const originalUltra = state.filters.ultraLazy;
+
+  const variants = {};
+
+  // Ultra Lazy
+  state.filters.ultraLazy = true;
+  state.filters.highProtein = false;
+  variants.ultra = lazyMixBuild();
+
+  // Smart (Balanced)
+  state.filters.ultraLazy = false;
+  state.filters.highProtein = false;
+  variants.smart = lazyMixBuild();
+
+  // High Protein
+  state.filters.ultraLazy = false;
+  state.filters.highProtein = true;
+  variants.highProtein = lazyMixBuild();
+
+  // Restore original filters
+  state.filters.highProtein = originalHighProtein;
+  state.filters.ultraLazy = originalUltra;
+
+  return variants;
+}
+
 /* ---------- Events ---------- */
 
 function addIngredient(raw){
