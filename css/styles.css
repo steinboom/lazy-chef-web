@@ -65,6 +65,17 @@ header{
   font-size:14px;
 }
 
+.brandWrap{
+  display:flex;
+  align-items:center;
+}
+
+.logo-img{
+  height:48px;
+  width:auto;
+  display:block;
+}
+
 /* FILTER CONTROLS */
 .controls{
   display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end
