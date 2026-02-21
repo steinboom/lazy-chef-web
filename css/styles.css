@@ -105,10 +105,11 @@ main{padding:16px 0 26px}
 
 .card{
   background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px;
-  box-shadow: var(--shadow);
+  border-radius: 18px;
+  box-shadow: 
+    0 10px 24px rgba(0,0,0,.06),
+    0 2px 6px rgba(0,0,0,.04);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
 h2{
