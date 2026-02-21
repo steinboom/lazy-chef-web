@@ -70,6 +70,10 @@ header{
   display:block;
 }
 
+.logo-img{
+  filter: drop-shadow(0 0 8px rgba(255,122,0,0.35));
+}
+
 .tagline{
   display:none !important;
 }
