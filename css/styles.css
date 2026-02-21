@@ -34,7 +34,7 @@ body{
 header{
   background: linear-gradient(180deg, var(--header) 0%, #0f0f0f 100%);
   color: var(--headerText);
-  padding: calc(18px + env(safe-area-inset-top)) 0 14px;
+  padding: calc(12px + env(safe-area-inset-top)) 0 14px;
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
