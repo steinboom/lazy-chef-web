@@ -217,7 +217,23 @@ input:focus{
   border-radius:14px; font-weight:900;
   cursor:pointer; background:#111; color:#fff;
 }
-.btn.secondary{background: var(--accent); color:#111;}
+
+.btn.secondary{
+  background: linear-gradient(135deg, #FF7A00, #FF9500);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 22px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(255,122,0,.35);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.btn.secondary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(255,122,0,.45);
+}
+
 .btn.ghost{background:#fff; color:#111; border:1px solid var(--border);}
 
 .hint{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
