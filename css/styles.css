@@ -219,7 +219,7 @@ input:focus{
 }
 
 .btn.secondary{
-  background: #6F7B5C;   /* warmes Oliv */
+  background: var(--accent);
   color: white;
   border: none;
   border-radius: 14px;
