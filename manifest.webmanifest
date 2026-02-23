@@ -3,7 +3,18 @@
   "short_name": "LazyChef",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fff7ef",
-  "theme_color": "#ff8a00",
-  "icons": []
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
