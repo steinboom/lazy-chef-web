@@ -1,59 +1,127 @@
+/* =========================
+   LAZY CHEF – styles.css
+   Light/Dark auto via prefers-color-scheme
+   ========================= */
+
+/* =========================
+   THEME TOKENS (Light default)
+   ========================= */
 :root{
+  color-scheme: light dark;
+
+  /* surfaces */
   --bg:#F6F4F2;
   --card:#FFFFFF;
+
+  /* text */
   --text:#1A1A1A;
   --muted:#6F6A66;
-  --border:#E9E3DC;
 
+  /* lines / shadows */
+  --border:#E9E3DC;
+  --shadow: 0 12px 26px rgba(20,10,0,.08);
+
+  /* header */
   --header:#1A1A1A;
+  --header2:#0f0f0f;
   --headerText:#F5F5F5;
 
+  /* brand / accent */
   --accent:#6F7B5C;
   --accentSoft:#B8C3A5;
 
-  --radius:18px;
-  --shadow: 0 12px 26px rgba(20,10,0,.08);
+  /* component tokens (alles über root steuerbar) */
+  --focusBorder: rgba(111,123,92,.55);
+  --focusRing: rgba(111,123,92,.16);
 
-  /* ---------- Theme-driven UI colors (no hardcoded orange) ---------- */
-  --focusBorder: color-mix(in srgb, var(--accent) 55%, transparent);
-  --focusRing:   color-mix(in srgb, var(--accent) 18%, transparent);
+  --pillOnBg: rgba(111,123,92,.14);
+  --pillOnBorder: rgba(111,123,92,.35);
 
-  --chipBorder:  color-mix(in srgb, var(--accent) 35%, transparent);
+  --favOnBg: rgba(111,123,92,.16);
+  --favOnBorder: rgba(111,123,92,.35);
 
-  --pillOnBg:     color-mix(in srgb, var(--accent) 14%, transparent);
-  --pillOnBorder: color-mix(in srgb, var(--accent) 35%, transparent);
-
-  --badgeBg:      color-mix(in srgb, var(--accent) 14%, transparent);
-  --badgeBorder:  color-mix(in srgb, var(--accent) 25%, transparent);
-
-  --favOnBg:      color-mix(in srgb, var(--accent) 16%, transparent);
-  --favOnBorder:  color-mix(in srgb, var(--accent) 35%, transparent);
+  --badgeBg: rgba(111,123,92,.14);
+  --badgeBorder: rgba(111,123,92,.25);
 
   --suggestHover: rgba(0,0,0,.03);
-  --suggestOn:    color-mix(in srgb, var(--accent) 12%, transparent);
+  --suggestOn: rgba(111,123,92,.12);
 
-  --headerGlow:   color-mix(in srgb, var(--accent) 35%, transparent);
+  --toastBg: rgba(17,17,17,.92);
+  --toastText: #fff;
+
+  --fabBg:#111;
+  --fabText:#fff;
+
+  --radius:18px;
+}
+
+/* =========================
+   AUTO DARK MODE (device)
+   ========================= */
+@media (prefers-color-scheme: dark){
+  :root{
+    /* surfaces */
+    --bg:#0E0F10;
+    --card:#17191B;
+
+    /* text */
+    --text:#F3F4F5;
+    --muted:#A8ABB0;
+
+    /* lines / shadows */
+    --border: rgba(255,255,255,.10);
+    --shadow: 0 16px 34px rgba(0,0,0,.45);
+
+    /* header */
+    --header:#0B0C0D;
+    --header2:#0A0B0C;
+    --headerText:#F3F4F5;
+
+    /* brand */
+    --accent:#8FA07A;
+    --accentSoft:#4A5640;
+
+    /* component tokens */
+    --focusBorder: rgba(143,160,122,.70);
+    --focusRing: rgba(143,160,122,.22);
+
+    --pillOnBg: rgba(143,160,122,.18);
+    --pillOnBorder: rgba(143,160,122,.40);
+
+    --favOnBg: rgba(143,160,122,.18);
+    --favOnBorder: rgba(143,160,122,.45);
+
+    --badgeBg: rgba(143,160,122,.18);
+    --badgeBorder: rgba(143,160,122,.35);
+
+    --suggestHover: rgba(255,255,255,.05);
+    --suggestOn: rgba(143,160,122,.18);
+
+    --toastBg: rgba(0,0,0,.80);
+    --toastText: #fff;
+
+    --fabBg:#F3F4F5;
+    --fabText:#111;
+  }
 }
 
 /* GLOBALS */
 *{box-sizing:border-box}
 
-html{
-  overscroll-behavior: none;
-}
+html{ overscroll-behavior:none; }
 
 body{
   margin:0;
   height:100%;
   font-family:"Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial;
   background: var(--bg);
-  color:var(--text);
+  color: var(--text);
   min-height: 100svh;
 }
 
 /* HEADER */
 header{
-  background: linear-gradient(180deg, var(--header) 0%, #0f0f0f 100%);
+  background: linear-gradient(180deg, var(--header) 0%, var(--header2) 100%);
   color: var(--headerText);
   padding: calc(12px + env(safe-area-inset-top)) 0 14px;
   border-bottom: 1px solid rgba(255,255,255,.08);
@@ -89,12 +157,11 @@ header{
   height:60px;
   width:auto;
   display:block;
-  filter: drop-shadow(0 0 8px var(--headerGlow));
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.20));
 }
 
-.tagline{
-  display:none !important;
-}
+/* Falls du Tagline komplett ausblendest */
+.tagline{ display:none !important; }
 
 /* FILTER CONTROLS */
 .controls{
@@ -136,19 +203,23 @@ header{
 }
 
 /* MAIN */
-main{padding:16px 0 26px}
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
+main{ padding:16px 0 26px; }
+.grid{ display:grid; grid-template-columns:1fr; gap:12px; }
 
 .card{
   background: var(--card);
   border: 1px solid rgba(0,0,0,.06);
-  border-radius: 18px;
+  border-radius: var(--radius);
   padding: 18px;
   overflow: hidden;
-  box-shadow:
-    0 10px 24px rgba(0,0,0,.06),
-    0 2px 6px rgba(0,0,0,.04);
+  box-shadow: var(--shadow);
   transition: transform .15s ease, box-shadow .15s ease;
+}
+
+/* In Darkmode ist rgba(0,0,0,.06) evtl. zu stark/komisch.
+   Optional: Border überall über --border erzwingen: */
+@media (prefers-color-scheme: dark){
+  .card{ border:1px solid var(--border); }
 }
 
 h2{
@@ -161,7 +232,12 @@ h2{
 }
 
 /* INPUT & CHIP AREA */
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
 
 input{
   width:100%;
@@ -170,6 +246,8 @@ input{
   border:1px solid var(--border);
   font-size:16px;
   outline:none;
+  background: var(--card);
+  color: var(--text);
 }
 
 input:focus{
@@ -184,8 +262,8 @@ input:focus{
 
 .chip{
   background: var(--accentSoft);
-  border:1px solid var(--chipBorder);
-  color:#111;
+  border:1px solid rgba(0,0,0,.10);
+  color: var(--text);
   padding:6px 9px;
   border-radius:999px;
   display:flex;
@@ -210,23 +288,23 @@ input:focus{
   cursor:pointer;
   font-weight:900;
   opacity:.7;
+  color: inherit;
 }
 
-.chip button:hover{opacity:1}
+.chip button:hover{ opacity:1; }
 
 @keyframes chipIn{
   from{ opacity:0; transform: translateY(-6px) scale(.98); }
   to{ opacity:1; transform: translateY(0) scale(1); }
 }
-
 .chip.new{ animation: chipIn .18s ease; }
 
 /* PILLS */
-.pills{display:flex;gap:8px;flex-wrap:wrap;padding-top:2px}
+.pills{ display:flex; gap:8px; flex-wrap:wrap; padding-top:2px; }
 
 .pill{
   border:1px solid var(--border);
-  background:#fff;
+  background: var(--card);
   padding:8px 12px;
   border-radius:999px;
   font-weight:900;
@@ -242,7 +320,7 @@ input:focus{
 .pill.on{
   background: var(--pillOnBg);
   border-color: var(--pillOnBorder);
-  color:#111;
+  color: var(--text);
 }
 
 .pill.disabled{
@@ -269,23 +347,21 @@ input:focus{
   border: none;
   border-radius: 14px;
   padding: 12px 20px;
-  font-weight: 600;
+  font-weight: 700;
   transition: transform .15s ease, background .15s ease;
 }
 
-.btn.secondary:active{
-  transform: scale(0.98);
-}
+.btn.secondary:active{ transform: scale(0.98); }
 
 .btn.ghost{
-  background:#fff;
-  color:#111;
+  background: var(--card);
+  color: var(--text);
   border:1px solid var(--border);
 }
 
 .hint{
   font-size:12px;
-  color:var(--muted);
+  color: var(--muted);
   line-height:1.4;
   margin-top:8px;
 }
@@ -325,7 +401,7 @@ input:focus{
 .badge{
   background: var(--badgeBg);
   border:1px solid var(--badgeBorder);
-  color:#111;
+  color: var(--text);
   padding:4px 8px;
   border-radius:999px;
   font-weight:900;
@@ -351,13 +427,13 @@ input:focus{
   background:transparent;
   cursor:pointer;
   font-weight:900;
-  color:#111;
+  color: var(--text);
   padding:0;
 }
 
 .favBtn{
   border:1px solid var(--border);
-  background:#fff;
+  background: var(--card);
   border-radius:999px;
   padding:8px 10px;
   cursor:pointer;
@@ -379,7 +455,6 @@ input:focus{
   transition: opacity .18s ease;
   z-index:50;
 }
-
 .overlay.on{
   opacity:1;
   pointer-events:auto;
@@ -389,20 +464,19 @@ input:focus{
 .sheet{
   position:fixed;
   left:0; right:0; bottom:0;
-  background:#fff;
+  background: var(--card);
   border-top-left-radius: 26px;
   border-top-right-radius: 26px;
-
   transform: translateY(105%);
   opacity: 0;
   pointer-events: none;
-
   transition: transform .22s cubic-bezier(.2,.8,.2,1), opacity .22s ease;
   z-index:60;
   box-shadow: 0 -20px 40px rgba(0,0,0,.18);
   max-height:92vh;
   overflow:hidden;
   touch-action:none;
+  color: var(--text);
 }
 
 .sheet.on{
@@ -411,7 +485,7 @@ input:focus{
   pointer-events: auto;
 }
 
-.sheetHeader{padding:10px 16px 0;}
+.sheetHeader{ padding:10px 16px 0; }
 
 .grab{
   width:46px;
@@ -419,6 +493,11 @@ input:focus{
   background: rgba(0,0,0,.12);
   border-radius:999px;
   margin:6px auto 10px;
+}
+
+/* Dark-mode Grab etwas heller */
+@media (prefers-color-scheme: dark){
+  .grab{ background: rgba(255,255,255,.14); }
 }
 
 .sheetBody{
@@ -438,11 +517,12 @@ input:focus{
 
 .closeBtn{
   border:1px solid var(--border);
-  background:#fff;
+  background: var(--card);
   border-radius:999px;
   padding:8px 10px;
   cursor:pointer;
   font-weight:900;
+  color: var(--text);
 }
 
 .bigTitle{
@@ -467,6 +547,18 @@ input:focus{
   padding-left:18px;
 }
 
+/* Optional Macro line */
+.macroLine{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-weight:900;
+  font-size:13px;
+}
+
 /* FOOTER */
 .footer{
   text-align:center;
@@ -484,8 +576,8 @@ input:focus{
   height:58px;
   border-radius:999px;
   border: 1px solid rgba(255,255,255,.12);
-  background:#111;
-  color:#fff;
+  background: var(--fabBg);
+  color: var(--fabText);
   box-shadow: 0 18px 40px rgba(0,0,0,.22);
   display:flex;
   align-items:center;
@@ -530,9 +622,7 @@ input:focus{
   100% { transform: scale(1); }
 }
 
-.fab.pulse{
-  animation: fabPulse .28s ease-out;
-}
+.fab.pulse{ animation: fabPulse .28s ease-out; }
 
 /* TOAST */
 .toast{
@@ -540,8 +630,8 @@ input:focus{
   left: 50%;
   bottom:92px;
   transform: translateX(-50%) translateY(6px);
-  background: rgba(17,17,17,.92);
-  color:#fff;
+  background: var(--toastBg);
+  color: var(--toastText);
   padding:10px 14px;
   border-radius:999px;
   font-weight:900;
@@ -563,7 +653,9 @@ input:focus{
   *{transition:none !important; animation:none !important;}
 }
 
-/* ---------- Lazy Mix Tabs ---------- */
+/* =========================
+   Tabs (Lazy Mix)
+   ========================= */
 .tabs{
   display:flex;
   gap:8px;
@@ -576,9 +668,15 @@ input:focus{
   padding:10px;
   border-radius:12px;
   font-weight:800;
-  background:#f2f2f2;
+  background: rgba(0,0,0,.06);
   cursor:pointer;
   transition:all .2s ease;
+  color: var(--text);
+}
+
+/* Darkmode: Tab background minimal heller */
+@media (prefers-color-scheme: dark){
+  .tabBtn{ background: rgba(255,255,255,.08); }
 }
 
 .tabBtn.on{
@@ -586,16 +684,16 @@ input:focus{
   color:white;
 }
 
-#lazyMixContent{
-  animation: fadeSlideIn 140ms ease;
+#lazyMixContent{ animation: fadeSlideIn 140ms ease; }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fadeSlideIn{
-  from{ opacity:0; transform: translateY(6px); }
-  to{ opacity:1; transform: translateY(0); }
-}
-
-/* ---------- Collapsible Filters (header + big arrow) ---------- */
+/* =========================
+   Collapsible Filters (header + big arrow)
+   ========================= */
 .filterHeader{
   display:flex;
   align-items:center;
@@ -616,20 +714,20 @@ input:focus{
   display:inline-block;
   font-size:22px;
   font-weight:900;
-  color:#111;
+  color: var(--text);
   opacity:1;
   transition: transform .18s ease;
 }
 
-body.filtersHidden .pills{
-  display:none;
-}
+body.filtersHidden .pills{ display:none; }
 
 body.filtersHidden #filterArrow{
   transform: rotate(-90deg);
 }
 
-/* ---------- Autocomplete ---------- */
+/* =========================
+   Autocomplete
+   ========================= */
 .inputWrap{ position:relative; }
 
 .suggestions{
@@ -637,7 +735,7 @@ body.filtersHidden #filterArrow{
   left:0;
   right:0;
   top: calc(100% + 8px);
-  background:#fff;
+  background: var(--card);
   border:1px solid var(--border);
   border-radius:14px;
   box-shadow: 0 12px 28px rgba(0,0,0,.10);
@@ -655,6 +753,7 @@ body.filtersHidden #filterArrow{
   justify-content:space-between;
   align-items:center;
   font-weight:900;
+  color: var(--text);
 }
 
 .sItem .hintMini{
@@ -669,4 +768,9 @@ body.filtersHidden #filterArrow{
 .suggestions .divider{
   height:1px;
   background: rgba(0,0,0,.06);
+}
+
+/* Darkmode Divider etwas heller */
+@media (prefers-color-scheme: dark){
+  .suggestions .divider{ background: rgba(255,255,255,.08); }
 }
