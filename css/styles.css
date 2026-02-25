@@ -557,3 +557,45 @@ body.filtersHidden .pills{
 body.filtersHidden #filterArrow{
   transform: rotate(-90deg);
 }
+
+/* ---------- Autocomplete ---------- */
+
+.inputWrap{ position:relative; }
+
+.suggestions{
+  position:absolute;
+  left:0; right:0;
+  top: calc(100% + 8px);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.10);
+  overflow:hidden;
+  display:none;
+  z-index:50;
+}
+
+.suggestions.on{ display:block; }
+
+.sItem{
+  padding:12px 12px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:900;
+}
+
+.sItem .hintMini{
+  font-weight:800;
+  opacity:.55;
+  font-size:12px;
+}
+
+.sItem:hover{ background: rgba(0,0,0,.03); }
+.sItem.on{ background: rgba(255,122,0,.12); }
+
+.suggestions .divider{
+  height:1px;
+  background: rgba(0,0,0,.06);
+}
