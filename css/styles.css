@@ -132,6 +132,67 @@
   }
 }
 
+@media (prefers-color-scheme: dark){
+  :root{
+    /* Extra tokens (nur Dark) */
+    --card2: #1E2124;                 /* leicht höhere Ebene */
+    --borderStrong: rgba(255,255,255,.14);
+
+    --focusBorder: color-mix(in srgb, var(--accent) 70%, transparent);
+    --focusRing:   color-mix(in srgb, var(--accent) 22%, transparent);
+
+    --pillOnBg:     color-mix(in srgb, var(--accent) 20%, transparent);
+    --pillOnBorder: color-mix(in srgb, var(--accent) 45%, transparent);
+
+    --badgeBg:      color-mix(in srgb, var(--accent) 20%, transparent);
+    --badgeBorder:  color-mix(in srgb, var(--accent) 40%, transparent);
+
+    --favOnBg:      color-mix(in srgb, var(--accent) 22%, transparent);
+    --favOnBorder:  color-mix(in srgb, var(--accent) 45%, transparent);
+
+    --suggestOn:    color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  /* Buttons / Pills / Inputs fühlen sich im Dark “crisper” an */
+  .card{ box-shadow: 0 16px 40px rgba(0,0,0,.55); }
+
+  input{
+    background: var(--card);
+    color: var(--text);
+    border-color: var(--borderStrong);
+  }
+
+  .pill{
+    background: var(--card);
+    border-color: var(--borderStrong);
+  }
+
+  .tabBtn{
+    background: var(--card2);
+    color: var(--text);
+  }
+
+  .closeBtn, .favBtn{
+    background: var(--card2);
+    color: var(--text);
+    border-color: var(--borderStrong);
+  }
+
+  .sheet{
+    background: var(--card);
+    color: var(--text);
+  }
+
+  .grab{ background: rgba(255,255,255,.14); }
+
+  .linkBtn{ color: var(--text); }
+
+  .suggestions{
+    background: var(--card);
+    border-color: var(--borderStrong);
+  }
+}
+
 /* GLOBALS */
 *{box-sizing:border-box}
 
