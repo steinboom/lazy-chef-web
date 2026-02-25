@@ -1119,8 +1119,8 @@ $("btnOfflineAI").onclick = () => {
 $("p1").onclick = () => { state.portion = 1; save(); renderAll(); };
 $("p2").onclick = () => { state.portion = 2; save(); renderAll(); };
 
-$("de").onclick = () => { state.lang = "de"; save(); renderAll(); };
-$("en").onclick = () => { state.lang = "en"; save(); renderAll(); };
+$("de").onclick = () => { state.lang = "de"; save(); buildSuggestionPool(); renderAll(); closeSuggestions(); };
+$("en").onclick = () => { state.lang = "en"; save(); buildSuggestionPool(); renderAll(); closeSuggestions(); };
 
 $("favFab").onclick = () => {
   const isOpen = sheet.classList.contains("on");
