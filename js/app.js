@@ -39,6 +39,7 @@ const resultsEl = $("results");
 const overlay = $("overlay");
 const sheet = $("sheet");
 const sheetBody = $("sheetBody");
+const suggEl = $("suggestions");
 
 function save(){
   localStorage.setItem(LS.lang, state.lang);
@@ -897,6 +898,132 @@ function buildLazyMixVariants(){
   return variants;
 }
 
+/* ---------- Autocomplete ---------- */
+
+const DISPLAY_CANON = {
+  rice:{de:"Reis",en:"Rice"},
+  pasta:{de:"Pasta",en:"Pasta"},
+  wrap:{de:"Wrap",en:"Wrap"},
+  bread:{de:"Brot/Toast",en:"Bread/Toast"},
+  oats:{de:"Haferflocken",en:"Oats"},
+
+  egg:{de:"Ei",en:"Egg"},
+  tuna:{de:"Thunfisch",en:"Tuna"},
+  chicken:{de:"Hähnchen",en:"Chicken"},
+  skyr:{de:"Skyr",en:"Skyr"},
+  cottage_cheese:{de:"Hüttenkäse",en:"Cottage cheese"},
+  yogurt:{de:"Joghurt",en:"Yogurt"},
+  cheese:{de:"Käse",en:"Cheese"},
+
+  tomato:{de:"Tomate",en:"Tomato"},
+  soy_sauce:{de:"Sojasauce",en:"Soy sauce"},
+  pesto:{de:"Pesto",en:"Pesto"},
+  mayo:{de:"Mayo",en:"Mayo"},
+  butter:{de:"Butter",en:"Butter"},
+  oil:{de:"Öl",en:"Oil"},
+  honey:{de:"Honig",en:"Honey"}
+};
+
+let SUGG_POOL = [];
+let suggIndex = -1;
+
+function buildSuggestionPool(){
+  const set = new Set();
+
+  // Alle MAP Eingaben + Canonical Values sammeln
+  Object.keys(MAP || {}).forEach(k => set.add(k));
+  Object.values(MAP || {}).forEach(v => set.add(v));
+
+  // ein paar sichere Canonicals (falls MAP klein ist)
+  [
+    "rice","pasta","wrap","bread","oats",
+    "egg","tuna","chicken","skyr","cottage_cheese","yogurt","cheese",
+    "tomato","soy_sauce","pesto","mayo","butter","oil","honey"
+  ].forEach(x => set.add(x));
+
+  // Build list: display in aktueller Sprache, aber matchbar über canonical + display
+  const arr = Array.from(set)
+    .map(raw => {
+      const canon = toKey(raw);
+      const nice = (DISPLAY_CANON[canon] && DISPLAY_CANON[canon][state.lang])
+        ? DISPLAY_CANON[canon][state.lang]
+        : raw;
+      return { raw, canon, display: nice };
+    });
+
+  // pro canonical nur 1 Eintrag (wir nehmen den "nicen" zuerst)
+  const best = new Map();
+  arr.forEach(it => {
+    if(!best.has(it.canon)) best.set(it.canon, it);
+    else{
+      // wenn ein nicer display existiert, bevorzugen
+      const cur = best.get(it.canon);
+      const curNice = DISPLAY_CANON[it.canon]?.[state.lang];
+      const itNice  = DISPLAY_CANON[it.canon]?.[state.lang];
+      if(!curNice && itNice) best.set(it.canon, it);
+    }
+  });
+
+  SUGG_POOL = Array.from(best.values())
+    .sort((a,b) => a.display.localeCompare(b.display, "de"));
+}
+
+function closeSuggestions(){
+  if(!suggEl) return;
+  suggEl.classList.remove("on");
+  suggEl.innerHTML = "";
+  suggIndex = -1;
+}
+
+function openSuggestions(list){
+  if(!suggEl) return;
+  if(!list.length){ closeSuggestions(); return; }
+
+  suggEl.innerHTML = list.map((it, idx) => `
+    <div class="sItem ${idx===0 ? "on":""}" data-idx="${idx}" data-add="${it.display}">
+      <span>${it.display}</span>
+      <span class="hintMini">${it.canon}</span>
+    </div>
+  `).join(`<div class="divider"></div>`);
+
+  suggEl.classList.add("on");
+  suggIndex = 0;
+
+  suggEl.querySelectorAll(".sItem").forEach(el => {
+    el.onclick = () => {
+      const val = el.getAttribute("data-add");
+      addIngredient(val);
+      inputEl.value = "";
+      closeSuggestions();
+    };
+  });
+}
+
+function updateSuggestionHighlight(){
+  const items = suggEl ? Array.from(suggEl.querySelectorAll(".sItem")) : [];
+  items.forEach((el,i) => el.classList.toggle("on", i === suggIndex));
+}
+
+function getMatches(q){
+  const query = norm(q);
+  if(query.length < 1) return [];
+
+  // match against display OR canonical OR raw
+  const matches = SUGG_POOL.filter(it => {
+    return norm(it.display).includes(query) || norm(it.canon).includes(query) || norm(it.raw).includes(query);
+  });
+
+  // sort: startsWith zuerst
+  matches.sort((a,b) => {
+    const aStart = norm(a.display).startsWith(query) || norm(a.canon).startsWith(query);
+    const bStart = norm(b.display).startsWith(query) || norm(b.canon).startsWith(query);
+    if(aStart !== bStart) return aStart ? -1 : 1;
+    return a.display.localeCompare(b.display, "de");
+  });
+
+  return matches.slice(0, 6);
+}
+
 /* ---------- Events ---------- */
 
 function addIngredient(raw){
@@ -914,12 +1041,59 @@ function addIngredient(raw){
   renderAll();
 }
 
+inputEl.addEventListener("input", () => {
+  const matches = getMatches(inputEl.value);
+  openSuggestions(matches);
+});
+
 inputEl.addEventListener("keydown", (e) => {
+  const isOpen = suggEl && suggEl.classList.contains("on");
+  const items = isOpen ? Array.from(suggEl.querySelectorAll(".sItem")) : [];
+
+  if(e.key === "ArrowDown" && isOpen){
+    e.preventDefault();
+    suggIndex = Math.min(items.length - 1, suggIndex + 1);
+    updateSuggestionHighlight();
+    return;
+  }
+
+  if(e.key === "ArrowUp" && isOpen){
+    e.preventDefault();
+    suggIndex = Math.max(0, suggIndex - 1);
+    updateSuggestionHighlight();
+    return;
+  }
+
+  if(e.key === "Escape"){
+    closeSuggestions();
+    return;
+  }
+
   if(e.key === "Enter"){
     e.preventDefault();
+
+    // wenn dropdown offen → nehme selektierten Vorschlag
+    if(isOpen && items[suggIndex]){
+      const val = items[suggIndex].getAttribute("data-add");
+      addIngredient(val);
+      inputEl.value = "";
+      closeSuggestions();
+      return;
+    }
+
+    // sonst normale Eingabe
     addIngredient(inputEl.value);
     inputEl.value = "";
+    closeSuggestions();
   }
+});
+
+// click outside closes
+document.addEventListener("click", (e) => {
+  if(!suggEl) return;
+  if(e.target === inputEl) return;
+  if(suggEl.contains(e.target)) return;
+  closeSuggestions();
 });
 
 document.querySelectorAll(".pill[data-filter]").forEach(p => {
@@ -1042,5 +1216,6 @@ function normalizeRecipes(){
 /* ---------- Start App ---------- */
 
 normalizeRecipes();
+buildSuggestionPool();
 renderAll();
 enableSheetDragToClose();
