@@ -13,18 +13,39 @@
 
   --radius:18px;
   --shadow: 0 12px 26px rgba(20,10,0,.08);
+
+  /* ---------- Theme-driven UI colors (no hardcoded orange) ---------- */
+  --focusBorder: color-mix(in srgb, var(--accent) 55%, transparent);
+  --focusRing:   color-mix(in srgb, var(--accent) 18%, transparent);
+
+  --chipBorder:  color-mix(in srgb, var(--accent) 35%, transparent);
+
+  --pillOnBg:     color-mix(in srgb, var(--accent) 14%, transparent);
+  --pillOnBorder: color-mix(in srgb, var(--accent) 35%, transparent);
+
+  --badgeBg:      color-mix(in srgb, var(--accent) 14%, transparent);
+  --badgeBorder:  color-mix(in srgb, var(--accent) 25%, transparent);
+
+  --favOnBg:      color-mix(in srgb, var(--accent) 16%, transparent);
+  --favOnBorder:  color-mix(in srgb, var(--accent) 35%, transparent);
+
+  --suggestHover: rgba(0,0,0,.03);
+  --suggestOn:    color-mix(in srgb, var(--accent) 12%, transparent);
+
+  --headerGlow:   color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 /* GLOBALS */
 *{box-sizing:border-box}
 
+html{
+  overscroll-behavior: none;
+}
+
 body{
   margin:0;
-  height 100%;
+  height:100%;
   font-family:"Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  /*background:
-    radial-gradient(900px 450px at 18% 0%, rgba(255,122,0,.20), transparent 60%),
-    var(--bg);*/
   background: var(--bg);
   color:var(--text);
   min-height: 100svh;
@@ -68,10 +89,7 @@ header{
   height:60px;
   width:auto;
   display:block;
-}
-
-.logo-img{
-  filter: drop-shadow(0 0 8px rgba(255,122,0,0.35));
+  filter: drop-shadow(0 0 8px var(--headerGlow));
 }
 
 .tagline{
@@ -80,11 +98,16 @@ header{
 
 /* FILTER CONTROLS */
 .controls{
-  display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
 .seg{
-  display:flex;align-items:center;gap:6px;
+  display:flex;
+  align-items:center;
+  gap:6px;
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.10);
   padding: 6px;
@@ -92,12 +115,25 @@ header{
 }
 
 .seg button{
-  border:none;background:transparent;color:rgba(245,245,245,.78);
-  padding:8px 10px;border-radius:999px;font-weight:900;cursor:pointer;
+  border:none;
+  background:transparent;
+  color:rgba(245,245,245,.78);
+  padding:8px 10px;
+  border-radius:999px;
+  font-weight:900;
+  cursor:pointer;
 }
 
-.seg button.on{background: var(--accent); color:#111;}
-.seg span{color:rgba(245,245,245,.45); font-size:12px; padding:0 6px}
+.seg button.on{
+  background: var(--accent);
+  color:#111;
+}
+
+.seg span{
+  color:rgba(245,245,245,.45);
+  font-size:12px;
+  padding:0 6px;
+}
 
 /* MAIN */
 main{padding:16px 0 26px}
@@ -105,10 +141,10 @@ main{padding:16px 0 26px}
 
 .card{
   background: var(--card);
-  border: 1px solid rgba(0,0,0,.06);   /* oder var(--border) wenn du’s hast */
+  border: 1px solid rgba(0,0,0,.06);
   border-radius: 18px;
-  padding: 18px;                        /* <-- das ist meist der Missing Part */
-  overflow: hidden;                     /* verhindert komische Ränder/Clips */
+  padding: 18px;
+  overflow: hidden;
   box-shadow:
     0 10px 24px rgba(0,0,0,.06),
     0 2px 6px rgba(0,0,0,.04);
@@ -137,8 +173,8 @@ input{
 }
 
 input:focus{
-  border-color: rgba(255,122,0,.55);
-  box-shadow: 0 0 0 4px rgba(255,122,0,.16);
+  border-color: var(--focusBorder);
+  box-shadow: 0 0 0 4px var(--focusRing);
 }
 
 #chips{
@@ -148,7 +184,7 @@ input:focus{
 
 .chip{
   background: var(--accentSoft);
-  border:1px solid rgba(255,122,0,.25);
+  border:1px solid var(--chipBorder);
   color:#111;
   padding:6px 9px;
   border-radius:999px;
@@ -169,8 +205,11 @@ input:focus{
 }
 
 .chip button{
-  border:none;background:transparent;cursor:pointer;
-  font-weight:900;opacity:.7;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-weight:900;
+  opacity:.7;
 }
 
 .chip button:hover{opacity:1}
@@ -194,13 +233,15 @@ input:focus{
   font-size:13px;
   cursor:pointer;
   color: var(--muted);
-  display:flex;align-items:center;gap:6px;
+  display:flex;
+  align-items:center;
+  gap:6px;
   transition: transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
 }
 
 .pill.on{
-  background: rgba(255,122,0,.14);
-  border-color: rgba(255,122,0,.35);
+  background: var(--pillOnBg);
+  border-color: var(--pillOnBorder);
   color:#111;
 }
 
@@ -213,9 +254,13 @@ input:focus{
 
 /* BUTTONS */
 .btn{
-  border:none; padding:12px 14px;
-  border-radius:14px; font-weight:900;
-  cursor:pointer; background:#111; color:#fff;
+  border:none;
+  padding:12px 14px;
+  border-radius:14px;
+  font-weight:900;
+  cursor:pointer;
+  background:#111;
+  color:#fff;
 }
 
 .btn.secondary{
@@ -232,9 +277,18 @@ input:focus{
   transform: scale(0.98);
 }
 
-.btn.ghost{background:#fff; color:#111; border:1px solid var(--border);}
+.btn.ghost{
+  background:#fff;
+  color:#111;
+  border:1px solid var(--border);
+}
 
-.hint{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
+.hint{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.4;
+  margin-top:8px;
+}
 
 /* RESULTS GRID */
 .resultsGrid{
@@ -253,17 +307,24 @@ input:focus{
 
 .recipeCard:active{ transform: scale(.99); }
 
-.title{font-size:18px;font-weight:900;margin:0}
+.title{
+  font-size:18px;
+  font-weight:900;
+  margin:0;
+}
 
 .meta{
   color: var(--muted);
   font-size:13px;
-  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
 }
 
 .badge{
-  background: rgba(255,122,0,.14);
-  border:1px solid rgba(255,122,0,.25);
+  background: var(--badgeBg);
+  border:1px solid var(--badgeBorder);
   color:#111;
   padding:4px 8px;
   border-radius:999px;
@@ -286,8 +347,12 @@ input:focus{
 }
 
 .linkBtn{
-  border:none;background:transparent;
-  cursor:pointer;font-weight:900;color:#111;padding:0;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-weight:900;
+  color:#111;
+  padding:0;
 }
 
 .favBtn{
@@ -298,9 +363,10 @@ input:focus{
   cursor:pointer;
   font-weight:900;
 }
+
 .favBtn.on{
-  background: rgba(255,122,0,.16);
-  border-color: rgba(255,122,0,.35);
+  background: var(--favOnBg);
+  border-color: var(--favOnBorder);
 }
 
 /* OVERLAY */
@@ -313,13 +379,13 @@ input:focus{
   transition: opacity .18s ease;
   z-index:50;
 }
+
 .overlay.on{
   opacity:1;
   pointer-events:auto;
 }
 
 /* BOTTOM SHEET */
-/* BOTTOM SHEET (korrigiert) */
 .sheet{
   position:fixed;
   left:0; right:0; bottom:0;
@@ -327,7 +393,6 @@ input:focus{
   border-top-left-radius: 26px;
   border-top-right-radius: 26px;
 
-  /* wichtig: initial unsichtbar/aus dem Viewport */
   transform: translateY(105%);
   opacity: 0;
   pointer-events: none;
@@ -347,12 +412,15 @@ input:focus{
 }
 
 .sheetHeader{padding:10px 16px 0;}
+
 .grab{
-  width:46px;height:5px;
+  width:46px;
+  height:5px;
   background: rgba(0,0,0,.12);
   border-radius:999px;
   margin:6px auto 10px;
 }
+
 .sheetBody{
   padding:0 16px 18px;
   overflow:auto;
@@ -395,7 +463,8 @@ input:focus{
 
 .ingList,
 .steps{
-  margin:0; padding-left:18px;
+  margin:0;
+  padding-left:18px;
 }
 
 /* FOOTER */
@@ -409,16 +478,20 @@ input:focus{
 /* FAB */
 .fab{
   position: fixed;
-  right:16px; bottom:16px;
-  width:58px; height:58px;
+  right:16px;
+  bottom:16px;
+  width:58px;
+  height:58px;
   border-radius:999px;
   border: 1px solid rgba(255,255,255,.12);
   background:#111;
   color:#fff;
   box-shadow: 0 18px 40px rgba(0,0,0,.22);
   display:flex;
-  align-items:center; justify-content:center;
-  cursor:pointer; z-index:40;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:40;
   transition: opacity .2s ease;
 }
 
@@ -435,13 +508,19 @@ input:focus{
 
 .fabCount{
   position:absolute;
-  top:-6px; right:-6px;
-  min-width:22px; height:22px; padding:0 6px;
+  top:-6px;
+  right:-6px;
+  min-width:22px;
+  height:22px;
+  padding:0 6px;
   border-radius:999px;
   background: var(--accent);
   color:#111;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900; font-size:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:12px;
   border:2px solid var(--bg);
 }
 
@@ -458,13 +537,15 @@ input:focus{
 /* TOAST */
 .toast{
   position: fixed;
-  left: 50%; bottom:92px;
+  left: 50%;
+  bottom:92px;
   transform: translateX(-50%) translateY(6px);
   background: rgba(17,17,17,.92);
   color:#fff;
   padding:10px 14px;
   border-radius:999px;
-  font-weight:900; font-size:13px;
+  font-weight:900;
+  font-size:13px;
   opacity:0;
   pointer-events:none;
   transition: opacity .18s ease, transform .18s ease;
@@ -482,10 +563,7 @@ input:focus{
   *{transition:none !important; animation:none !important;}
 }
 
-html {
-  overscroll-behavior: none;
-}
-
+/* ---------- Lazy Mix Tabs ---------- */
 .tabs{
   display:flex;
   gap:8px;
@@ -508,35 +586,28 @@ html {
   color:white;
 }
 
-#lazyMixContent {
+#lazyMixContent{
   animation: fadeSlideIn 140ms ease;
 }
 
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes fadeSlideIn{
+  from{ opacity:0; transform: translateY(6px); }
+  to{ opacity:1; transform: translateY(0); }
 }
 
 /* ---------- Collapsible Filters (header + big arrow) ---------- */
-
 .filterHeader{
   display:flex;
   align-items:center;
   gap:8px;
-  margin-top:16px; /* falls du es nicht inline setzen willst */
+  margin-top:16px;
 }
 
 .filterToggle{
   background:transparent;
   border:none;
   cursor:pointer;
-  padding:6px 10px;      /* große Touch-Area */
+  padding:6px 10px;
   border-radius:10px;
   line-height:1;
 }
@@ -545,8 +616,8 @@ html {
   display:inline-block;
   font-size:22px;
   font-weight:900;
-  color:#111;          /* schwarz */
-  opacity:1;           /* volle Deckkraft */
+  color:#111;
+  opacity:1;
   transition: transform .18s ease;
 }
 
@@ -559,12 +630,12 @@ body.filtersHidden #filterArrow{
 }
 
 /* ---------- Autocomplete ---------- */
-
 .inputWrap{ position:relative; }
 
 .suggestions{
   position:absolute;
-  left:0; right:0;
+  left:0;
+  right:0;
   top: calc(100% + 8px);
   background:#fff;
   border:1px solid var(--border);
@@ -592,8 +663,8 @@ body.filtersHidden #filterArrow{
   font-size:12px;
 }
 
-.sItem:hover{ background: rgba(0,0,0,.03); }
-.sItem.on{ background: rgba(255,122,0,.12); }
+.sItem:hover{ background: var(--suggestHover); }
+.sItem.on{ background: var(--suggestOn); }
 
 .suggestions .divider{
   height:1px;
