@@ -211,7 +211,7 @@ body{
 header{
   background: linear-gradient(180deg, var(--header) 0%, var(--header2) 100%);
   color: var(--headerText);
-  padding: calc(12px + env(safe-area-inset-top)) 0 14px;
+  padding: calc(8px + env(safe-area-inset-top)) 0 14px;
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
@@ -242,7 +242,7 @@ header{
 }
 
 .logo-img{
-  height:60px;
+  height:52px;
   width:auto;
   display:block;
   filter: drop-shadow(0 0 8px rgba(0,0,0,0.20));
@@ -254,18 +254,18 @@ header{
 /* FILTER CONTROLS */
 .controls{
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
+  flex-direction:column;
+  gap:6px;
+  align-items:flex-end;
 }
 
 .seg{
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:4px;
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.10);
-  padding: 6px;
+  padding: 4px;
   border-radius: 999px;
 }
 
@@ -273,9 +273,10 @@ header{
   border:none;
   background:transparent;
   color:rgba(245,245,245,.78);
-  padding:8px 10px;
+  padding:5px 8px;
   border-radius:999px;
   font-weight:900;
+  font-size:12px;
   cursor:pointer;
 }
 
@@ -286,7 +287,7 @@ header{
 
 .seg span{
   color:rgba(245,245,245,.45);
-  font-size:12px;
+  font-size:11px;
   padding:0 6px;
 }
 
