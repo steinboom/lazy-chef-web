@@ -4,14 +4,16 @@
    ========================= */
 
 /* =========================
-   THEME TOKENS (Light default)
+   THEME TOKENS
    ========================= */
+
 :root{
   color-scheme: light dark;
 
   /* surfaces */
   --bg:#F6F4F2;
   --card:#FFFFFF;
+  --card2:#F1EEE9;                /* optional: leicht höher */
 
   /* text */
   --text:#1A1A1A;
@@ -19,6 +21,7 @@
 
   /* lines / shadows */
   --border:#E9E3DC;
+  --borderStrong:#DCD4CA;
   --shadow: 0 12px 26px rgba(20,10,0,.08);
 
   /* header */
@@ -26,38 +29,11 @@
   --header2:#0f0f0f;
   --headerText:#F5F5F5;
 
-  /* brand / accent */
+  /* brand */
   --accent:#6F7B5C;
   --accentSoft:#B8C3A5;
-}
 
-/* Dark Mode overrides (ändert Light NICHT) */
-@media (prefers-color-scheme: dark){
-  :root{
-    /* surfaces */
-    --bg:#0F1113;
-    --card:#171A1D;
-
-    /* text */
-    --text:#F3F4F6;
-    --muted:#A7ABB2;
-
-    /* lines / shadows */
-    --border:rgba(255,255,255,.10);
-    --shadow: 0 18px 44px rgba(0,0,0,.55);
-
-    /* header */
-    --header:#0B0D0F;
-    --header2:#07090A;
-    --headerText:#F3F4F6;
-
-    /* brand / accent (nur Dark) */
-    --accent:#FF7A00;
-    --accentSoft:#3A2A18;
-  }
-}
-
-  /* component tokens (alles über root steuerbar) */
+  /* component tokens */
   --focusBorder: rgba(111,123,92,.55);
   --focusRing: rgba(111,123,92,.16);
 
@@ -79,17 +55,20 @@
   --fabBg:#111;
   --fabText:#fff;
 
-  --radius:14px;
+  --radius:18px;
 }
 
+
 /* =========================
-   AUTO DARK MODE (device)
+   DARK MODE
    ========================= */
+
 @media (prefers-color-scheme: dark){
   :root{
     /* surfaces */
     --bg:#0E0F10;
     --card:#17191B;
+    --card2:#1E2124;                 /* leicht höhere Ebene */
 
     /* text */
     --text:#F3F4F5;
@@ -97,6 +76,7 @@
 
     /* lines / shadows */
     --border: rgba(255,255,255,.10);
+    --borderStrong: rgba(255,255,255,.14);
     --shadow: 0 16px 34px rgba(0,0,0,.45);
 
     /* header */
@@ -108,36 +88,7 @@
     --accent:#8FA07A;
     --accentSoft:#4A5640;
 
-    /* component tokens */
-    --focusBorder: rgba(143,160,122,.70);
-    --focusRing: rgba(143,160,122,.22);
-
-    --pillOnBg: rgba(143,160,122,.18);
-    --pillOnBorder: rgba(143,160,122,.40);
-
-    --favOnBg: rgba(143,160,122,.18);
-    --favOnBorder: rgba(143,160,122,.45);
-
-    --badgeBg: rgba(143,160,122,.18);
-    --badgeBorder: rgba(143,160,122,.35);
-
-    --suggestHover: rgba(255,255,255,.05);
-    --suggestOn: rgba(143,160,122,.18);
-
-    --toastBg: rgba(0,0,0,.80);
-    --toastText: #fff;
-
-    --fabBg:#F3F4F5;
-    --fabText:#111;
-  }
-}
-
-@media (prefers-color-scheme: dark){
-  :root{
-    /* Extra tokens (nur Dark) */
-    --card2: #1E2124;                 /* leicht höhere Ebene */
-    --borderStrong: rgba(255,255,255,.14);
-
+    /* component tokens (modern & konsistent) */
     --focusBorder: color-mix(in srgb, var(--accent) 70%, transparent);
     --focusRing:   color-mix(in srgb, var(--accent) 22%, transparent);
 
@@ -150,10 +101,19 @@
     --favOnBg:      color-mix(in srgb, var(--accent) 22%, transparent);
     --favOnBorder:  color-mix(in srgb, var(--accent) 45%, transparent);
 
+    --suggestHover: rgba(255,255,255,.05);
     --suggestOn:    color-mix(in srgb, var(--accent) 18%, transparent);
+
+    --toastBg: rgba(0,0,0,.80);
+    --toastText: #fff;
+
+    --fabBg:#F3F4F5;
+    --fabText:#111;
+
+    --radius:18px;
   }
 
-  /* Buttons / Pills / Inputs fühlen sich im Dark “crisper” an */
+  /* (optional) Dark-mode “crisper” components */
   .card{ box-shadow: 0 16px 40px rgba(0,0,0,.55); }
 
   input{
