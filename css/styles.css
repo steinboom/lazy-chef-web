@@ -79,7 +79,7 @@
   --fabBg:#111;
   --fabText:#fff;
 
-  --radius:18px;
+  --radius:16px;
 }
 
 /* =========================
@@ -465,7 +465,7 @@ input:focus{
 .recipeCard{
   background: var(--card);
   border: 1px solid rgba(255,255,255,.10);
-  border-radius: 18px;
+  border-radius: var(--radius);
   padding: 14px;
 
   display:flex;
