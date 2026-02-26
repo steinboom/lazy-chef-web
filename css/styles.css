@@ -506,6 +506,19 @@ input:focus{
   align-items:center;
 }
 
+/* RESULT CARD POLISH */
+.recipeCard .title{
+  font-size:17px;
+  line-height:1.15;
+  letter-spacing:.2px;
+  margin:0;
+}
+
+.recipeCard .meta{
+  font-size:12px;
+  gap:6px;
+}
+
 .badge{
   background: var(--badgeBg);
   border:1px solid var(--badgeBorder);
@@ -528,6 +541,9 @@ input:focus{
   justify-content:space-between;
   margin-top:auto;
   align-items:center;
+
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.06);
 }
 
 .linkBtn{
