@@ -222,10 +222,12 @@ header{
   display:flex;
   align-items:center;
   gap:4px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.10);
-  padding: 4px;
-  border-radius: 999px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+
+  padding:4px;
+  border-radius:999px;
 }
 
 .seg button{
