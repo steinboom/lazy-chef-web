@@ -231,7 +231,7 @@ header{
 .seg button{
   border:none;
   background:transparent;
-  color:rgba(245,245,245,.78);
+  color: var(--text);   /* <-- wichtig */
   padding:5px 8px;
   border-radius:999px;
   font-weight:900;
