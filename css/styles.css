@@ -172,7 +172,6 @@ header{
   background: var(--bg);
   color: var(--text);
   padding: calc(8px + env(safe-area-inset-top)) 0 14px;
-  border-bottom: 1px solid var(--border);
 }
 
 .wrap{
