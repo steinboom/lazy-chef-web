@@ -377,13 +377,26 @@ input:focus{
   display:flex;
   align-items:center;
   gap:6px;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
+
+  transition:
+    transform .18s cubic-bezier(.2,.8,.2,1),
+    background .18s ease,
+    border-color .18s ease,
+    color .18s ease,
+    box-shadow .18s ease;
+
+  will-change: transform;
 }
 
 .pill.on{
   background: var(--pillOnBg);
   border-color: var(--pillOnBorder);
   color: var(--text);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+@media (prefers-color-scheme: dark){
+  .pill.on{ box-shadow: 0 6px 16px rgba(0,0,0,.35); }
 }
 
 .pill.disabled{
@@ -391,7 +404,7 @@ input:focus{
   cursor:not-allowed;
 }
 
-.pill:active{ transform: scale(.97); }
+.pill:active{ transform: scale(.94); }
 
 /* BUTTONS */
 .btn{
