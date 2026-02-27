@@ -412,14 +412,20 @@ button{
   cursor:not-allowed;
 }
 
-.pill:active{
-  transform:none;
+/* kurzer Tap-Flash (immer gleich lang) */
+.pill.tap{
   box-shadow: inset 0 0 0 999px rgba(0,0,0,.04);
 }
 
 @media (prefers-color-scheme: dark){
-  .pill:active{
+  .pill.tap{
     box-shadow: inset 0 0 0 999px rgba(255,255,255,.06);
+  }
+}
+
+/* iOS tap highlight weg */
+.pill, .seg button, button{
+  -webkit-tap-highlight-color: transparent;
   }
 }
 
