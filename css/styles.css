@@ -912,7 +912,7 @@ body.filtersHidden #filterArrow{
 
 /* Lazy Mix: Sheet Höhe stabil halten */
 .sheet[data-mode="lazyMix"]{
-  height: min(82vh, 720px);
+  height: min(74vh, 720px);
 }
 
 /* Content im Lazy Mix soll scrollen */
