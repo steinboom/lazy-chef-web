@@ -378,12 +378,14 @@ input:focus{
   align-items:center;
   gap:6px;
 
+  box-shadow: 0 0 0 rgba(0,0,0,0); /* <-- wichtig */
+
   transition:
-    transform .18s cubic-bezier(.2,.8,.2,1),
     background .18s ease,
     border-color .18s ease,
     color .18s ease,
     box-shadow .18s ease;
+}
 
   will-change: transform;
 }
