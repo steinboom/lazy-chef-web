@@ -910,3 +910,13 @@ body.filtersHidden #filterArrow{
   .suggestions .divider{ background: rgba(255,255,255,.08); }
 }
 
+/* Lazy Mix: Sheet Höhe stabil halten */
+.sheet[data-mode="lazyMix"]{
+  height: min(82vh, 720px);
+}
+
+/* Content im Lazy Mix soll scrollen */
+.sheet[data-mode="lazyMix"] .sheetBody{
+  height: 100%;
+  overflow: auto;
+}
