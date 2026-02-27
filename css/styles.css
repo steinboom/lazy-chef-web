@@ -230,6 +230,18 @@ header{
   border-radius:999px;
 }
 
+.sheetSeg{
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+@media (prefers-color-scheme: dark){
+  .sheetSeg{
+    background: var(--card2);
+    border-color: var(--borderStrong);
+  }
+}
+
 .seg button{
   border:none;
   background:transparent;
