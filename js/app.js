@@ -417,7 +417,7 @@ function openSheet(recipe){
 
     <div class="sectionTitle">${t("portion")}</div>
 <div class="row">
-  <div class="seg" style="border:1px solid var(--border); background:#fff;">
+  <div class="seg sheetSeg">
     <button id="sheetP1" class="${state.portion===1?'on':''}">1</button>
     <button id="sheetP2" class="${state.portion===2?'on':''}">2</button>
   </div>
