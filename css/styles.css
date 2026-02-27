@@ -245,9 +245,10 @@ header{
 }
 
 .seg span{
-  color:rgba(245,245,245,.45);
+  color: var(--text);
   font-size:11px;
   padding:0 6px;
+  font-weight:700;
 }
 
 /* MAIN */
