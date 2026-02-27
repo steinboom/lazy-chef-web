@@ -1099,6 +1099,11 @@ document.addEventListener("click", (e) => {
 document.querySelectorAll(".pill[data-filter]").forEach(p => {
   p.addEventListener("click", () => {
     if(p.classList.contains("disabled")) return;
+
+    // kurzer Tap-Flash (immer gleich lang)
+    p.classList.add("tap");
+    setTimeout(() => p.classList.remove("tap"), 90);
+
     const k = p.dataset.filter;
     state.filters[k] = !state.filters[k];
     save();
