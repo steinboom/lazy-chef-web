@@ -169,10 +169,10 @@ body{
 
 /* HEADER */
 header{
-  background: linear-gradient(180deg, var(--header) 0%, var(--header2) 100%);
-  color: var(--headerText);
+  background: var(--bg);
+  color: var(--text);
   padding: calc(8px + env(safe-area-inset-top)) 0 14px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid var(--border);
 }
 
 .wrap{
