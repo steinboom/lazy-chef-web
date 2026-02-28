@@ -832,32 +832,49 @@ button{
 .filterHeader{
   display:flex;
   align-items:center;
+  justify-content:space-between;
   gap:8px;
   margin-top:16px;
 }
 
 .filterToggle{
-  background:transparent;
-  border:none;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
   cursor:pointer;
-  padding:6px 10px;
-  border-radius:10px;
   line-height:1;
+
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-#filterArrow{
-  display:inline-block;
-  font-size:22px;
-  font-weight:900;
+/* SVG Chevron */
+.filterToggle .chev{
+  width:18px;
+  height:18px;
   color: var(--text);
-  opacity:1;
-  transition: transform .18s ease;
+  transition: transform .18s cubic-bezier(.2,.8,.2,1);
 }
 
 body.filtersHidden .pills{ display:none; }
 
-body.filtersHidden #filterArrow{
+body.filtersHidden .filterToggle .chev{
   transform: rotate(-90deg);
+}
+
+.filterToggle:active{ transform: scale(.96); }
+
+@media (prefers-color-scheme: dark){
+  .filterToggle{
+    background: var(--card2);
+    border-color: var(--borderStrong);
+  }
 }
 
 /* =========================
